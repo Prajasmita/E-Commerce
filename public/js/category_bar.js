@@ -29,7 +29,7 @@ $(document).ready(function() {
                         "                                            <div class=\"productinfo text-center\">\n" +
                         "                                                <img class=\"show_img\" src="+base_url+"img/product/"+data.products.image.product_image_name+"\>\n" +
                         "                                                <h2>$"+data.products.price+"</h2>\n" +
-                        "                                                <p>"+data.products.product_name+"</p>\n" +
+                        "                                                <a href=\"http://127.0.0.1:8000/product_details/"+data.products.id+"\" >"+data.products.product_name+"</a>\n" +
                         "                                                <a href=\"#\" class=\"btn btn-default add-to-cart\"><i class=\"fa fa-shopping-cart\"></i>Add to cart</a>\n" +
                         "                                            </div>\n" +
                         "                                        </div>\n" +

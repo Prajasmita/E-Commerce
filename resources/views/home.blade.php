@@ -109,7 +109,7 @@
                                     <div class="product-overlay">
                                         <div class="overlay-content">
                                             <h2>${{$featured_product->price}}</h2>
-                                            <p>{{$featured_product->product_name}}</p>
+                                            <a class=""  href="http://127.0.0.1:8000/product_details/{{$featured_product->id}}">{{$featured_product->product_name}}</a>
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                             <div class="productinfo text-center">
                                                 <img class="show_img" src="{{asset('img/product/'.$cat->products->image->product_image_name)}}" />
                                                 <h2>${{ $cat->products->price }}</h2>
-                                                <p>{{ $cat->products->product_name }}</p>
+                                                <a class="text-black" href="http://127.0.0.1:8000/product_details/{{$cat->products->id}}">{{ $cat->products->product_name }}</a>
                                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>

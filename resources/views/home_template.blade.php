@@ -23,8 +23,9 @@
 
         var base_url_cat = "{{route('category_data',['id'])}}";
 
-
+        var base_url_productDetails = "http://127.0.0.1:8000/product_details/";
     </script>
+
 
     {{--style css--}}
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -57,6 +58,8 @@
     <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
     <script src="{{asset('js/category_bar.js')}}"></script>
+    <script src="{{asset('js/zoom-slideshow.js')}}"></script>
+    <script src="{{asset('js/image_gallery.js')}}"></script>
 
 </body>
 </html>

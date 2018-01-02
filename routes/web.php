@@ -111,4 +111,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user_login','HomeController@userLogin')->name('user_login');
 
 Route::post('/category_data/{id}',['as'=>'category_data','uses'=>'CategoryController@ajaxByCategoryId']);
+
+Route::get('/product_details/{product}',['as'=> 'products.details','uses'=>'ProductDetailsController@product_details']);
+
+
+
+
+
+
+
+
+
+
 /*Route::get('/category_data','CategoryController@ajaxByCategoryId')->name('category_data');*/

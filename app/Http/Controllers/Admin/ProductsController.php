@@ -124,7 +124,7 @@ class ProductsController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'sku' => 'required|alpha_num|unique:products',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'quantity' => 'required',
             'image_name' => 'required',
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
@@ -233,7 +233,7 @@ class ProductsController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'sku' => 'required|alpha_num',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'quantity' => 'required',
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
 
@@ -275,7 +275,7 @@ class ProductsController extends Controller
 
         }
 
-        foreach($request->category as $selected_id) {
+        /*foreach($request->category as $selected_id) {
 
             $requestData2['category_id'] = $selected_id;
 
@@ -285,7 +285,7 @@ class ProductsController extends Controller
             //Custom::showAll($product_data2->category_id);die;
             $product_data2->update($requestData2);
 
-        }
+        }*/
 
         return redirect('admin/products')->with('flash_message', 'Product updated!');
     }

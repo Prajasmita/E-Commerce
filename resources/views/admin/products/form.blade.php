@@ -41,7 +41,7 @@
 <div class="form-group {{ $errors->has('special_price') ? 'has-error' : ''}}">
     <label for="special_price" class="col-md-4 control-label">{{ 'Special Price' }}</label>
     <div class="col-md-6">
-        <textarea class="form-control" rows="5" name="special_price" type="textarea" id="special_price" >{{ $product->special_price or ''}}</textarea>
+        <input class="form-control"  name="special_price" type="text" id="special_price" >{{ $product->special_price or ''}}</input>
         {!! $errors->first('special_price', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
