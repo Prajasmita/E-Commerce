@@ -17,7 +17,7 @@ class ProductDetailsController extends Controller
 
         $categories = Category::with('sub_category')->where('parent_id','=',0)->get();
 
-        $products = Product::with('image_products','image')->select('id','product_name','price','quantity','short_discription')->where('id','=',$id)->get()->first();
+        $products = Product::with('image_products','image')->select('id','product_name','price','quantity','short_discription','is_feature')->where('id','=',$id)->get()->first();
      //Custom::showAll($products->toArray());die;
         //echo $id;die;
 
