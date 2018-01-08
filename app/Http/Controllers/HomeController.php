@@ -47,22 +47,12 @@ class HomeController extends Controller
                 $query->select('id','user_id','product_id');
             }])->where('id','=',$userId)->first();
 
+            $my_wishlist = array();
 
-
-
-
-        //Custom::runQuery();die;
-       //Custom::showAll($wishlist_products->toArray());die;
-
-       $my_wishlist = array();
-
-        foreach ( $wishlist_products->user_wishlist as $key => $wlist ) {
-            array_push($my_wishlist,$wlist->product_id);
-           // Custom::showAll($wlist->product_id);
+            foreach ( $wishlist_products->user_wishlist as $key => $wlist ) {
+                array_push($my_wishlist,$wlist->product_id);
+            }
         }
-        }
-        //Custom::showAll($my_wishlist);die;
-
 
         $products = Category_product::select('category_id','product_id')->with((['products' => function($query){
             $query->select('id','product_name','price');

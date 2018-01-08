@@ -24,20 +24,15 @@ class ProductController extends Controller
         $products = Product::with('image_products','image')->select('id','product_name','price','quantity','short_discription','is_feature')->where('id','=',$id)->get()->first();
 
         $my_wishlist =array();
-        if(Auth::user()){
+        if(Auth::user() && $my_wishlist == ''){
+
             $userId = Auth::user()->id;
             $wishlist_products = User::with(['user_wishlist'=>function($query){
                 $query->select('id','user_id','product_id');
             }])->where('id','=',$userId)->first();
 
-            //Custom::runQuery();die;
-            //Custom::showAll($wishlist_products->toArray());die;
-
-            $my_wishlist = array();
-
             foreach ( $wishlist_products->user_wish_list as $key => $wlist ) {
                 array_push($my_wishlist,$wlist->product_id);
-                // Custom::showAll($wlist->product_id);
             }
         }
 

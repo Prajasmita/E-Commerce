@@ -6,10 +6,6 @@
     </div>
 </div>
 
-
-
-
-
 <div class="form-group {{ $errors->has('parent_id') ? 'has-error' : ''}}">
     <label for="parent_id" class="col-md-4 control-label">{{ 'Parent Id' }}<span class="require">*</span></label>
     <div class="col-md-6">

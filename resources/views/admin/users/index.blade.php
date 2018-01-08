@@ -34,7 +34,6 @@
                                 </thead>
                                 <tbody>
 
-
                                 </tbody>
                             </table>
                             {{--<div class="pagination-wrapper"> {!! $users->appends(['search' => Request::get('search')])->render() !!} </div>--}}

@@ -131,7 +131,6 @@ class ProductsController extends Controller
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
             'short_discription' => 'required',
             'long_discription' =>'required',
-            'is_feature'=>'required',
             'category' =>'required',
             'status' => 'required'
 
@@ -147,12 +146,12 @@ class ProductsController extends Controller
         $requestData['special_price_to_date']=$request->special_price_to_date;
         $requestData['quantity']=$request->quantity;
         $requestData['status']=$request->status;
-        $requestData['is_feature']=$request->has('is_feature') ? 1 : 0;
+        $requestData['is_feature']=$request->has('is_feature') ? '1' : '0';
         $requestData['meta_title']=$request->meta_title;
         $requestData['meta_discription']=$request->meta_discription;
         $requestData['meta_keyword']=$request->meta_keyword;
-//Custom::showAll($requestData);die;
-      $product_data= Product::create($requestData);
+
+        $product_data= Product::create($requestData);
 
             If (Input::hasFile('image_name')) {
 
@@ -254,6 +253,9 @@ class ProductsController extends Controller
         $requestData['special_price_from_date']=$request->special_price_from_date;
         $requestData['special_price_to_date']=$request->special_price_to_date;
         $requestData['quantity']=$request->quantity;
+        $requestData['status']=$request->status;
+        $requestData['is_feature']=$request->has('is_feature') ? '1' : '0';
+
         $requestData['meta_title']=$request->meta_title;
         $requestData['meta_discription']=$request->meta_discription;
         $requestData['meta_keyword']=$request->meta_keyword;

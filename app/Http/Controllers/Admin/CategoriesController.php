@@ -24,11 +24,13 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
+
         $categories = array();
         $result=array();
 
         if($request->ajax()) {
 
+            //echo "hii";die;
             $totalRecords=Category::count();
             $limit=$request->input('length');
             if($limit == -1){
