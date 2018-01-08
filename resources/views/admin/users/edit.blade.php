@@ -6,7 +6,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit User # {{ $user->first_name }} {{ $user->last_name }}</div>
+                    <div class="panel-heading"><strong>Edit User # {{ $user->first_name }} {{ $user->last_name }}</strong></div>
                     <div class="panel-body">
                         <br />
                         <br />

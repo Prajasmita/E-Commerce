@@ -5,18 +5,18 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">User : {{ $user->first_name }} {{ $user->first_name }}</div>
-                    <div class="  panel-body">
-
+                    <div class="panel-heading col-md-11"><strong>User Name: {{ $user->first_name }} {{ $user->last_name }}</strong></div>
+                    <div class="panel-heading col-md-1">
+                        <a href="{{ url('/admin/users') }}" class="btn-sm btn-primary">Back</a>
+                    </div>
+                    <div class="panel-body">
                         <br/>
                         <br/>
 
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                                    <tr>
-                                        <th>ID</th><td>{{ $user->id }}</td>
-                                    </tr>
+
                                     <tr><th> First Name </th>
                                         <td> {{ $user->first_name }} </td>
                                     </tr>
@@ -32,9 +32,6 @@
                                 </tbody>
 
                             </table>
-                        </div>
-                        <div class="col-md-offset-4">
-                          <a href="{{ url('/admin/users') }}" class="btn btn-danger">Cancle</a>
                         </div>
                     </div>
                 </div>

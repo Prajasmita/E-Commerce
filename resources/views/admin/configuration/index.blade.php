@@ -8,7 +8,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Configuration</div>
+                    <div class="panel-heading"><strong>Configuration</strong></div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/configuration/create') }}" class="btn btn-success btn-sm" title="Add New Configuration">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New Configuration

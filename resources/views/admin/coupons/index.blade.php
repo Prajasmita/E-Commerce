@@ -5,7 +5,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Coupons</div>
+                    <div class="panel-heading"><strong>Coupons</strong></div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/coupons/create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New Coupon

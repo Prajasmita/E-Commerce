@@ -6,7 +6,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create New Configuration</div>
+                    <div class="panel-heading"><strong>Create New Configuration</strong></div>
                     <div class="panel-body">
 
                         <br />

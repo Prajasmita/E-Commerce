@@ -20,6 +20,9 @@
 <script src="{{asset('js/demo.js')}}"></script>
 <!-- iCheck -->
 <script src="{{asset('js/icheck.min.js')}}"></script>
+{{--Datepicker--}}
+<script src="{{asset('js/datepicker.js')}}"></script>
+
 <script>
     var baseUrl = "http://127.0.0.1:8000";
     var productPath = "{{config('constants.product_path')}}";
@@ -35,6 +38,11 @@
 <script src="{{asset('js/categories_listing.js')}}"></script>
 <script src="{{asset('js/product_listing.js')}}"></script>
 <script src="{{asset('js/coupon_listing.js')}}"></script>
+<!-- Datepicker -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
 
 </body>
 </html>

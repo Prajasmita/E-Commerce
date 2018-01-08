@@ -5,9 +5,9 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading col-md-11">Banner Name: {{ $banner->banner_name }}</div>
+                    <div class="panel-heading col-md-11"><strong>Banner Name : {{ $banner->banner_name }}</strong></div>
                     <div class="panel-heading col-md-1">
-                        <a href="{{ url('/admin/banners') }}" class="btn-sm btn-primary">Cancle</a>
+                        <a href="{{ url('/admin/banners') }}" class="btn-sm btn-primary">Back</a>
                     </div>
                     <div class="panel-body">
                         <br/>
@@ -21,9 +21,7 @@
                                     </td>
                                 </tr>
 
-                                    <tr>
-                                        <th>ID</th><td>{{ $banner->id }}</td>
-                                    </tr>
+
                                     <tr>
                                         <th> Banner Name </th>
                                         <td> {{ $banner->banner_name }} </td>

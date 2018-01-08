@@ -7,10 +7,41 @@ use Illuminate\Http\Request;
 use App\Helper\Custom;
 use App\Category_product;
 use App\Product;
+use App\Category;
+use App\Banner;
 use Illuminate\Http\Response;
+use Auth;
 
 class CategoryController extends Controller
 {
+
+
+    public function categoryProducts($id)
+    {
+
+        $user = Auth::user();
+        Custom::showAll($user);die;
+
+        $products = Category_product::select('category_id','product_id')->with((['products' => function($query){
+            $query->select('id','product_name','price');
+            $query->with(['image'=>function($query1){
+                $query1->select('product_image_name','product_id');
+            }]);
+        }]))->where('category_id','=',$id)->get();
+
+//        Custom::runQuery();die;
+        $banner_images = Banner::select('banner_name','banner_image')
+            ->where('status','=','1')->get();
+
+        $categories = Category::with('sub_category')->where('parent_id','=',0)->get();
+
+        $categoryName = Category::select('id','name')->where('id','=',$id)->first();
+
+        return view('category_products', array('products' => $products,'categories'=>$categories,'banner_images'=>$banner_images,'categoryName'=>$categoryName));
+
+
+    }
+
     public function ajaxByCategoryId(Request $request ){
 
         if($request->ajax()){
@@ -23,8 +54,6 @@ class CategoryController extends Controller
                 }]);
             }]))->where('category_id','=',$id)->limit(4)->get();
 
-//            Custom::runQuery();die;
-//            Custom::showAll($products->toArray());
             return json_encode($products);
         }
     }

@@ -126,7 +126,7 @@ class BannersController extends Controller
         $image->move($destinationPath, $input['imagename']);
         $requestData['banner_name'] = $request->banner_name;
         $requestData['banner_image'] = $input['imagename'];
-        $requestData['status'] = $input->status;
+        $requestData['status'] = $request->status;
 
         Banner::create($requestData);
 
@@ -179,7 +179,7 @@ class BannersController extends Controller
         $requestData = array();
         $this->validate($request, [
             'banner_name' => 'required',
-            'banner_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'banner_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required'
 
         ]);

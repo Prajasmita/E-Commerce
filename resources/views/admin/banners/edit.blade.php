@@ -5,7 +5,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Banner #{{ $banner->banner_name }}</div>
+                    <div class="panel-heading"><strong>Edit Banner # {{ $banner->banner_name }}</strong></div>
                     <div class="panel-body">
                         <br />
                         <br />

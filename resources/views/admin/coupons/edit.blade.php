@@ -5,7 +5,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Coupon #{{ $coupon->id }}</div>
+                    <div class="panel-heading"><strong>Edit Coupon # {{ $coupon->code }}</strong></div>
                     <div class="panel-body">
                         <br />
                         <br />

@@ -43,7 +43,9 @@
                 </div>
             </div>
         </div>
-    </section><!--/slider-->
+    </section>
+
+    <!--/slider-->
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
@@ -61,21 +63,18 @@
                                                 <span class="badge pull-right">
                                                 <i class=" fa fa-plus"></i></span>
                                             @endif
-                                            {{$category->name}}
+                                            <a href="http://127.0.0.1:8000/category_products/{{$category->id}}">{{$category->name}}</a>
 
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="{{$category->name}}" class="panel-collapse collapse">
-{{--
-                                    class={{($category->sub_category->count() > 0) ? "panel-collapse collapse" :""  }}
---}}
                                     <div class={{($category->sub_category->count() > 0) ? "panel-body" :""  }}>
                                         @if($category->sub_category->count() > 0)
                                         <ul>
                                             @foreach($category->sub_category as $sub_category)
                                                 @if($sub_category->parent_id == $category->id )
-                                                    <li><a href="#">{{$sub_category->name}}</a></li>
+                                                    <li><a href="http://127.0.0.1:8000/category_products/{{$sub_category->id}}">{{$sub_category->name}}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>
@@ -95,7 +94,8 @@
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">Features Items</h2>
                         @foreach($featured_products as $featured_product)
-                        <div class="col-sm-4">
+
+                            <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
@@ -109,16 +109,29 @@
                                     <div class="product-overlay">
                                         <div class="overlay-content">
                                             <h2>${{$featured_product->price}}</h2>
-                                            <a class=""  href="http://127.0.0.1:8000/product_details/{{$featured_product->id}}">{{$featured_product->product_name}}</a>
+                                            <p><a class=""  href="http://127.0.0.1:8000/product_details/{{$featured_product->id}}">{{$featured_product->product_name}}</a></p>
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="choose">
+
+                                <div  class="choose {{ Auth::user() ?'':'hidden_field' }}">
                                     <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        @if(in_array($featured_product->id,$my_wishlist))
+                                            <li><a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a></li>
+                                        @else
+                                            <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
+                                    @endif
                                     </ul>
+
+                                  {{--  @foreach($wishlist_products->user_wish_list as $wishlist)
+                                        @if($wishlist->product_id == $featured_product->id )
+                                            <li class="choose"><a class="" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="glyphicon glyphicon-ok "  ></i> Added to wishlist</a></li>
+                                        @else
+                                            <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist " href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-plus-square "  ></i> Add to wishlist</a></li>
+                                        @endif
+                                    @endforeach--}}
+
                                 </div>
                             </div>
                         </div>
@@ -132,12 +145,10 @@
                             <ul class="nav nav-tabs">
                                 @foreach($categories as $count => $category)
                                 <li class=" @if ($count == 0) active @endif">
-                                    <a class="cat_nav" href="#{{$category->id}}" data-id="{{$category->id}}" data-toggle="tab">{{$category->name}}</a></li>
+                                    <a class="cat_nav " href="#{{$category->id}}" data-id="{{$category->id}}" data-toggle="tab">{{$category->name}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
-
-
                         <div class="tab-content">
                             <div class="tab-pane fade active in" id="category_product" >
                             @foreach($products as $cat)
@@ -147,8 +158,19 @@
                                             <div class="productinfo text-center">
                                                 <img class="show_img" src="{{asset('img/product/'.$cat->products->image->product_image_name)}}" />
                                                 <h2>${{ $cat->products->price }}</h2>
-                                                <a class="text-black" href="http://127.0.0.1:8000/product_details/{{$cat->products->id}}">{{ $cat->products->product_name }}</a>
+                                                <p><a class="text-dark" href="http://127.0.0.1:8000/product_details/{{$cat->products->id}}">{{ $cat->products->product_name }}</a></p>
                                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                <div  class="choose nav nav-pills nav-justified {{ Auth::user() ?'':'hidden_field' }}">
+
+                                                        @if(in_array($cat->products->id,$my_wishlist))
+                                                            <li><a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a></li>
+                                                        @else
+                                                            <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
+                                                        @endif
+
+
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -161,4 +183,10 @@
                 </div>
             </div>
         </div>
+    <script>
+
+        var authUser = {{ Auth::user() ? 1 : 0 }} ;
+    </script>
 @endsection
+
+

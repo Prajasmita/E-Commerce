@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Http\Middleware\CheckRole;
 Use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Helper\Custom;
@@ -19,7 +20,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('checkrole');
     }
 
     /**

@@ -14,6 +14,10 @@
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+
+    <!-- CSS STYLE-->
+    <link rel="stylesheet" href="{{asset('css/xzoom.css')}}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="{{asset('js/html5shiv.js')}}"></script>
     <script src="{{asset('js/respond.min.js')}}"></script>
@@ -24,7 +28,11 @@
         var base_url_cat = "{{route('category_data',['id'])}}";
 
         var base_url_productDetails = "http://127.0.0.1:8000/product_details/";
+
+        var wishlistUrl = "{{route('products.wishlist',['id'])}}"
+
     </script>
+
 
 
     {{--style css--}}
@@ -57,9 +65,20 @@
     <script src="{{asset('js/price-range.js')}}"></script>
     <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
+
+    {{--<script src="{{asset('js/user_wishlist.js')}}"></script>--}}
     <script src="{{asset('js/category_bar.js')}}"></script>
     <script src="{{asset('js/zoom-slideshow.js')}}"></script>
+
+    <!-- XZOOM JQUERY PLUGIN  -->
+    <script src="{{asset('js/xzoom.js')}}"></script>
     <script src="{{asset('js/image_gallery.js')}}"></script>
+    <script src="{{asset('js/inc_dec.js')}}"></script>
+
+
+
+
+
 
 </body>
 </html>

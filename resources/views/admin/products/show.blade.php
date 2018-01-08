@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class=" panel panel-default">
-                    <div class="col-md-11 panel-heading">Name : {{ $product_data->product_name }}</div>
+                    <div class="col-md-11 panel-heading"><strong>Name : {{ $product_data->product_name }}</strong></div>
                     <div class="col-md-1 panel-heading">
-                        <a href="{{ url('/admin/products') }}" class="btn-sm btn-primary">Back</a>
+                        <a href="{{ url('/admin/products') }}" class="btn-sm btn-primary">c</a>
                     </div>
                     <div class="panel-body">
 

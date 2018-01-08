@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Products</div>
+                    <div class="panel-heading"><strong>Products</strong></div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/products/create') }}" class="btn btn-success btn-sm" title="Add New Product">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New Product

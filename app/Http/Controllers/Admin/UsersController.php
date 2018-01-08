@@ -129,6 +129,7 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'min:8|max:12|alpha_num|required',
             'status' => 'required',
+            'contact_no' => 'required',
             'role_id' => 'required'
         ]);
 
@@ -190,7 +191,6 @@ class UsersController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
-            'password' => 'min:8|max:12|required|alpha_num',
             'status' => 'required',
             'role_id' => 'required'
         ]);

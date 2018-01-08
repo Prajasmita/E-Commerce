@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\Custom;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -27,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/register';
 
     /**
      * Create a new controller instance.
@@ -49,8 +51,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'contact_no' => 'required|regex:/(9)[0-9]{9}/'
+
         ]);
     }
 
@@ -62,15 +67,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+         User::create([
             'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'password' => $data['password']
+            'password' => $data['password'],
+            'contact_no' => $data['contact_no'],
+            'role_id' => 5
         ]);
+
+        return redirect('register')->with('flash_message', 'You are register successfully !!!');
+
     }
 
     public function showRegistrationForm()
     {
-        return view('admin.auth.register');
+        return view('user_login');
+    }
+
+    public function register(Request $request)
+    {
+
+        $this->validator($request->all())->validate();
+
+        return $this->create($request->all());
+
     }
 }

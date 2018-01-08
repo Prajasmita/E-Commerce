@@ -121,6 +121,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
+        //Custom::showAll($request->has('is_feature')?1:0);die;
         $this->validate($request, [
             'product_name' => 'required',
             'sku' => 'required|alpha_num|unique:products',
@@ -128,6 +129,11 @@ class ProductsController extends Controller
             'quantity' => 'required',
             'image_name' => 'required',
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
+            'short_discription' => 'required',
+            'long_discription' =>'required',
+            'is_feature'=>'required',
+            'category' =>'required',
+            'status' => 'required'
 
         ]);
 
@@ -141,7 +147,7 @@ class ProductsController extends Controller
         $requestData['special_price_to_date']=$request->special_price_to_date;
         $requestData['quantity']=$request->quantity;
         $requestData['status']=$request->status;
-        $requestData['is_feature']=$request->is_feature;
+        $requestData['is_feature']=$request->has('is_feature') ? 1 : 0;
         $requestData['meta_title']=$request->meta_title;
         $requestData['meta_discription']=$request->meta_discription;
         $requestData['meta_keyword']=$request->meta_keyword;

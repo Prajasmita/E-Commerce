@@ -1,5 +1,5 @@
 <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
-    <label for="product_name" class="col-md-4 control-label">{{ 'Product Name' }}</label>
+    <label for="product_name" class="col-md-4 control-label">{{ 'Product Name' }}<span class="require">*</span></label>
     <div class="col-md-6">
         <input class="form-control" name="product_name" type="text" id="product_name" value="{{ $product->product_name or ''}}" >
         {!! $errors->first('product_name', '<p class="help-block">:message</p>') !!}
@@ -7,7 +7,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('sku') ? 'has-error' : ''}}">
-    <label for="sku" class="col-md-4 control-label">{{ 'Sku' }}</label>
+    <label for="sku" class="col-md-4 control-label">{{ 'Sku' }}<span class="require">*</span></label>
     <div class="col-md-6">
         <input class="form-control" name="sku" type="text" id="sku" value="{{ $product->sku or ''}}" >
         {!! $errors->first('sku', '<p class="help-block">:message</p>') !!}
@@ -15,7 +15,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('short_discription') ? 'has-error' : ''}}">
-    <label for="short_discription" class="col-md-4 control-label">{{ 'Short Discription' }}</label>
+    <label for="short_discription" class="col-md-4 control-label">{{ 'Short Discription' }}<span class="require">*</span></label>
     <div class="col-md-6">
         <textarea class="form-control" rows="5" name="short_discription" type="textarea" id="short_discription" >{{ $product->short_discription or ''}}</textarea>
         {!! $errors->first('short_discription', '<p class="help-block">:message</p>') !!}
@@ -23,7 +23,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('long_discription') ? 'has-error' : ''}}">
-    <label for="long_discription" class="col-md-4 control-label">{{ 'Long Discription' }}</label>
+    <label for="long_discription" class="col-md-4 control-label">{{ 'Long Discription' }}<span class="require">*</span></label>
     <div class="col-md-6">
         <textarea class="form-control" rows="5" name="long_discription" type="textarea" id="long_discription" >{{ $product->long_discription or ''}}</textarea>
         {!! $errors->first('long_discription', '<p class="help-block">:message</p>') !!}
@@ -31,7 +31,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">
-    <label for="price" class="col-md-4 control-label">{{ 'Price' }} </label>
+    <label for="price" class="col-md-4 control-label">{{ 'Price' }} <span class="require">*</span></label>
     <div class="col-md-6">
         <input class="form-control" name="price" type="text" id="price" value="{{ $product->price or ''}}" >
         {!! $errors->first('price', '<p class="help-block">:message</p>') !!}
@@ -41,7 +41,7 @@
 <div class="form-group {{ $errors->has('special_price') ? 'has-error' : ''}}">
     <label for="special_price" class="col-md-4 control-label">{{ 'Special Price' }}</label>
     <div class="col-md-6">
-        <input class="form-control"  name="special_price" type="text" id="special_price" >{{ $product->special_price or ''}}</input>
+        <input class="form-control"  name="special_price" type="text" id="special_price" value="{{ $product->special_price or ''}}">
         {!! $errors->first('special_price', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -49,7 +49,11 @@
 <div class="form-group {{ $errors->has('special_price_from_date') ? 'has-error' : ''}}">
     <label for="special_price_from_date" class="col-md-4 control-label">{{ 'Special Price From Date' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="special_price_from_date" type="date" id="special_price_from_date" value="{{ $product->special_price_from_date or ''}}" >
+        <div class='input-group date'>
+            <input class="date form-control " data-provide="datepicker" name="special_price_from_date" type="text" id="special_price_from_date" value="{{ $product->special_price_from_date or ''}}" >
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
         {!! $errors->first('special_price_from_date', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -57,13 +61,17 @@
 <div class="form-group {{ $errors->has('special_price_to_date') ? 'has-error' : ''}}">
     <label for="special_price_to_date" class="col-md-4 control-label">{{ 'Special Price To Date' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="special_price_to_date" type="date" id="special_price_to_date" value="{{ $product->special_price_to_date or ''}}" >
+        <div class='input-group date'>
+            <input class="date form-control " data-provide="datepicker" name="special_price_to_date" type="text" id="special_price_to_date" value="{{ $product->special_price_to_date or ''}}" >
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
         {!! $errors->first('special_price_to_date', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
 <div class="form-group {{ $errors->has('image_name') ? 'has-error' : ''}}">
-    <label for="image_name" class="col-md-4 control-label">{{ 'Image Name' }}</label>
+    <label for="image_name" class="col-md-4 control-label">{{ 'Image Name' }}<span class="require">*</span></label>
     <div class="col-md-6">
       {{--  {!! Form::file('image_name', array('class' => 'form-control', 'accept' =>'.jpg')) !!}
         --}}{{-- <input class="form-control" name="banner_path" type="file" id="banner_path" placeholder="Choose File" value="{{ $banner->banner_path or ''}}" >--}}{{--
@@ -86,7 +94,7 @@
 
 
 <div class="form-group {{ $errors->has('quantity') ? 'has-error' : ''}}">
-    <label for="quantity" class="col-md-4 control-label">{{ 'Quantity' }}</label>
+    <label for="quantity" class="col-md-4 control-label">{{ 'Quantity' }}<span class="require">*</span></label>
     <div class="col-md-6">
         <input class="form-control" name="quantity" type="text" id="quantity" value="{{ $product->quantity or ''}}" >
         {!! $errors->first('quantity', '<p class="help-block">:message</p>') !!}
@@ -118,7 +126,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('category') ? 'has-error' : ''}}">
-    <label for="category" class="col-md-4 control-label">{{ 'Category' }}</label>
+    <label for="category" class="col-md-4 control-label">{{ 'Category' }}<span class="require">*</span></label>
 
     <div class="col-md-6">
         <select  name="category[]"  class="form-control" id="category" multiple>
@@ -134,26 +142,32 @@
 </div>
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
 
-    <label for="status" class="col-md-4 control-label">{{ 'Product status' }}</label>
+    <label for="status" class="col-md-4 control-label">{{ 'Product status' }}<span class="require">*</span></label>
     <div class="col-md-6">
-        <input   name="status" value="1" type="radio" id="status" >Active
-        <input  name="status" value="0" type="radio" id="status" >Inactive
+        <input   name="status" value="1" type="radio" id="status" {{ isset( $product->status) ? $product->status == 1 ? 'checked' :'' : '' }}>Active
+        <input  name="status" value="0" type="radio" id="status" {{ isset( $product->status) ? $product->status == 0 ? 'checked' :'' : '' }}>Inactive
         {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group {{ $errors->has('is_feature') ? 'has-error' : ''}}">
 
-    <label for="is_feature" class="col-md-4 control-label">{{ 'Is Feature' }}</label>
+    <label for="is_feature" class="col-md-4 control-label">{{ 'Is Feature' }}<span class="require">*</span></label>
     <div class="col-md-6">
-        <input   name="is_feature" value="1" type="radio" id="is_feature" >True
-        <input  name="is_feature" value="0" type="radio" id="is_feature" >False
-        {!! $errors->first('is_feature', '<p class="help-block">:message</p>') !!}
+
+        {{ Form::checkbox('is_feature', 0, false) }}
+
+        {{--<input   name="is_feature" value="1" type="radio" id="is_feature" {{ isset( $product->is_feature) ? $product->is_feature == 1 ? 'checked' :'' : '' }}>True
+        <input  name="is_feature" value="0" type="radio" id="is_feature" {{ isset( $product->is_feature) ? $product->is_feature == 0 ? 'checked' :'' : '' }}>False
+        --}}{!! $errors->first('is_feature', '<p class="help-block">:message</p>') !!}
+
+
+
     </div>
 </div>
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
         <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Create' }}">
-        <a href="{{ url('/admin/products') }}" class="btn btn-danger">Cancle</a>
+        <a href="{{ url('/admin/products') }}" class="btn btn-danger">Cancel</a>
 
     </div>
 </div>

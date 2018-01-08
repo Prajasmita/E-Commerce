@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $table ='users';
     protected $fillable = [
-        'first_name','last_name', 'email', 'password','status','role_id','remember_token'
+        'first_name','last_name', 'email', 'password','status','role_id','remember_token','contact_no'
     ];
 
     /**
@@ -75,6 +75,14 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo('App\Role');
+    }
+    /**
+     * Function for user and wishlist relationship.
+     *
+     */
+    public function user_wishlist()
+    {
+        return $this->hasMany('App\User_wishlist');
     }
 
 }

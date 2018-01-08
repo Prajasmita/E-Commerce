@@ -32,19 +32,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap.min.css')}}">
+
+
+    {{--DATEPICKER--}}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.3/fonts/glyphicons-halflings-regular.woff2"></script>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
     <script>
         var base_url = "http://127.0.0.1:8000/admin/users";
 
     </script>
-    <![endif]-->
-
-    <!-- Google Font -->
+   <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="skin-blue">

@@ -51,7 +51,7 @@ $(function () {
 
                 '<a href="'+EditUrl+'" title="Edit category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>&nbsp;' +
 
-                '<a href="'+DeleteUrl+'"   title="Delete category"><button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm(&quot;Confirmdelete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></a>');
+                '<a href="'+DeleteUrl+'"   title="Delete category"><button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm(&quot;Are you sure you want to delete this category ?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></a>');
         }
     });
 })

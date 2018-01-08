@@ -58,4 +58,12 @@ class Product extends Model
         return $this->hasMany('App\Category_product');
     }
 
+    /**
+     * Function for products and wishlist relationship.
+     *
+     */
+    public function user_wishlist()
+    {
+        return $this->hasMany('App\User_wishlist');
+    }
 }

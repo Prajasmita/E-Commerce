@@ -162,6 +162,7 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $selected_category = Category::findOrFail($id);
+        //Custom::showAll($selected_category->toArray());die;
 
         $category = Category::where('parent_id','=','0')->get();
 

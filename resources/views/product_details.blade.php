@@ -45,64 +45,57 @@
             </div>
         <!--/category-products-->
             <div class="col-sm-9 padding-right">
-                        <div class="product-details"><!--product-details-->
-                            <div class="col-sm-5">
-                                <div id="photo" class="col-md-12">
-                                    <img class="" src="{{asset('img/product/'.$products->image->product_image_name)}}" alt="" >
-
-                                </div>
-
-                                <div class="carousel slide">
-                                    <div class="carousel-inner">
-                                        <div id="thumbs">
-                                            <div id="nav-left-thumbs"><</div>
-                                            @if($products->image_products->count() > 1)
-                                            <div id="pics-thumbs">
-                                                @foreach($products->image_products as $product)
-                                                    <img src="{{asset('img/product/'.$product->product_image_name)}}" alt="" />
-                                                @endforeach
-                                            </div>
-                                            @endif
-                                            <div id="nav-right-thumbs">></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-
-                            <div class="col-sm-7">
-                                <div class="product-information"><!--/product-information-->
-                                    <img src="{{asset('img/images/product-details/new.jpg')}}" class="newarrival" alt="" />
-                                    <h2>{{$products->product_name}}</h2>
-                                    <p>Web ID: 1089772</p>
-                                    <img src="{{asset('img/images/product-details/rating.png')}}" alt="" />
-                                    <span>
-									<span>${{ $products->price }}</span>
-									<label>Quantity:</label>
-									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Add to cart
-									</button>
-								</span>
-                                    <p><b>Availability:</b> In Stock</p>
-                                    <p><b>Description</b> {{$products->short_discription}}</p>
-                                    <a href=""><img src="{{asset('img/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
-                                </div><!--/product-information-->
-                            </div>
-                        </div><!--/product-details-->
-
+                <div class="product-details col-sm-5">
+                    <img class="xzoom" src="{{asset('img/product/'.$products->image->product_image_name)}}" xoriginal="{{asset('img/product/'.$products->image->product_image_name)}}" />
+                    <div class="xzoom-thumbs">
+                        @foreach($products->image_products as $product)
+                        <a href="{{asset('img/product/'.$product->product_image_name)}}">
+                            <img class="xzoom-gallery" width="80" src="{{asset('img/product/'.$product->product_image_name)}}"  xpreview="{{asset('img/product/'.$product->product_image_name)}}">
+                        </a>
+                        @endforeach
                     </div>
                 </div>
-            </div>
+                <div class="col-sm-7">
+
+                    <div class="product-information"><!--/product-information-->
+
+                        @if($products->is_feature == 1)
+                        <img src="{{asset('img/images/product-details/featured_tag.png')}}" class="newarrival" alt="" />
+                        @endif
+                            <h1>{{$products->product_name}}</h1>
+                                    <span>
+                                        <span>${{ $products->price }}</span>
+                                            <div class="container">
+                                                <div class="quantity">
+                                                    <label><b>Quantity:</b></label>
+                                                    <input type="button" class="qty_minus" value="-" />
+                                                    <input type="text" id="quantity" name="quantity" value="1" min="1" max="{{$products->quantity}}" size="1" id="number" />
+                                                    <input type="button" class="qty_plus" value="+" />
+                                                </div>
+                                            </div>
+                                       <button type="button" class="btn btn-fefault cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to cart
+                                        </button>
+                                        <div  class="choose {{ Auth::user() ?'':'hidden_field' }}">
+                                            @if(in_array($products->id,$my_wishlist))
+                                                <button type="button" class="btn btn-fefault cart">
+                                                <a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a>
+                                                </button>
+                                            @else
+                                                <button type="button" class="btn btn-fefault cart">
+                                                    <a  href="javascript:void(0)" class="{{"product_id_".$products->id}} wishlist wishlist_color" data-id="{{$products->id}}"><i class="fa fa-plus-square "  ></i> Add to wishlist</a></li>
+                                                </button>
+                                            @endif
+                                        </div>
+
+                                        <p><b>Availability:</b> {{($products->quantity)? "In Stock" : "Not In Stock" }}</p>
+                                        <p><b>Description:</b> {{$products->short_discription}}</p>
+                                    </span>
+                    </div><!--/product-information-->
+                </div>
+            </div><!--/product-details-->
         </div>
     </div>
-
-
-
 
 @endsection

@@ -5,7 +5,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create New Product</div>
+                    <div class="panel-heading"><strong>Create New Product</strong></div>
                     <div class="panel-body">
                         <br />
                         <br />
