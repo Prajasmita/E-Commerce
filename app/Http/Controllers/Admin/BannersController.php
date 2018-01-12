@@ -83,7 +83,7 @@ class BannersController extends Controller
 
         $authUser = Auth::user();
 
-        return view('admin.banners.index', array('authUser'=>$authUser,'banners'=>$banners));
+        return view('admin.banners.index', array('authUser'=>$authUser,'banners'=>$banners,'js'=>'banner_listing'));
     }
 
     /**

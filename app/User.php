@@ -84,5 +84,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\User_wishlist');
     }
+    /**
+     * Function for users and user_address relationship.
+     *
+     */
+    public function user_address()
+    {
+        return $this->belongsTo('App\User_address');
+    }
+
 
 }

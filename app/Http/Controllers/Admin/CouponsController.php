@@ -74,7 +74,7 @@ class CouponsController extends Controller
 
         $authUser = Auth::user();
 
-        return view('admin.coupons.index', compact('coupons','authUser'));
+        return view('admin.coupons.index', compact('coupons','authUser'),array('js'=>'coupon_listing'));
     }
 
     /**

@@ -5,14 +5,14 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Edit Category # {{ $category->name }}</strong></div>
+                    <div class="panel-heading"><strong>Edit Category # {{ $selected_category->name }}</strong></div>
                     <div class="panel-body">
                       
                         <br />
                         <br />
 
 
-                        <form method="POST" action="{{ url('/admin/categories/' . $category->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/admin/categories/' . $selected_category->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 

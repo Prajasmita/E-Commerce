@@ -3,14 +3,15 @@ $(document).ready(function() {
     $('.qty_plus').click(function () {
 
 
-        var currentVal = parseInt($('#quantity').val());
+        var currentVal = parseInt($('.qty').val());
+        //console.log(currentVal);
 
-        var maxVal = parseInt($('#quantity').attr("max"));
-       // console.log(maxVal);
+        var maxVal = parseInt($('.qty').attr("max"));
+       console.log(maxVal);
 
         if( currentVal < maxVal){
             currentVal= currentVal+1;
-            $('#quantity').val(currentVal);
+            $('.qty').val(currentVal);
         }
 
     });
@@ -18,14 +19,14 @@ $(document).ready(function() {
 
         //console.log('hii');
 
-        var currentVal =parseInt($('#quantity').val());
+        var currentVal =parseInt($('.qty').val());
 
         if(!currentVal || currentVal == NaN || currentVal == 0 || currentVal < 0)
             currentVal = 1;
 
         if(currentVal > 1)
         currentVal= currentVal-1;
-        $('#quantity').val(currentVal);
+        $('.qty').val(currentVal);
 
 
 

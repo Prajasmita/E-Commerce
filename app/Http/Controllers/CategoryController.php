@@ -8,9 +8,11 @@ use App\Helper\Custom;
 use App\Category_product;
 use App\Product;
 use App\Category;
+use App\User;
 use App\Banner;
 use Illuminate\Http\Response;
 use Auth;
+use Cart;
 
 class CategoryController extends Controller
 {
@@ -18,7 +20,6 @@ class CategoryController extends Controller
 
     public function categoryProducts($id)
     {
-
         $products = Category_product::select('category_id','product_id')->with((['products' => function($query){
             $query->select('id','product_name','price');
             $query->with(['image'=>function($query1){
@@ -33,29 +34,34 @@ class CategoryController extends Controller
 
         $categoryName = Category::select('id','name')->where('id','=',$id)->first();
 
-        /*$my_wishlist =array();
-        if(Auth::user() && $my_wishlist == ''){
+        $my_wishlist =array();
+        if(Auth::user() ){
 
             $userId = Auth::user()->id;
             $wishlist_products = User::with(['user_wishlist'=>function($query){
                 $query->select('id','user_id','product_id');
             }])->where('id','=',$userId)->first();
 
-            foreach ( $wishlist_products->user_wish_list as $key => $wlist ) {
+            foreach ( $wishlist_products->user_wishlist as $key => $wlist ) {
                 array_push($my_wishlist,$wlist->product_id);
             }
-        }*/
+        }
+        $cart_product = array();
+        if(Cart::count()){
+            foreach ( Cart::content() as $item => $cart_list ) {
+                array_push( $cart_product,$cart_list->id);
+            }
+        }
 
-        return view('category_products', array('products' => $products,'categories'=>$categories,'banner_images'=>$banner_images,'categoryName'=>$categoryName/*,'my_wishlist'=>$my_wishlist*/));
-
-
+        return view('category_products', array('products' => $products, 'categories'=>$categories,
+                                                    'banner_images'=>$banner_images, 'categoryName'=>$categoryName,
+                                                    'my_wishlist'=>$my_wishlist, 'cart_product'=>$cart_product));
     }
 
     public function ajaxByCategoryId(Request $request ){
-
         if($request->ajax()){
-
             $id = $request->id;
+
             $products = Category_product::select('category_id','product_id')->with((['products' => function($query){
                 $query->select('id','product_name','price');
                 $query->with(['image'=>function($query1){
@@ -63,7 +69,25 @@ class CategoryController extends Controller
                 }]);
             }]))->where('category_id','=',$id)->limit(4)->get();
 
-            return json_encode($products);
+            $my_wishlist =array();
+            if(Auth::user() ){
+
+                $userId = Auth::user()->id;
+                $wishlist_products = User::with(['user_wishlist'=>function($query){
+                    $query->select('id','user_id','product_id');
+                }])->where('id','=',$userId)->first();
+
+                foreach ( $wishlist_products->user_wishlist as $key => $wlist ) {
+                    array_push($my_wishlist,$wlist->product_id);
+                }
+            }
+            $cart_product = array();
+            if(Cart::count()){
+                foreach ( Cart::content() as $key => $cart_list ) {
+                    array_push($cart_product,intval($cart_list->id));
+                }
+            }
+            return json_encode(array($products,$my_wishlist,$cart_product));
         }
     }
 }

@@ -12,8 +12,6 @@
                         <li data-target="#slider-carousel" data-slide-to="2"></li>
                     </ol>
 
-
-
                     <div class="carousel-inner">
                         @foreach($banner_images as $index => $banner)
                             <div class="item {{ $index == 0 ? 'active' : '' }}">
@@ -106,21 +104,31 @@
                                         <img src="{{asset('/img/product/'.$product->products->image->product_image_name)}}" alt="" />
                                         <h2>${{$product->products->price}}</h2>
                                         <p>{{$product->products->product_name}}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
+                                    @if(in_array($product->products->id,$cart_product))
+                                        <a href="javascript:void(0)" class=" btn btn-default product-added "><i class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                                    @else
+                                        <a href="javascript:void(0)" data-id="{{$product->products->id}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$product->products->id}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    @endif                                  </div>
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <h2>${{$product->products->price}}</h2>
                                         <p><a class=""  href="http://127.0.0.1:8000/product_details/{{$product->products->id}}">{{$product->products->product_name}}</a></p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
+                                        @if(in_array($product->products->id,$cart_product))
+                                            <a href="javascript:void(0)" class=" btn btn-default product-added  "><i class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                                        @else
+                                            <a href="javascript:void(0)" data-id="{{$product->products->id}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$product->products->id}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        @endif                                    </div>
                                 </div>
                             </div>
 
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                </ul>
+                            <div  class="choose nav nav-pills nav-justified {{ Auth::user() ?'':'hidden_field' }}">
+
+                                @if(in_array($product->products->id,$my_wishlist))
+                                    <li><a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a></li>
+                                @else
+                                    <li class="{{"product_id_".$product->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$product->products->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
+                                @endif
+
                             </div>
 
 

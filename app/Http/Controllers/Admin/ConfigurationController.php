@@ -94,7 +94,7 @@ class ConfigurationController extends Controller
 
         $authUser = Auth::user();
 
-        return view('admin.configuration.index', array('authUser'=>$authUser,'configuration'=>$configuration));
+        return view('admin.configuration.index', array('authUser'=>$authUser,'configuration'=>$configuration,'js'=>'configuration_listing'));
     }
 
     /**

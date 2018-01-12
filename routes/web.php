@@ -87,6 +87,25 @@ Route::post('/wishlist/{id}',['as'=> 'products.wishlist','uses'=>'ProductControl
 
 Route::post('/user_login','Auth\UserLoginController@login')->name('user_login');
 
+Route::get('/cart','CartController@index')->name('cart');
+Route::post('/cart_data/{id}',['as'=> 'cart_data','uses'=>'CartController@store']);
+Route::post('/cart/{id}/update',['as'=> 'cart.update','uses'=>'CartController@update']);
+Route::delete('/cart/{id}/delete',['as'=> 'cart.delete','uses'=>'CartController@delete']);
+Route::get('/checkout','CartController@checkout')->name('checkout');
+Route::post('/apply_coupon',['as'=> 'coupon.apply','uses'=>'CartController@applyCoupon']);
+
+
+//Route::post('/checkout',['as'=>'checkout.store','uses'=>'CartController@storeUserAddress']);
+
+
+
+
+
+
+
+
+
+
 
 
 

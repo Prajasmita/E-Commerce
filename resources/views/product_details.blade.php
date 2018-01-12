@@ -69,25 +69,29 @@
                                                 <div class="quantity">
                                                     <label><b>Quantity:</b></label>
                                                     <input type="button" class="qty_minus" value="-" />
-                                                    <input type="text" id="quantity" name="quantity" value="1" min="1" max="{{$products->quantity}}" size="1" id="number" />
+                                                    <input type="text" class="qty" id="quantity" name="quantity" value="1" min="1" max="{{$products->quantity}}" size="1" id="number" />
                                                     <input type="button" class="qty_plus" value="+" />
                                                 </div>
                                             </div>
-                                       <button type="button" class="btn btn-fefault cart">
-                                            <i class="fa fa-shopping-cart"></i>
-                                            Add to cart
-                                        </button>
-                                        <div  class="choose {{ Auth::user() ?'':'hidden_field' }}">
+
+                                        @if(in_array($products->id,$cart_product))
+                                           <a href="javascript:void(0)" class=" btn btn-default link_text_color product-added"><i class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                                        @else
+                                            <a href="javascript:void(0)" data-id="{{$products->id}}" data-count="{{Cart::count()}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$products->id}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        @endif
+
+                                        <span><div  class="choose {{ Auth::user() ?'':'hidden_field' }}">
                                             @if(in_array($products->id,$my_wishlist))
-                                                <button type="button" class="btn btn-fefault cart">
+                                                    <button type="button" class="btn btn-fefault cart">
                                                 <a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a>
                                                 </button>
-                                            @else
-                                                <button type="button" class="btn btn-fefault cart">
+                                                @else
+                                                    <button type="button" class="btn btn-fefault cart">
                                                     <a  href="javascript:void(0)" class="{{"product_id_".$products->id}} wishlist wishlist_color" data-id="{{$products->id}}"><i class="fa fa-plus-square "  ></i> Add to wishlist</a></li>
                                                 </button>
-                                            @endif
-                                        </div>
+                                                @endif
+                                        </div> </span>
+
 
                                         <p><b>Availability:</b> {{($products->quantity)? "In Stock" : "Not In Stock" }}</p>
                                         <p><b>Description:</b> {{$products->short_discription}}</p>

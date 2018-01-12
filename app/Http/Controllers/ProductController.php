@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\User_wish_list;
+use App\User_wishlist;
 use Illuminate\Http\Request;
 use App\Helper\Custom;
 use App\Category_product;
@@ -12,6 +12,7 @@ use App\Product;
 use App\User;
 use Illuminate\Http\Response;
 use Auth;
+use Cart;
 
 class ProductController extends Controller
 {
@@ -24,19 +25,26 @@ class ProductController extends Controller
         $products = Product::with('image_products','image')->select('id','product_name','price','quantity','short_discription','is_feature')->where('id','=',$id)->get()->first();
 
         $my_wishlist =array();
-        if(Auth::user() && $my_wishlist == ''){
+        if(Auth::user() && $my_wishlist !== ''){
 
             $userId = Auth::user()->id;
             $wishlist_products = User::with(['user_wishlist'=>function($query){
                 $query->select('id','user_id','product_id');
             }])->where('id','=',$userId)->first();
 
-            foreach ( $wishlist_products->user_wish_list as $key => $wlist ) {
+            foreach ( $wishlist_products->user_wishlist as $key => $wlist ) {
                 array_push($my_wishlist,$wlist->product_id);
             }
         }
 
-        return view('product_details',array('categories'=>$categories,'products'=>$products,'my_wishlist'=>$my_wishlist));
+        $cart_product = array();
+        if(Cart::count()){
+            foreach ( Cart::content() as $item => $cart_list ) {
+                array_push( $cart_product,$cart_list->id);
+            }
+        }
+
+        return view('product_details',array('categories'=>$categories,'products'=>$products,'my_wishlist'=>$my_wishlist,'cart_product'=>$cart_product));
     }
 
     public function ajaxAddProductToWishlist(Request $request){
@@ -50,7 +58,7 @@ class ProductController extends Controller
         $data['product_id']=$product->id;
         $data['user_id']=$user;
 
-        User_wish_list::create($data);
+        User_wishlist::create($data);
 
         return json_encode('true');
 

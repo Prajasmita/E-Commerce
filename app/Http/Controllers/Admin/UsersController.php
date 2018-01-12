@@ -95,7 +95,7 @@ class UsersController extends Controller
           return $result;
         }
         $authUser = Auth::user();
-        return view('admin.users.index', array('authUser'=>$authUser,'usersData'=>$usersData));
+        return view('admin.users.index', array('authUser'=>$authUser,'usersData'=>$usersData,'js'=>'admin_listing'));
     }
 
     /**

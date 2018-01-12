@@ -29,7 +29,15 @@
 
         var base_url_productDetails = "http://127.0.0.1:8000/product_details/";
 
-        var wishlistUrl = "{{route('products.wishlist',['id'])}}"
+        var wishlistUrl = "{{route('products.wishlist',['id'])}}";
+
+        var cartUrl = "{{route('cart_data',['id'])}}";
+
+        var cartUpdateUrl = "{{route('cart.update',['id'])}}";
+
+        var cartDeleteUrl = "{{route('cart.delete',['id'])}}";
+
+        var couponApplyUrl = "{{route('coupon.apply')}}"
 
     </script>
 
@@ -74,6 +82,10 @@
     <script src="{{asset('js/xzoom.js')}}"></script>
     <script src="{{asset('js/image_gallery.js')}}"></script>
     <script src="{{asset('js/inc_dec.js')}}"></script>
+   <script src="{{asset('js/cart.js')}}"></script>
+    <script src="{{asset('js/apply_coupon_code.js')}}"></script>
+
+
 
 
 

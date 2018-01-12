@@ -16,7 +16,10 @@
                             <table id='categories' class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Actions</th>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Parent Category </th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

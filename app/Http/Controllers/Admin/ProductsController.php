@@ -93,7 +93,7 @@ class ProductsController extends Controller
 
         $authUser = Auth::user();
 
-        return view('admin.products.index', compact('products','authUser'));
+        return view('admin.products.index', compact('products','authUser'),array('js'=>'product_listing'));
     }
 
     /**
@@ -130,6 +130,7 @@ class ProductsController extends Controller
             'image_name' => 'required',
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
             'short_discription' => 'required',
+            'special_price' => 'required',
             'long_discription' =>'required',
             'category' =>'required',
             'status' => 'required'
@@ -240,6 +241,7 @@ class ProductsController extends Controller
             'sku' => 'required|alpha_num',
             'price' => 'required|numeric',
             'quantity' => 'required',
+            'special_price' => 'required',
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
 
         ]);

@@ -103,14 +103,22 @@
                                         <img src="{{asset('/img/product/'.$product_image->product_image_name)}}" alt="" />
                                         <h2>${{$featured_product->price}}</h2>
                                         <p>{{$featured_product->product_name}}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            @if(in_array($featured_product->id,$cart_product))
+                                                <a href="javascript:void(0)" class=" btn btn-default product-added "><i class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                                            @else
+                                                <a href="javascript:void(0)" data-id="{{$featured_product->id}}" data-count="{{count($cart_product)}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$featured_product->id}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            @endif
                                         @endforeach
                                     </div>
-                                    <div class="product-overlay">
+                                    <div class=" product-overlay">
                                         <div class="overlay-content">
                                             <h2>${{$featured_product->price}}</h2>
                                             <p><a class=""  href="http://127.0.0.1:8000/product_details/{{$featured_product->id}}">{{$featured_product->product_name}}</a></p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            @if(in_array($featured_product->id,$cart_product))
+                                                <span><a href="javascript:void(0)" class="btn btn-default product-added"><i class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
+                                            @else
+                                                <a href="javascript:void(0)" data-id="{{$featured_product->id}}" data-count="{{count($cart_product)}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$featured_product->id}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -123,15 +131,6 @@
                                             <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
                                     @endif
                                     </ul>
-
-                                  {{--  @foreach($wishlist_products->user_wish_list as $wishlist)
-                                        @if($wishlist->product_id == $featured_product->id )
-                                            <li class="choose"><a class="" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="glyphicon glyphicon-ok "  ></i> Added to wishlist</a></li>
-                                        @else
-                                            <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist " href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-plus-square "  ></i> Add to wishlist</a></li>
-                                        @endif
-                                    @endforeach--}}
-
                                 </div>
                             </div>
                         </div>
@@ -159,15 +158,18 @@
                                                 <img class="show_img" src="{{asset('img/product/'.$cat->products->image->product_image_name)}}" />
                                                 <h2>${{ $cat->products->price }}</h2>
                                                 <p><a class="text-dark" href="http://127.0.0.1:8000/product_details/{{$cat->products->id}}">{{ $cat->products->product_name }}</a></p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    @if(in_array($cat->products->id,$cart_product))
+                                                        <span><a href="javascript:void(0)" class="link_text_color btn btn-default product-added "><i class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
+                                                    @else
+                                                        <a href="javascript:void(0)" data-id="{{$cat->products->id}}"  data-count="{{Cart::count()}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$cat->products->id}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    @endif
                                                 <div  class="choose nav nav-pills nav-justified {{ Auth::user() ?'':'hidden_field' }}">
 
                                                         @if(in_array($cat->products->id,$my_wishlist))
-                                                            <li><a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a></li>
+                                                        <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
                                                         @else
                                                             <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
                                                         @endif
-
 
                                                 </div>
 

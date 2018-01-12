@@ -11,6 +11,7 @@ use App\User;
 use App\User_wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+Use Cart;
 
 class HomeController extends Controller
 {
@@ -61,7 +62,15 @@ class HomeController extends Controller
             }]);
         }]))->where('category_id','=','1')->limit(4)->get();
 
-        return view('home', array('banner_images' => $banner_images, 'categories' => $categories, 'featured_products' => $featured_products,'products'=>$products,'my_wishlist'=>$my_wishlist));
+
+        $cart_product = array();
+        if(Cart::count()){
+            foreach ( Cart::content() as $item => $cart_list ) {
+                array_push( $cart_product,$cart_list->id);
+            }
+        }
+
+        return view('home', array('banner_images' => $banner_images, 'categories' => $categories, 'featured_products' => $featured_products,'products'=>$products,'my_wishlist'=>$my_wishlist,'cart_product'=>$cart_product));
 
     }
 
