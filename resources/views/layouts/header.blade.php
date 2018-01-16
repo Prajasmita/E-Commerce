@@ -38,10 +38,10 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             @if( Auth::user())
-                            <li><a href="#"><i class="fa fa-user"></i> {{Auth::user()->first_name}}  {{Auth::user()->last_name}}</a></li>
+                            <li><a href="#" id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i> {{Auth::user()->first_name}}  {{Auth::user()->last_name}}</a></li>
                             @endif
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a href="{{route('checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a class="cart-count" data-count="{{Cart::count()}}" href="{{route('cart')}}"><i class="fa fa-shopping-cart "></i> Cart({{Cart::count()}})</a></li>
                                 @if( Auth::user())
                                 <li><a href="{{route('user_logout')}}"><i class="fa fa-unlock"></i> Logout</a></li>

@@ -92,6 +92,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\User_address');
     }
+    /**
+     * Function for users and user_order relationship.
+     *
+     */
+    public function user_order()
+    {
+        return $this->belongsTo('App\User_order');
+    }
+
 
 
 }

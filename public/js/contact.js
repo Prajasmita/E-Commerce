@@ -1,4 +1,5 @@
-jQuery(function($) {'use strict',
+'use strict',
+jQuery(function($) {
 
 	var form = $('.contact-form');
 	form.submit(function () {'use strict',

@@ -93,9 +93,11 @@ Route::post('/cart/{id}/update',['as'=> 'cart.update','uses'=>'CartController@up
 Route::delete('/cart/{id}/delete',['as'=> 'cart.delete','uses'=>'CartController@delete']);
 Route::get('/checkout','CartController@checkout')->name('checkout');
 Route::post('/apply_coupon',['as'=> 'coupon.apply','uses'=>'CartController@applyCoupon']);
+Route::post('/order_store',['as'=> 'order.store','uses'=>'CartController@orderStore']);
+Route::get('/order_review',['as'=> 'order.review','uses'=>'CartController@orderReview']);
 
 
-//Route::post('/checkout',['as'=>'checkout.store','uses'=>'CartController@storeUserAddress']);
+
 
 
 

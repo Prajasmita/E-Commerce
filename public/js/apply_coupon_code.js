@@ -31,8 +31,8 @@ $(document).ready(function(){
         var total = $('#total').attr("data-total");
         var shipping_cost = $('#shipping_cost').attr("data-shipping_cost");
 
-        if(shipping_cost == "Free"){
-            shipping_cost = 0;
+        if(shipping_cost == 0){
+            shipping_cost = "Free";
         }
         $.ajax({
             type: "POST",
@@ -40,6 +40,11 @@ $(document).ready(function(){
             data:{'couponCode':couponCode,'total':total},
             dataType: 'json',
             success: function (data) {
+
+                data1 = data[0];
+                data2 = data[1];
+
+
                 var html="";
 
                 html+="<button class=\"btn btn-sm btn-danger\" type=\"button\" id=\"remove_code\"><header class=\"glyphicon glyphicon-remove \"></header></button>\n";
@@ -48,7 +53,9 @@ $(document).ready(function(){
 
                 if (data !== "false") {
 
-                    var finalTotal = parseInt(total ) + parseInt(shipping_cost) + parseInt(data);
+
+
+                    var finalTotal = parseInt(total ) + parseInt((shipping_cost == "Free") ? 0 : shipping_cost)- parseInt(data);
 
 
                     var html = "";
@@ -59,7 +66,7 @@ $(document).ready(function(){
                         "                                    </tr>\n" +
                         "                                    <tr>\n" +
                         "                                        <td>Discount</td>\n" +
-                        "                                        <td id=\"discount\">$"+data+"</td>\n" +
+                        "                                        <td id=\"discount\">$"+data1+"</td>\n" +
                         "                                    </tr>\n" +
                         "                                    <tr class=\"shipping-cost\">\n" +
                         "                                        <td>Shipping Cost</td>\n" +
@@ -69,7 +76,11 @@ $(document).ready(function(){
                         "                                        <td>Total</td>\n" +
                         "                                        <td id=\"finalTotal\" data-finalTotal="+finalTotal+"><span>$"+finalTotal+"</span></td>\n" +
                         "                                    </tr>\n" +
-                        "                                </table>";
+                        "                                </table>\n" +
+                        "                                        <input type=\"text\"  name=\"shipping_charge\" class=\"hidden_field\" value="+shipping_cost+">\n"+
+                        "                                        <input type=\"text\"  name=\"grand_total\" class=\"hidden_field\" value="+finalTotal+">\n"+
+                        "                                        <input type=\"text\"  name=\"coupon\" class=\"hidden_field\" value="+data2+">\n";
+
 
                     $('.order-amount').html(html);
 
@@ -102,7 +113,6 @@ $(document).ready(function(){
             getCouponCodeAndTotal();
         });
     }
-
 
 
 });

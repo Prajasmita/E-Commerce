@@ -7,9 +7,11 @@ use App\Coupon;
 use App\Helper\Custom;
 use App\Product;
 use App\User_address;
+use App\User_order;
 use Illuminate\Http\Request;
 Use Cart;
 Use DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class CartController extends Controller
@@ -108,9 +110,16 @@ class CartController extends Controller
 
         $cart = Cart::content();
 
+        $coupons = Coupon::select('id','code')->get();
+        $codes = array();
+        foreach ($coupons as $code => $coupon ){
+            array_push($codes,$coupon->id);
+
+        }
+
         //Custom::showAll($cart->toArray());die;
 
-        return view('checkout',array('user'=>$user,'cart'=>$cart));
+        return view('checkout',array('user'=>$user,'cart'=>$cart,'codes'=>$codes));
     }
 
     /*
@@ -119,11 +128,27 @@ class CartController extends Controller
     */
     public function storeUserAddress(Request $request){
 
-        $request = array();
+        $user_address = array();
+       //Custom::showAll($request->toArray());die;
 
-       // return view('checkout',array('user'=>$user));
 
+        $user_id = $request->user_id;
+        $user_address['company_name'] = $request->company_name;
+        $user_address['email'] = $request->email;
+        $user_address['title'] = $request->title;
+        $user_address['first_name'] = $request->first_name;
+        $user_address['middle_name'] = $request->middle_name;
+        $user_address['last_name'] = $request->last_name;
+        $user_address['address1'] = $request->address1;
+        $user_address['address2'] = $request->address2;
+        $user_address['zip_code'] = $request->zip_code;
+        $user_address['state'] = $request->state;
+        $user_address['country'] = $request->country;
+        $user_address['contact_no'] = $request->contact_no;
+        $user_address['message'] = $request->message;
 
+        $updateAddress = User_address::findOrFail($user_id);
+        $updateAddress->update($user_address);
     }
     /*
        * Function for applying coupon
@@ -136,25 +161,62 @@ class CartController extends Controller
 
             $total = $request->total;
 
-            $couponcodes =Coupon::select('code','percent_off','status')->where('status','=','1')->where(DB::raw('BINARY `code`'), $code)->first();
-
-            //Custom::showAll($couponcodes->toArray());die;
+            $couponcodes =Coupon::select('id','code','percent_off','status')->where('status','=','1')->where(DB::raw('BINARY `code`'), $code)->first();
 
             if($couponcodes){
 
+                $coupon_id=$couponcodes->id;
                 $percent_off = $couponcodes->percent_off;
-               //Custom::showAll($percent_off);
                 $discount = floatval(($total * $percent_off)/100);
 
-             //Custom::showAll($discount);
 
-                return json_encode($discount);
+                return json_encode(array($discount,$coupon_id));
             }
             else{
 
                 return json_encode("false");
             }
         }
+    }
+
+    /*
+       * Function for store order
+       *
+       */
+    public function orderStore(Request $request)
+    {
+
+        $user_order = array();
+        $this->validate($request, [
+            'payment_gateway'=> 'required',
+        ]);
+
+        $user_id = Auth::user()->id;
+
+        $billing_address = User_address::select('id')->where('user_id','=',$user_id)->where('primary','=','1')->first();
+
+        $user_order['user_id'] = $user_id;
+        $user_order['coupon_id'] = $request->coupon;
+        $user_order['payment_gateway_id'] = $request->payment_gateway;
+        $user_order['grand_total'] = $request->grand_total;
+        $user_order['shipping_charges'] = $request->shipping_charge;
+        $user_order['billing_address'] = $billing_address->id;
+        $this->storeUserAddress($request);
+        User_order::create($user_order);
+
+        return redirect('order_review');
+    }
+
+    /*
+      * Function for review order
+      *
+      */
+    public function orderReview(){
+
+
+
+        return view('order_review');
+
     }
 
 }

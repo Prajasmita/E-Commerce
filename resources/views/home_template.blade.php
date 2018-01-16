@@ -39,6 +39,8 @@
 
         var couponApplyUrl = "{{route('coupon.apply')}}"
 
+        var orderReviewUrl = "{{route('order.review')}}"
+
     </script>
 
 

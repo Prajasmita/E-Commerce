@@ -1,4 +1,3 @@
-
 @extends('home_template')
 @section('content')
 <section id="slider"><!--slider-->

@@ -19,9 +19,9 @@ class CreateProductsTable extends Migration
             $table->text('short_discription')->nullable();
             $table->text('long_discription')->nullable();
             $table->string('price')->nullable();
-            $table->text('special_price')->nullable();
+            /*$table->text('special_price')->nullable();
             $table->date('special_price_from_date')->nullable();
-            $table->date('special_price_to_date');
+            $table->date('special_price_to_date');*/
             $table->string('quantity');
             $table->string('meta_title')->nullable();
             $table->text('meta_discription')->nullable();
