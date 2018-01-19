@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+Use App\Payment_gateway;
 
 class PaymentGatewaySeeder extends Seeder
 {
@@ -18,11 +19,11 @@ class PaymentGatewaySeeder extends Seeder
 
         Payment_gateway::truncate();
         $paymentgateways = [
-            ['name'=>'COD'],
-            ['name'=>'CashOnDelivery'],
+            ['id'=>'1','name'=>'COD'],
+            ['id'=>'2','name'=>'CashOnDelivery'],
 
         ];
 
-        DB::table("roles")->insert($paymentgateways);
+        DB::table("payment_gateway")->insert($paymentgateways);
     }
 }

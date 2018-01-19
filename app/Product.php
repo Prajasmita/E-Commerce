@@ -66,4 +66,9 @@ class Product extends Model
     {
         return $this->hasMany('App\User_wishlist');
     }
+
+    public function order_details()
+    {
+        return $this->hasOne('App\Order_details');
+    }
 }

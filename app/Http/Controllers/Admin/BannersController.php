@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Helper\Custom;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Product;
 use Illuminate\Http\UploadedFile;
 use App\Banner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;Use Illuminate\Support\Carbon;
 /**
  * Class BannersController for CRUD operation of banner images.
  *
@@ -110,6 +111,9 @@ class BannersController extends Controller
     {
 
         $requestData = array();
+        //$current_time = Carbon::now()->timestamp();
+        $current_time = date('Y-m-d_H:i:s');
+        //Custom::showAll($current_time);die;
 
         $this->validate($request, [
             'banner_name' => 'required',
@@ -119,8 +123,8 @@ class BannersController extends Controller
         ]);
 
         $image = $request->file('banner_image');
-        $input['imagename'] = $request->banner_name.'.'.$image->getClientOriginalExtension();
-
+        $img_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        $input['imagename'] = $img_name.'_'.$current_time.'.'.$image->getClientOriginalExtension();
         $destinationPath = 'img/banner';
 
         $image->move($destinationPath, $input['imagename']);
@@ -183,10 +187,11 @@ class BannersController extends Controller
             'status' => 'required'
 
         ]);
+        $current_time = Carbon::now()->toDateTimeString();
 
         $image = $request->file('banner_image');
-
-        $input['imagename'] = $request->banner_name.'.'.$image->getClientOriginalExtension();
+        $img_name = $image->getClientOriginalName();
+        $input['imagename'] = $img_name.'_'.$current_time.'.'.$image->getClientOriginalExtension();
 
         $destinationPath = 'img/banner';
 

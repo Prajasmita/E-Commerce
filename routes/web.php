@@ -94,7 +94,20 @@ Route::delete('/cart/{id}/delete',['as'=> 'cart.delete','uses'=>'CartController@
 Route::get('/checkout','CartController@checkout')->name('checkout');
 Route::post('/apply_coupon',['as'=> 'coupon.apply','uses'=>'CartController@applyCoupon']);
 Route::post('/order_store',['as'=> 'order.store','uses'=>'CartController@orderStore']);
-Route::get('/order_review',['as'=> 'order.review','uses'=>'CartController@orderReview']);
+
+Route::post('/order_review',['as'=> 'order.review','uses'=>'CartController@orderReview']);
+
+Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@selectStates']);
+
+Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
+Route::get('/contact_us',['as'=>'contact_us','uses'=>'HomeController@contactUs']);
+
+//Route::post('/paypal',['as'=> 'paypal','uses'=>'CartController@payWithPaypal']);
+
+
+
+
+
 
 
 

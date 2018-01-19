@@ -23,23 +23,29 @@
     <script src="{{asset('js/respond.min.js')}}"></script>
     <![endif]-->
     <script>
-        var base_url = "http://127.0.0.1:8000/";
+        var base_url = "{{config('constants.base_url')}}";
 
         var base_url_cat = "{{route('category_data',['id'])}}";
 
-        var base_url_productDetails = "http://127.0.0.1:8000/product_details/";
+        var productDetails = "{{route('products.details',['id'])}}";
+
+        var productDetailsUrl = "{{config('constants.product_details_url')}}";
 
         var wishlistUrl = "{{route('products.wishlist',['id'])}}";
 
         var cartUrl = "{{route('cart_data',['id'])}}";
 
+        var categoryProduct = "{{route('category_product',['id'])}}";
+
         var cartUpdateUrl = "{{route('cart.update',['id'])}}";
 
         var cartDeleteUrl = "{{route('cart.delete',['id'])}}";
 
-        var couponApplyUrl = "{{route('coupon.apply')}}"
+        var couponApplyUrl = "{{route('coupon.apply')}}";
 
-        var orderReviewUrl = "{{route('order.review')}}"
+        var selectStateUrl = "{{route('country.state',['id'])}}";
+
+
 
     </script>
 

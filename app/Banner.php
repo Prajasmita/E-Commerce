@@ -33,16 +33,9 @@ class Banner extends Model
     /**
      * Always capitalize the banner name when we retrieve it
      */
-    /*public function getBannerNameAttribute($value) {
+    public function getBannerNameAttribute($value) {
         return ucfirst($value);
-    }*/
-
-    /**
-     * Always capitalize the banner image when we retrieve it
-     */
-    /*public function getBannerImageAttribute($value) {
-        return ucfirst($value);
-    }*/
+    }
 
     /**
      * Always capitalize the banner name when we save it to the database
@@ -51,11 +44,5 @@ class Banner extends Model
         $this->attributes['banner_name'] = ucfirst($value);
     }
 
-    /**
-     * Always capitalize the banner image when we save it to the database
-     */
-    public function setBannerImageAttribute($value) {
-        $this->attributes['banner_image'] = ucfirst($value);
-    }
 
 }

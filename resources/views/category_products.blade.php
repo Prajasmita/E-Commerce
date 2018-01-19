@@ -59,7 +59,7 @@
                                             <span class="badge pull-right">
                                                 <i class=" fa fa-plus"></i></span>
                                         @endif
-                                            <a href="http://127.0.0.1:8000/category_products/{{$category->id}}">{{$category->name}}</a>
+                                            <a href="{{route('category_product',$category->id)}}">{{$category->name}}</a>
 
                                     </a>
                                 </h4>
@@ -73,7 +73,7 @@
                                         <ul>
                                             @foreach($category->sub_category as $sub_category)
                                                 @if($sub_category->parent_id == $category->id )
-                                                    <li><a href="http://127.0.0.1:8000/category_products/{{$sub_category->id}}">{{$sub_category->name}}</a></li>
+                                                    <li><a href="{{route('category_product',$sub_category->id)}}">{{$sub_category->name}}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>
@@ -111,7 +111,7 @@
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <h2>${{$product->products->price}}</h2>
-                                        <p><a class=""  href="http://127.0.0.1:8000/product_details/{{$product->products->id}}">{{$product->products->product_name}}</a></p>
+                                        <p><a class=""  href="{{route('products.details',$product->products->id)}}">{{$product->products->product_name}}</a></p>
                                         @if(in_array($product->products->id,$cart_product))
                                             <a href="javascript:void(0)" class=" btn btn-default product-added  "><i class="glyphicon glyphicon-ok"></i>Added to cart</a>
                                         @else

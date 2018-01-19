@@ -7,7 +7,7 @@ $(document).ready(function() {
         //console.log(currentVal);
 
         var maxVal = parseInt($('.qty').attr("max"));
-       console.log(maxVal);
+       //console.log(maxVal);
 
         if( currentVal < maxVal){
             currentVal= currentVal+1;

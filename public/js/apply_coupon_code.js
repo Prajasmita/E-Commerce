@@ -31,6 +31,7 @@ $(document).ready(function(){
         var total = $('#total').attr("data-total");
         var shipping_cost = $('#shipping_cost').attr("data-shipping_cost");
 
+        //alert(shipping_cost);
         if(shipping_cost == 0){
             shipping_cost = "Free";
         }
@@ -53,8 +54,6 @@ $(document).ready(function(){
 
                 if (data !== "false") {
 
-
-
                     var finalTotal = parseInt(total ) + parseInt((shipping_cost == "Free") ? 0 : shipping_cost)- parseInt(data);
 
 
@@ -70,15 +69,16 @@ $(document).ready(function(){
                         "                                    </tr>\n" +
                         "                                    <tr class=\"shipping-cost\">\n" +
                         "                                        <td>Shipping Cost</td>\n" +
-                        "                                        <td id=\"shipping_cost\" data-shipping_cost="+shipping_cost+"  >"+shipping_cost+"</td>\n" +
+                        "                                        <td id=\"shipping_cost\" data-shipping_cost="+shipping_cost+" >$"+shipping_cost+"</td>\n" +
                         "                                    </tr>\n" +
                         "                                    <tr>\n" +
                         "                                        <td>Total</td>\n" +
-                        "                                        <td id=\"finalTotal\" data-finalTotal="+finalTotal+"><span>$"+finalTotal+"</span></td>\n" +
+                        "                                        <td id=\"finalTotal\" data-finalTotal="+finalTotal+"><span>"+finalTotal+"</span></td>\n" +
                         "                                    </tr>\n" +
                         "                                </table>\n" +
                         "                                        <input type=\"text\"  name=\"shipping_charge\" class=\"hidden_field\" value="+shipping_cost+">\n"+
                         "                                        <input type=\"text\"  name=\"grand_total\" class=\"hidden_field\" value="+finalTotal+">\n"+
+                        "                                        <input type=\"text\"  name=\"discount\" class=\"hidden_field\" value="+data1+">\n"+
                         "                                        <input type=\"text\"  name=\"coupon\" class=\"hidden_field\" value="+data2+">\n";
 
 

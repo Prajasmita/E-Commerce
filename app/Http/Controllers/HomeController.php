@@ -79,4 +79,10 @@ class HomeController extends Controller
     {
         return view('user_login');
     }
+
+    public function contactUs(){
+
+        return view('contact_us');
+
+    }
 }

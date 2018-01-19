@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PaymentGateway extends Migration
+class AddForeignkeyInRoleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class PaymentGateway extends Migration
      */
     public function up()
     {
-        Schema::create('payment_gateway', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('role_user', function ($table) {
+            $table->integer('role_id')->foreign()->references("id")->on("users")->onDelete("cascade");
+            $table->integer('user_id')->foreign()->references("id")->on("users")->onDelete("cascade");
         });
-
     }
 
     /**
@@ -28,7 +26,6 @@ class PaymentGateway extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_gateway');
-
+        //
     }
 }

@@ -17,12 +17,14 @@ class UserOrder extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('payment_gateway_id');
-            $table->text('grand_total')->nullable();
-            $table->text('shipping_charges')->nullable();
+            $table->float('grand_total')->nullable();
+            $table->float('shipping_charges')->nullable();
+            $table->float('discount')->nullable();
+            $table->text('transaction_id')->nullable();
             $table->integer('coupon_id')->nullable();
             $table->text('billing_address')->nullable();
             $table->text('shipping_address')->nullable();
-            $table->enum('status',['0','1'])->default('1');
+            $table->enum('status',['P','O','S','D'])->nullable();
             $table->timestamps();
         });
 

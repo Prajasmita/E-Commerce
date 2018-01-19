@@ -22,20 +22,66 @@
 
                                     <div class="col-sm-6">
                                         <input type="text" name="user_id" id="user_id" value="{{$user->id}}" class="hidden_field">
+
+                                        <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
+                                                <input type="text" name="company_name" id="company_name" value="{{$user->company_name}}" placeholder="Company Name" class="checkout-form-input">
+                                                {!! $errors->first('company_name', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                                            <input type="text" name="email" value="{{$user->email}}" placeholder="Email*" class="checkout-form-input">
+                                            {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
+                                            <input type="text" name="title" value="{{$user->title}}" placeholder="Title" class="checkout-form-input">
+                                            {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('first_name') ? 'has-error' : ''}}">
+                                            <input type="text" name="first_name" value="{{$user->first_name}}" placeholder="First Name *" class="checkout-form-input">
+                                            {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('middle_name') ? 'has-error' : ''}}">
+                                            <input type="text" name="middle_name" value="{{$user->middle_name}}" placeholder="Middle Name" class="checkout-form-input">
+                                            {!! $errors->first('middle_name', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('last_name') ? 'has-error' : ''}}">
+                                            <input type="text" name="last_name" value="{{$user->last_name}}" placeholder="Last Name *" class="checkout-form-input">
+                                            {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('address1') ? 'has-error' : ''}}">
+                                            <input type="text" name="address1" value="{{$user->address1}}" placeholder="Address 1 *" class="checkout-form-input">
+                                            {!! $errors->first('address1', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('address2') ? 'has-error' : ''}}">
+                                            <input type="text" name="address2" value="{{$user->address2}}" placeholder="Address 2" class="checkout-form-input">
+                                            {!! $errors->first('address2', '<span class="help-block">:message</span>') !!}
+                                        </div>
+
+
+{{--
                                         <input type="text" name="company_name" id="company_name" value="{{$user->company_name}}" placeholder="Company Name" class="checkout-form-input">
-                                        <input type="text" name="email" value="{{$user->email}}" placeholder="Email*" class="checkout-form-input">
-                                        <input type="text" name="title" value="{{$user->title}}" placeholder="Title" class="checkout-form-input">
-                                        <input type="text" name="first_name" value="{{$user->first_name}}" placeholder="First Name *" class="checkout-form-input">
-                                        <input type="text" name="middle_name" value="{{$user->middle_name}}" placeholder="Middle Name" class="checkout-form-input">
-                                        <input type="text" name="last_name" value="{{$user->last_name}}" placeholder="Last Name *" class="checkout-form-input">
-                                        <input type="text" name="address1" value="{{$user->address1}}" placeholder="Address 1 *" class="checkout-form-input">
-                                        <input type="text" name="address2" value="{{$user->address2}}" placeholder="Address 2" class="checkout-form-input">
+--}}
                                     </div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="zip_code" value="{{$user->zip_code}}" placeholder="Zip / Postal Code *" class="checkout-form-input">
-                                            <input type="text" name="state" value="{{$user->state}}" placeholder="State *" class="checkout-form-input">
-                                            <input type="text" name="country" value="{{$user->country}}" placeholder="Country *" class="checkout-form-input">
-                                            <input type="text" name="contact_no" value="{{$user->contact_no}}" placeholder="Mobile Phone" class="checkout-form-input">
+                                            <div class="form-group {{ $errors->has('zip_code') ? 'has-error' : ''}}">
+                                                <input type="text" name="zip_code" value="{{$user->zip_code}}" placeholder="Zip / Postal Code *" class="checkout-form-input">
+                                                {!! $errors->first('zip_code', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                            <select name="country" class="checkout-form-input select-country">
+                                                @foreach($countries as $country)
+                                                    <option value="{{ ($country->name) ? $country->id : '' }}" {{ ($user->country == $country->name) ? 'selected' : '' }}>{{ $country->name }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            <select name="state" class="checkout-form-input select-state">
+                                                @php $country_id = ($country->name) ? $country->id : ''  @endphp
+                                                @foreach($states as $state)
+                                                    <option value="{{ ($state->name) ? $state->id  : '' }}"  {{ ($user->state == $state->name) ? 'selected' : '' }}>{{ $state->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="form-group {{ $errors->has('contact_no') ? 'has-error' : ''}}">
+                                                <input type="text" name="contact_no" value="{{$user->contact_no}}" placeholder="Mobile Phone" class="checkout-form-input">
+                                                {!! $errors->first('contact_no', '<span class="help-block">:message</span>') !!}
+                                            </div>
                                         </div>
                                 </div>
                             </div>
@@ -55,7 +101,8 @@
 
                 <div class="table-responsive cart_info">
 
-                    <?php $total = 0 ?>
+                    {{--*/ $total = '0' /*--}}
+                    @php $total = 0 @endphp
                     @if(count($cart))
                         <table class="table table-condensed no-item">
                             <thead>
@@ -122,19 +169,20 @@
                                             <td id="discount">{{$discount}}</td>
                                         </tr>
                                         <tr class="shipping-cost">
-                                            <?php $shipping_Tax = config('constants.shipping_Tax'); ?>
+                                            @php $shipping_Tax = config('constants.shipping_Tax');@endphp
                                             <td>Shipping Cost</td>
-                                            <?php  $shipping_cost = ($total < 500 ? $shipping_Tax : 0) ?>
-                                            <td id="shipping_cost" data-shipping_cost="{{$shipping_cost }}"  >{{ $shipping_cost== 0 ?  "Free" :$shipping_cost }}</td>
+                                            @php  $shipping_cost = ($total < 500 ? $shipping_Tax : 0) @endphp
+                                            <td id="shipping_cost" data-shipping_cost="{{$shipping_cost }}"  >{{ $shipping_cost== 0 ?  "Free" : "$".$shipping_cost }}</td>
                                         </tr>
                                         <tr>
                                             <td>Total</td>
-                                            <?php $finalTotal = $total + ($shipping_cost == "Free" ? 0 : $shipping_Tax) + $discount ?>
+                                            @php $finalTotal = $total + ($shipping_cost == "Free" ? 0 : $shipping_Tax) + $discount @endphp
                                             <td id="finalTotal" data-finalTotal="{{$finalTotal}}"><span>{{ "$".$finalTotal  }}</span></td>
                                         </tr>
                                         <input type="text" name="coupon" class="hidden_field" value="0">
                                         <input type="text" name="grand_total" class="hidden_field" value="{{$finalTotal}}">
                                         <input type="text" name="shipping_charge" class="hidden_field" value="{{$shipping_cost}}">
+                                        <input type="text" name="discount" class="hidden_field" value="{{$discount}}">
 
                                     </table>
                                 </td>
@@ -145,10 +193,26 @@
 
 
 
-                <div class="col-sm-4 pull-right payment-options">
+                <div class="col-sm-4 pull-left payment-options">
+
+                    <div class="form-group {{ $errors->has('payment_gateway') ? 'has-error' : ''}}">
+                        <div class="col-md-6">
+                            <input   name="payment_gateway" value=1 type="radio" id="cod" data-pg="1" }}>COD
+                            <input  name="payment_gateway" value=2 type="radio" class="payment_gateway"  id="paypal" data-pg="2"}}>Paypal
+                            {!! $errors->first('payment_gateway', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    </div>
                     <span>
-                        <label><input type="radio" name="payment_gateway" id="cod" class="payment_gateway" value=1 data-pg="1"> COD</label>
-                        <label><input type="radio" name="payment_gateway" id="paypal" class="payment_gateway" value=2 data-pg="2"> Paypal</label>
+                        <div class="form-group {{ $errors->has('contact_no') ? 'has-error' : ''}}">
+                                <input type="radio" name="payment_gateway" id="cod" class="payment_gateway" value=1 data-pg="1">
+                                <label>COD</label>
+                                {!! $errors->first('payment_gateway', '<p class="help-block">:message</p>') !!}
+
+                                <input type="radio" name="payment_gateway" id="paypal" class="payment_gateway" value=2 data-pg="2">
+                            <label>Paypal</label>
+                            {!! $errors->first('payment_gateway', '<p class="help-block">:message</p>') !!}
+
+                        </div>
                     </span>
                 </div>
                 <div>

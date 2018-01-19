@@ -1,6 +1,9 @@
 @extends('admin.admin_template')
 
 @section('content')
+    @if ( session()->has('flash_message') )
+        <div class="alert alert-success">{{ session()->get('flash_message') }}</div>
+    @endif
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">

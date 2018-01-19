@@ -37,7 +37,7 @@
                                             <th> Category &nbsp;</th>
                                             <td>
                                                {{-- @if ($product_data->category_product != "")
-                                                    @foreach(implode(',', $product_data->category_product) as $cat)
+                                                    @foreach(explode(',', $product_data->category_product) as $cat)
                                                         {{ $cat->category->name }}
                                                     @endforeach
                                                 @endif--}}

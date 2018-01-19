@@ -35,7 +35,7 @@ $(document).ready(function() {
                             "                                            <div class=\"productinfo text-center\">\n" +
                             "                                                <img class=\"show_img\" src="+base_url+"img/product/"+data.products.image.product_image_name+"\>\n" +
                             "                                                <h2>$"+data.products.price+"</h2>\n" +
-                            "                                                <p><a href=\"http://127.0.0.1:8000/product_details/"+data.products.id+"\" >"+data.products.product_name+"</a></p>\n" ;
+                            "                                                <p><a href=\""+productDetailsUrl+data.products.id+"\" >"+data.products.product_name+"</a></p>\n" ;
                                                                             if($.inArray(value, cart_product) != -1) {
 
                                                                                 html += "<a href=\"javascript:void(0)\" class=\" btn btn-default product-added \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";

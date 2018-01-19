@@ -63,7 +63,7 @@
                                                 <span class="badge pull-right">
                                                 <i class=" fa fa-plus"></i></span>
                                             @endif
-                                            <a href="http://127.0.0.1:8000/category_products/{{$category->id}}">{{$category->name}}</a>
+                                            <a href="{{route('category_product',$category->id)}}">{{$category->name}}</a>
 
                                         </a>
                                     </h4>
@@ -74,7 +74,7 @@
                                         <ul>
                                             @foreach($category->sub_category as $sub_category)
                                                 @if($sub_category->parent_id == $category->id )
-                                                    <li><a href="http://127.0.0.1:8000/category_products/{{$sub_category->id}}">{{$sub_category->name}}</a></li>
+                                                    <li><a href="{{route('category_product',$sub_category->id)}}">{{$sub_category->name}}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>
@@ -113,7 +113,7 @@
                                     <div class=" product-overlay">
                                         <div class="overlay-content">
                                             <h2>${{$featured_product->price}}</h2>
-                                            <p><a class=""  href="http://127.0.0.1:8000/product_details/{{$featured_product->id}}">{{$featured_product->product_name}}</a></p>
+                                            <p><a class=""  href="{{route('products.details',$featured_product->id)}}">{{$featured_product->product_name}}</a></p>
                                             @if(in_array($featured_product->id,$cart_product))
                                                 <span><a href="javascript:void(0)" class="btn btn-default product-added"><i class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
                                             @else
@@ -157,7 +157,7 @@
                                             <div class="productinfo text-center">
                                                 <img class="show_img" src="{{asset('img/product/'.$cat->products->image->product_image_name)}}" />
                                                 <h2>${{ $cat->products->price }}</h2>
-                                                <p><a class="text-dark" href="http://127.0.0.1:8000/product_details/{{$cat->products->id}}">{{ $cat->products->product_name }}</a></p>
+                                                <p><a class="text-dark" href="{{route('products.details',$cat->products->id)}}">{{ $cat->products->product_name }}</a></p>
                                                     @if(in_array($cat->products->id,$cart_product))
                                                         <span><a href="javascript:void(0)" class="link_text_color btn btn-default product-added "><i class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
                                                     @else
