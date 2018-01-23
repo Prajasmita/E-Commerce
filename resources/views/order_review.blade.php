@@ -119,7 +119,7 @@
                                     @endif
                                     <tr>
                                         <td>Shipping Cost</td>
-                                        <td>{{ $order_review_page['payment_details']['shipping_charges'] ?  "$".$payment_details['shipping_charges']: "Free Shipping"  }}</td>
+                                        <td>{{ $order_review_page['payment_details']['shipping_charges'] ?  "$". $order_review_page['payment_details']['shipping_charges']: "Free Shipping"  }}</td>
                                     </tr>
                                     <tr>
                                         <td>Total</td>

@@ -13,11 +13,6 @@
                         <a href="{{ url('/admin/users/create') }}" class="btn btn-success btn-sm" title="Add New User">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New User
                         </a>
-
-                        <form method="GET" action="{{ url('/admin/users') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
-
-                        </form>
-
                         <br/>
                         <br/>
                         <div class="table-responsive">

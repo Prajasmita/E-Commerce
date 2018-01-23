@@ -202,18 +202,7 @@
                             {!! $errors->first('payment_gateway', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>
-                    <span>
-                        <div class="form-group {{ $errors->has('contact_no') ? 'has-error' : ''}}">
-                                <input type="radio" name="payment_gateway" id="cod" class="payment_gateway" value=1 data-pg="1">
-                                <label>COD</label>
-                                {!! $errors->first('payment_gateway', '<p class="help-block">:message</p>') !!}
 
-                                <input type="radio" name="payment_gateway" id="paypal" class="payment_gateway" value=2 data-pg="2">
-                            <label>Paypal</label>
-                            {!! $errors->first('payment_gateway', '<p class="help-block">:message</p>') !!}
-
-                        </div>
-                    </span>
                 </div>
                 <div>
                     {!! Form::submit('Proceed', ['class' => 'btn btn-warning pull-right']) !!}

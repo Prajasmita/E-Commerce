@@ -34,11 +34,46 @@
                     </div>
 
                 </div>
+
+
+                {{--<div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="hidden-xs"><img href="#" id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i> {{Auth::user()->first_name}}  {{Auth::user()->last_name}}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    address 1
+                                </li>
+                                <!-- Menu Footer-->
+                                <li>
+                                    address2
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+--}}
+
+
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             @if( Auth::user())
+{{--
                             <li><a href="#" id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i> {{Auth::user()->first_name}}  {{Auth::user()->last_name}}</a></li>
+--}}
+                                <li class="dropdown user user-menu">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="hidden-xs"><img id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i>{{Auth::user()->first_name}}  {{Auth::user()->last_name}}</span>
+                                    </a>
+                                    <ul class="dropdown-menu text-center">
+                                            <a href="{{route('address.book')}}" >Address Book</a>
+                                    </ul>
+                                </li>
                             @endif
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="{{route('checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
@@ -86,7 +121,7 @@
                                 </ul>
                             </li>
                             <li><a href="404.html">404</a></li>
-                            <li><a href="{{route('contact_us')}}">Contact</a></li>
+                            <li><a href="contact-us.html">Contact</a></li>
                         </ul>
                     </div>
                 </div>

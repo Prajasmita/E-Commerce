@@ -45,9 +45,17 @@
 
         var selectStateUrl = "{{route('country.state',['id'])}}";
 
+        var makeAddressPrimary = "{{route('address.primary')}}";
+/*
+        var AddressEditUrl = "{{route('address.edit',['id'])}}";
+*/
+
+        var addressAddUrl = "{{route('address.add')}}";
+
 
 
     </script>
+
 
 
 
@@ -92,6 +100,34 @@
     <script src="{{asset('js/inc_dec.js')}}"></script>
    <script src="{{asset('js/cart.js')}}"></script>
     <script src="{{asset('js/apply_coupon_code.js')}}"></script>
+    <script src="{{asset('js/address_book.js')}}"></script>
+
+
+    <!-- Modal Popup For editing address-->
+   <script>
+        $(document).ready(function(){
+
+            $('#add').on('click', function() {
+                $("#load_modal_add").load(addressAddUrl);
+            });
+
+
+          /*  var editUrl = AddressEditUrl;
+           $('#edit_address').on('click', function() {
+               //console.log("hello");
+               var id = $(this).attr('data-id');
+               alert(id);
+
+               $( "#load_modal_edit" ).load(editUrl,{ "id": id },function(){
+
+
+               });
+           });*/
+
+
+        });
+
+    </script>
 
 
 

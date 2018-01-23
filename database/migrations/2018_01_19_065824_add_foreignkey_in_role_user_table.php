@@ -13,10 +13,17 @@ class AddForeignkeyInRoleUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('role_user', function ($table) {
-            $table->integer('role_id')->foreign()->references("id")->on("users")->onDelete("cascade");
-            $table->integer('user_id')->foreign()->references("id")->on("users")->onDelete("cascade");
-        });
+        if (Schema::hasColumn('role_user', 'role_id') && Schema::hasColumn('role_user', 'user_id')) {
+            Schema::table('role_user', function (Blueprint $table) {
+                $table->dropColumn('role_id');
+                $table->dropColumn('user_id');
+            });
+        }
+            Schema::table('role_user', function ($table) {
+                $table->integer('role_id')->after('id')->foreign()->references("id")->on("users")->onDelete("cascade");
+                $table->integer('user_id')->after('role_id')->foreign()->references("id")->on("users")->onDelete("cascade");
+            });
+
     }
 
     /**
@@ -26,6 +33,13 @@ class AddForeignkeyInRoleUserTable extends Migration
      */
     public function down()
     {
-        //
+        if (Schema::hasColumn('role_user', 'role_id') && Schema::hasColumn('role_user', 'user_id'))
+        {
+            Schema::table('role_user', function (Blueprint $table)
+            {
+                $table->dropColumn('role_id');
+                $table->dropColumn('user_id');
+            });
+        }
     }
 }

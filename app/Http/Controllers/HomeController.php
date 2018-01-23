@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Banner;
 use App\Category;
 use App\Category_product;
+use App\Contact_us;
 use App\Helper\Custom;
 use App\Product;
+Use App\Countries;
+Use App\States;
 use App\User;
+use App\User_address;
 use App\User_wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Queue\RedisQueue;
 use Illuminate\Support\Facades\Auth;
 Use Cart;
+
+
 
 class HomeController extends Controller
 {
@@ -29,7 +36,7 @@ class HomeController extends Controller
     /**
      * Show the Ecommerce shopping site.
      *
-     * @return \Illuminate\Http\Response
+     *
      */
     public function index()
     {
@@ -55,6 +62,8 @@ class HomeController extends Controller
             }
         }
 
+       // Custom::showAll($userAddress->toArray());die;
+
         $products = Category_product::select('category_id','product_id')->with((['products' => function($query){
             $query->select('id','product_name','price');
             $query->with(['image'=>function($query1){
@@ -74,15 +83,115 @@ class HomeController extends Controller
 
     }
 
-
+    /**
+     * Display the user login page.
+     *
+     *
+     */
     public function userLogin()
     {
         return view('user_login');
     }
-
+    /**
+     * Show the contact us form.
+     *
+     */
     public function contactUs(){
 
         return view('contact_us');
 
     }
+
+    public function saveContactDetails(Request $request){
+
+        if($this->validate($request, [
+            'name'=> 'required',
+            'email'=> 'required|email',
+            'contact_no'=> 'required|min:10|max:11',
+            'message' => 'required'
+        ])) {
+
+            $request_data = array();
+
+            $request_data['name'] = $request->name;
+            $request_data['email'] = $request->email;
+            $request_data['contact_no'] = $request->contact_no;
+            $request_data['message'] = $request->message;
+            $request_data['subject'] = $request->subject;
+
+           // Custom::showAll($request_data);die;
+
+            Contact_us::create($request_data);
+            return redirect('contact_us')->with('message', 'Your message has been recorded in our database.Thank You !!!');
+        }
+    }
+
+
+    public function addressBook(){
+
+        $userAddress = User_address::orderBy('primary', 'desc')->get();
+
+        $countries = Countries::get();
+        foreach($userAddress as $user_address){
+            $country_id =Countries::select('id')->where('name','=',$user_address->country)->first();
+
+        }
+
+        $states = States::where('country_id','=',$country_id->id)->get();
+
+        return view('address_book',array('userAddress'=> $userAddress,'countries'=>$countries,'states'=>$states));
+
+    }
+
+    public function addAddress(){
+        //echo "hello";
+        $userAddress = User_address::orderBy('primary', 'desc')->get();
+        $countries = Countries::get();
+
+        foreach($userAddress as $user_address){
+            $country_id =Countries::select('id')->where('name','=',$user_address->country)->first();
+
+        }
+
+        $states = States::where('country_id','=',$country_id->id)->get();
+
+        return view('add_address',array('userAddress'=> $userAddress,'countries'=>$countries,'states'=>$states));
+
+    }
+
+    public function addressStore(Request $request){
+
+        if($request->ajax()){
+            Custom::showAll($request);
+
+
+        }
+    }
+
+    public function addressEdit(Request $request){
+
+
+        echo "hello";die;
+        //return view ('update_address');
+
+
+    }
+
+    public function makePrimaryAddress(Request $request){
+
+        if($request->ajax()){
+
+
+            $checkboxValue = $request->checkboxValue;
+            $id = $request->id;
+
+
+            $user_address = User_address::findorfail($id);
+            Custom::showAll($user_address->toArray());
+
+      }
+
+
+    }
+
 }

@@ -112,7 +112,7 @@ class BannersController extends Controller
 
         $requestData = array();
         //$current_time = Carbon::now()->timestamp();
-        $current_time = date('Y-m-d_H:i:s');
+        $current_time = time();
         //Custom::showAll($current_time);die;
 
         $this->validate($request, [

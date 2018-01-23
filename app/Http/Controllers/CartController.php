@@ -253,13 +253,13 @@ class CartController extends Controller
 
             $order_id = $data1->id;
             $this->storeOrderDetail($order_id);
-            //Cart::destroy();
+            Cart::destroy();
 
             if($request->payment_gateway == 1){
 
                $order_review_page = $this->orderReview($order_id);
 
-              //Custom::showAll($order_review_page);die;
+              //Custom::showAll($order_review_page['payment_details']['shipping_charges']);die;
 
                return view('order_review',array('order_review_page' => $order_review_page));
 
@@ -415,6 +415,7 @@ class CartController extends Controller
 
         return view('paypal');
     }
+
 
 }
 

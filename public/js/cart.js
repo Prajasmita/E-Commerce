@@ -8,7 +8,7 @@ $(document).ready(function() {
         var currentCartQty = ($(this).parent().attr("data-quantity"));
         var updatedCartQty = parseInt(currentCartQty) + parseInt(1);
         var subtotal = parseInt(updatedCartQty) * parseInt(price);
-        updateCart(id, rowId, updatedCartQty,subtotal);
+        updateCart(id, rowId, updatedCartQty, subtotal);
 
     });
 
@@ -20,11 +20,11 @@ $(document).ready(function() {
         var currentCartQty = ($(this).parent().attr("data-quantity"));
         var updatedCartQty = parseInt(currentCartQty) - parseInt(1);
         var subtotal = parseInt(updatedCartQty) * parseInt(price);
-        updateCart(id , rowId ,updatedCartQty,subtotal);
+        updateCart(id, rowId, updatedCartQty, subtotal);
 
     });
 
-    function updateCart(id, rowId, updatedCartQty,subtotal) {
+    function updateCart(id, rowId, updatedCartQty, subtotal) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -33,27 +33,27 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: cartUpdateUrl,
-            data: {id: id, rowId: rowId, quantity: updatedCartQty,subtotal :subtotal},
+            data: {id: id, rowId: rowId, quantity: updatedCartQty, subtotal: subtotal},
             dataType: 'json',
             success: function (data) {
-                if (data !== "false"){
+                if (data !== "false") {
 
-                    $('#qty_' + id).attr("data-quantity",updatedCartQty);
+                    $('#qty_' + id).attr("data-quantity", updatedCartQty);
 
                     $('#qty_' + id).children().val(updatedCartQty);
 
-                    $('#subtotal_' + id).text("$"+subtotal);
+                    $('#subtotal_' + id).text("$" + subtotal);
 
                     var html = "";
-                    html = "<li><a href="+base_url+"cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+data+")</a></li>\n";
+                    html = "<li><a href=" + base_url + "cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart(" + data + ")</a></li>\n";
                     $('.cart-count').html(html);
 
                 }
-                else{
-                    if(updatedCartQty < 1){
+                else {
+                    if (updatedCartQty < 1) {
                         alert("You cannot decrease quantity below 1 ");
                     }
-                    else{
+                    else {
                         alert("Sorry, We do not have more quantity");
                     }
                 }
@@ -81,16 +81,16 @@ $(document).ready(function() {
             success: function (data) {
                 if (data == "true") {
 
-                    $('.cart_quantity_delete').attr("data-count",changedCartCount);
+                    $('.cart_quantity_delete').attr("data-count", changedCartCount);
 
                     $('#cart_product_' + id).animate({backgroundColor: "#fbc7c7"}, "fast")
                         .animate({opacity: "hide"}, "slow");
 
                     var html2 = "";
-                    html2 = "<li><a href="+base_url+"cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")</a></li>\n";
+                    html2 = "<li><a href=" + base_url + "cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart(" + changedCartCount + ")</a></li>\n";
                     $('.cart-count').html(html2);
 
-                    if(changedCartCount == 0){
+                    if (changedCartCount == 0) {
                         var html = "";
 
                         html += "<br/><p class=\"text-center\"><strong>You have no items in the shopping cart</strong></p><br/>\n";
@@ -109,15 +109,12 @@ $(document).ready(function() {
         });
 
 
-
     });
 
 
+    function SelectState() {
 
-
-    function SelectState(){
-
-        $(".select-country").change(function(){
+        $(".select-country").change(function () {
 
             $.ajaxSetup({
                 headers: {
@@ -129,17 +126,17 @@ $(document).ready(function() {
 
             $.ajax({
                 type: "POST",
-                url: selectStateUrl ,
-                data: { country : selectedCountry },
-                success:function (data) {
+                url: selectStateUrl,
+                data: {country: selectedCountry},
+                success: function (data) {
                     //console.log(data);
                     data = $.parseJSON(data)
                     var html = "";
-                    $.each(data ,function (index,data) {
+                    $.each(data, function (index, data) {
                         //console.log(index);
                         //console.log(data.name);
 
-                        html += "<option value="+data.id+">"+data.name+"</option>\n";
+                        html += "<option value=" + data.id + ">" + data.name + "</option>\n";
 
                         $('.select-state').html(html);
 
@@ -153,19 +150,9 @@ $(document).ready(function() {
         });
 
     }
-
-
-
-
-
+    
 
 });
-
-
-
-
-
-
 
 
 

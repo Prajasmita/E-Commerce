@@ -99,8 +99,24 @@ Route::post('/order_review',['as'=> 'order.review','uses'=>'CartController@order
 
 Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@selectStates']);
 
-Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 Route::get('/contact_us',['as'=>'contact_us','uses'=>'HomeController@contactUs']);
+Route::post('/contact_us','HomeController@saveContactDetails')->name('contact');
+Route::get('/address_book',['as'=> 'address.book','uses'=>'HomeController@addressBook']);
+Route::get('/address_add',['as'=> 'address.add','uses'=>'HomeController@addAddress']);
+
+Route::get('/address_edit/{id}',['as'=> 'address.edit','uses'=>'HomeController@addressEdit']);
+
+Route::post('/address_add',['as'=> 'address.store','uses'=>'HomeController@addressStore']);
+
+Route::post('/address_primary',['as'=> 'address.primary','uses'=>'HomeController@makePrimaryAddress']);
+
+
+
+
+Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
+
+
+//Route::post('/contact',['as' => 'contactUs', 'uses'=>'HomeController@saveContactDetails']);
 
 //Route::post('/paypal',['as'=> 'paypal','uses'=>'CartController@payWithPaypal']);
 
