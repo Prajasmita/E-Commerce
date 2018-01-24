@@ -46,13 +46,15 @@
         var selectStateUrl = "{{route('country.state',['id'])}}";
 
         var makeAddressPrimary = "{{route('address.primary')}}";
-/*
-        var AddressEditUrl = "{{route('address.edit',['id'])}}";
-*/
+
 
         var addressAddUrl = "{{route('address.add')}}";
 
+        var addressStoreUrl = "{{route('address.store')}}";
 
+        var addressEditUrl = "{{route('address.edit',['id'])}}";
+
+        var addressUpdateUrl = "{{route('address.update')}}";
 
     </script>
 
@@ -97,12 +99,10 @@
     <!-- XZOOM JQUERY PLUGIN  -->
     <script src="{{asset('js/xzoom.js')}}"></script>
     <script src="{{asset('js/image_gallery.js')}}"></script>
-    <script src="{{asset('js/inc_dec.js')}}"></script>
-   <script src="{{asset('js/cart.js')}}"></script>
+    <script src="{{asset('js/inc_dec_qty.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/cart.js')}}"></script>
     <script src="{{asset('js/apply_coupon_code.js')}}"></script>
-    <script src="{{asset('js/address_book.js')}}"></script>
-
-
     <!-- Modal Popup For editing address-->
    <script>
         $(document).ready(function(){
@@ -111,23 +111,23 @@
                 $("#load_modal_add").load(addressAddUrl);
             });
 
-
-          /*  var editUrl = AddressEditUrl;
-           $('#edit_address').on('click', function() {
+           $('.edit_address').on('click', function() {
                //console.log("hello");
                var id = $(this).attr('data-id');
-               alert(id);
+               //alert(id);
+               var reExp = /id/;
+               var url = addressEditUrl;
+               var editUrl = url.replace(reExp, id);
 
-               $( "#load_modal_edit" ).load(editUrl,{ "id": id },function(){
-
-
-               });
-           });*/
+               $( "#load_modal_edit" ).load(editUrl);
+           });
 
 
         });
 
     </script>
+    <script src="{{asset('js/address_book.js')}}"></script>
+
 
 
 
@@ -138,3 +138,7 @@
 
 </body>
 </html>
+
+{{--/*
+        var AddressEditUrl = "{{route('address.edit',['id'])}}";
+*/--}}

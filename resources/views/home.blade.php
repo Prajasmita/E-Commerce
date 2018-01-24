@@ -13,8 +13,6 @@
                             <li data-target="#slider-carousel" data-slide-to="2"></li>
                         </ol>
 
-
-
                         <div class="carousel-inner">
                             @foreach($banner_images as $index => $banner)
                             <div class="item {{ $index == 0 ? 'active' : '' }}">

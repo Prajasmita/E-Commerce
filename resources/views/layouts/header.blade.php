@@ -63,15 +63,13 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             @if( Auth::user())
-{{--
-                            <li><a href="#" id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i> {{Auth::user()->first_name}}  {{Auth::user()->last_name}}</a></li>
---}}
                                 <li class="dropdown user user-menu">
                                     <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="hidden-xs"><img id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i>{{Auth::user()->first_name}}  {{Auth::user()->last_name}}</span>
+                                        <span class="hidden-xs"><img id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i>{{Auth::user()->first_name}}  {{Auth::user()->last_name}}<i class="fa fa-angle-down"></i></span>
                                     </a>
-                                    <ul class="dropdown-menu text-center">
-                                            <a href="{{route('address.book')}}" >Address Book</a>
+                                    <ul class="sub-menu dropdown-menu">
+                                        <li><a href="{{route('address.book')}}">Address Book</a></li>
+                                        <li><a href="{{route('change.password')}}">Change Password</a></li>
                                     </ul>
                                 </li>
                             @endif

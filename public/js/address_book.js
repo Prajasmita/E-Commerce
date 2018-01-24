@@ -1,19 +1,5 @@
 $(document).ready(function() {
 
-
-
-    /*Function For Saving New Address*/
-
-        $( "form" ).on( "submit", function() {
-
-            console.log('hello');
-            console.log( $( this ).serialize() );
-
-        });
-
-
-
-
     /*function for making address primary*/
     $('.primary_address').click(function(){
 
@@ -23,25 +9,36 @@ $(document).ready(function() {
             }
         });
 
-        var id = $(this).attr('data-id');
-        var checkboxValue = $(this).prop("checked");
+
+
        // console.log(id);
         //console.log(checkboxValue);
+        var checked = $(this).prop('checked');
+
+        if(checked){
+                $(".primary_address").prop("checked", false);
+        }
+
+
+    var id = $(this).attr('data-id');
 
         $.ajax({
 
             type: "POST",
             url: makeAddressPrimary,
-            data: {'id': id , 'checkboxValue' : checkboxValue},
+            data: {'id': id },
             dataType: 'json',
             success: function (data) {
-               console.log(data);
-
-
+                //console.log(data);i
+                if (data == "true") {
+                    $("#primary_"+id).prop("checked", true);
+                   var html = "";
+                    html += "<td class=\"primary_"+id+"\">Primary</td>\n";
+                    $('.primary_'+id).html(html);
+                }
 
 
             }
         });
-
     });
 });

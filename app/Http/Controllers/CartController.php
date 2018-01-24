@@ -114,6 +114,8 @@ class CartController extends Controller
 
         $user = User_address::where('primary','=','1')->first();
 
+        //Custom::showAll($user->toArray());die;
+
         $cart = Cart::content();
 
         $coupons = Coupon::select('id','code')->get();
@@ -124,9 +126,9 @@ class CartController extends Controller
 
         $countries = Countries::get();
 
-        $country_id =Countries::select('id')->where('name','=',$user->country)->first();
+        //$country_id =Countries::select('id')->where('name','=',$user->country)->first();
 
-        $states = States::where('country_id','=',$country_id->id)->get();
+        $states = States::where('country_id','=',$user->country)->get();
 
         return view('checkout',array('user'=>$user,'cart'=>$cart,'codes'=>$codes,'countries'=>$countries,'states' => $states));
     }
@@ -190,8 +192,6 @@ class CartController extends Controller
         $user_address = array();
         //Custom::showAll($request->toArray());die;
 
-        $country = Countries::where('id','=',$request->country)->first();
-        $state = States::where('id','=',$request->state)->first();
         //Custom::showAll($country->name);
         //Custom::showAll($state->name);die;
 
@@ -205,10 +205,12 @@ class CartController extends Controller
         $user_address['address1'] = $request->address1;
         $user_address['address2'] = $request->address2;
         $user_address['zip_code'] = $request->zip_code;
-        $user_address['state'] = $state->name;
-        $user_address['country'] = $country->name;
+        $user_address['state'] = $request->state;
+        $user_address['country'] = $request->country;
         $user_address['contact_no'] = $request->contact_no;
         $user_address['message'] = $request->message;
+
+        //Custom::showAll($user_address);die;
 
         $updateAddress = User_address::findOrFail($user_id);
         $updateAddress->update($user_address);
@@ -253,13 +255,13 @@ class CartController extends Controller
 
             $order_id = $data1->id;
             $this->storeOrderDetail($order_id);
-            Cart::destroy();
+            //Cart::destroy();
 
             if($request->payment_gateway == 1){
 
                $order_review_page = $this->orderReview($order_id);
 
-              //Custom::showAll($order_review_page['payment_details']['shipping_charges']);die;
+              //Custom::showAll($order_review_page);die;
 
                return view('order_review',array('order_review_page' => $order_review_page));
 
@@ -369,8 +371,16 @@ class CartController extends Controller
         $user_id = Auth::user()->id;
 
         $user_info = User_address::where('user_id',"=",$user_id)->first();
-       //Custom::showAll($user_info);die;
+        //Custom::showAll($user_info->toArray());
 
+        $country = Countries::where('id','=',$user_info->country)->first();
+        $state = States::where('id','=',$user_info->state)->first();
+
+
+        $user_info['country'] = $country->name;
+        $user_info['state'] = $state->name;
+
+        //Custom::showAll($user_info->toArray());die;
 
         $order_details = Order_details::Join('products','order_details.product_id','=','products.id')
             ->join('image_products as i', 'products.id','=','i.product_id')

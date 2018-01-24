@@ -1,21 +1,35 @@
+$(document).ready(function() {
+    $(".select-country").change(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var selectedCountry = $(".select-country option:selected").val();
+        //console.log(selectedCountry);
 
-function incrementValue()
-{
-    var value = parseInt(document.getElementById('number').value, 10);
-    value = isNaN(value) ? 0 : value;
-    if(value<10){
-        value++;
-        document.getElementById('number').value = value;
-    }
-}
+        $.ajax({
+            type: "POST",
+            url: selectStateUrl,
+            data: {country: selectedCountry},
+            success: function (data) {
+                //console.log(data);
+                data = $.parseJSON(data)
+                var html = "";
+                $.each(data, function (index, data) {
+                    //console.log(index);
+                    //console.log(data.name);
 
-function decrementValue()
-{
-    var value = parseInt(document.getElementById('number').value, 10);
-    value = isNaN(value) ? 0 : value;
-    if(value>1){
-        value--;
-        document.getElementById('number').value = value;
-    }
+                    html += "<option value=" + data.id + ">" + data.name + "</option>\n";
 
-}
+                    $('.select-state').html(html);
+
+                });
+
+
+            }
+
+        });
+
+    });
+});

@@ -35,6 +35,23 @@ class User_address extends Model
     {
         return $this->belongsTo('App\User');
     }
+    /**
+     * Function for States and user_address relationship.
+     *
+     */
+    public function states()
+    {
+        return $this->hasOne('App\States','id','state');
+    }
+    /**
+     * Function for Countries and user_address relationship.
+     *
+     */
+    public function countries()
+    {
+        return $this->hasOne('App\Countries','id','country');
+    }
+
 
 
 }

@@ -195,6 +195,7 @@ class UsersController extends Controller
             'role_id' => 'required'
         ]);
 
+
         $requestData = $request->all();
         $user = User::findOrFail($id);
         $user->update($requestData);

@@ -105,11 +105,15 @@ Route::get('/address_book',['as'=> 'address.book','uses'=>'HomeController@addres
 Route::get('/address_add',['as'=> 'address.add','uses'=>'HomeController@addAddress']);
 
 Route::get('/address_edit/{id}',['as'=> 'address.edit','uses'=>'HomeController@addressEdit']);
+Route::post('/address_Update',['as'=> 'address.update','uses'=>'HomeController@addressUpdate']);
 
-Route::post('/address_add',['as'=> 'address.store','uses'=>'HomeController@addressStore']);
+Route::post('/address_store',['as'=> 'address.store','uses'=>'HomeController@addressStore']);
 
 Route::post('/address_primary',['as'=> 'address.primary','uses'=>'HomeController@makePrimaryAddress']);
 
+
+Route::get('/change_password',['as'=> 'change.password','uses'=>'HomeController@changePassword']);
+Route::post('/change_password',['as'=> 'store.change_password','uses'=>'HomeController@storeChangedPassword']);
 
 
 

@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
 use Illuminate\Queue\RedisQueue;
 use Illuminate\Support\Facades\Auth;
 Use Cart;
+Use Validator;
+Use Hash;
+Use Mail;
 
 
 
@@ -102,6 +105,11 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * Function for saving contact details.
+     *
+     *
+     */
     public function saveContactDetails(Request $request){
 
         if($this->validate($request, [
@@ -126,72 +134,208 @@ class HomeController extends Controller
         }
     }
 
+    /**
+     * Function for showing address book.
+     *
+     *
+     */
 
     public function addressBook(){
 
-        $userAddress = User_address::orderBy('primary', 'desc')->get();
+        $user_id = Auth::user()->id;
 
-        $countries = Countries::get();
-        foreach($userAddress as $user_address){
-            $country_id =Countries::select('id')->where('name','=',$user_address->country)->first();
+        $userAddress = User_address::with('countries','states')->where('user_id','=',$user_id)->get();
 
-        }
+       /*Custom::runQuery();
+        Custom::showAll($userAddress->toArray());die;*/
 
-        $states = States::where('country_id','=',$country_id->id)->get();
+        $userAddress = User_address::orderBy('primary','desc')->get();
 
-        return view('address_book',array('userAddress'=> $userAddress,'countries'=>$countries,'states'=>$states));
+        return view('address_book',array('userAddress'=> $userAddress));
 
     }
 
+    /**
+     * Function for adding New address.
+     *
+     *
+     */
     public function addAddress(){
         //echo "hello";
         $userAddress = User_address::orderBy('primary', 'desc')->get();
         $countries = Countries::get();
 
-        foreach($userAddress as $user_address){
-            $country_id =Countries::select('id')->where('name','=',$user_address->country)->first();
-
-        }
-
-        $states = States::where('country_id','=',$country_id->id)->get();
+        $states = States::get();
 
         return view('add_address',array('userAddress'=> $userAddress,'countries'=>$countries,'states'=>$states));
 
     }
 
+    /**
+     * Function for validating rules for address book.
+     *
+     *
+     */
+    public function rules(){
+        return [
+            'first_name'=> 'required',
+            'last_name'=> 'required',
+            'email'=> 'required|email',
+            'address1' => 'required',
+            'zip_code' => 'required',
+            'state' => 'required',
+            'country' => 'required',
+            'contact_no'=> 'required|min:10|max:11',
+        ];
+
+
+    }
+
+    /**
+     * Function to store new address.
+     *
+     *
+     */
     public function addressStore(Request $request){
 
         if($request->ajax()){
-            Custom::showAll($request);
 
+            //Custom::showAll($this->rules());die;
 
+            $validator = Validator::make($request->all(), $this->rules());
+
+            if ($validator->fails()) {
+
+                return response()->json(['errors'=>$validator->errors()]);
+            }
+
+            else {
+                //User_address::create($request->all());
+                return response()->json("true");
+                //return Response::json(['data' => array('message' => 'New address store Successfully !!', 'redirecturl' => '/address_book')]);            }
+                }
         }
     }
 
-    public function addressEdit(Request $request){
+    /**
+     * Function for editing address.
+     *
+     *
+     */
+    public function addressEdit($id){
 
+        $user_address = User_address::findorfail($id);
+        //Custom::showAll($user_address->toArray());die;
 
-        echo "hello";die;
-        //return view ('update_address');
+        $countries = Countries::get();
+
+        $states = States::get();
+        return view ('update_address',array('user_address' => $user_address ,'countries'=>$countries,'states' => $states));
 
 
     }
+    /**
+     * Function for updating address.
+     *
+     *
+     */
+    public function addressUpdate(Request $request){
 
+        if($request->ajax()){
+
+            $validator = Validator::make($request->all(), $this->rules());
+
+            if ($validator->fails()) {
+
+                return response()->json(['errors'=>$validator->errors()]);
+            }
+
+            else{
+
+                $user_address = $request->all();
+
+/*                $user_address['country'] = $request->country ?  ;*/
+
+                //Custom::showAll($user_address['id']);die;
+                $userAddress = User_address::findOrFail($user_address['id']);
+                $userAddress->update($user_address);
+
+
+                return response()->json("true");
+            }
+
+        }
+
+
+
+    }
+    /**
+     * Function for making address primary from address book.
+     *
+     *
+     */
     public function makePrimaryAddress(Request $request){
 
         if($request->ajax()){
 
 
-            $checkboxValue = $request->checkboxValue;
             $id = $request->id;
 
+            $authUser = Auth::user()->id;
 
-            $user_address = User_address::findorfail($id);
-            Custom::showAll($user_address->toArray());
+
+            User_address::where('user_id','=',$authUser)
+                ->where('primary','=','1')->update(array('primary' => '0'));
+
+            User_address::where('id','=',$id)->update(array('primary' => '1'));
+
+            return json_encode("true");
+
 
       }
 
 
     }
+    /**
+     * Function for changing user password.
+     *
+     *
+     */
+    public function changePassword(){
 
+        return view('change_password');
+    }
+
+    /**
+     * Function for storing changed user password.
+     *
+     *
+     */
+    public function storeChangedPassword(Request $request){
+
+        if($this->validate($request, [
+            'old_password'=> 'required',
+            'new_password'=> 'required|alpha_num|min:8|max:12',
+            'confirm_new_password' => 'required|same:new_password'
+        ])) {
+            $user = Auth::user();
+            $old_password = $request->old_password;
+            $new_password = $request->new_password;
+            $hash_new_password = Hash::make($new_password);
+
+            if (Hash::check($old_password ,$user->password )) {
+
+                User::where('id','=',$user->id)->update(array('password' => $hash_new_password));
+
+                $text = "Hi,Password is reset successfully.";
+                Mail::to('prajakta.sisale@neosofttech.com')->send($text);
+                return redirect('change_password')->with('success_message','Password Changed Successfully.');
+
+            }
+            else {
+
+                return redirect('change_password')->with('message','Old Password is Wrong.Please Enter Correct Password.');
+            }
+        }
+    }
 }

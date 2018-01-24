@@ -1,7 +1,8 @@
 @extends('home_template')
 @section('content')
-
-
+    @if ( session()->has('message') )
+        <div class="alert alert-danger">{{ session()->get('message') }}</div>
+    @endif
     <div id="contact-page" class="container">
         <div class="bg">
             <div class="row">
@@ -9,9 +10,6 @@
                     <h2 class="title text-center">Contact <strong>Us</strong></h2>
                    {{-- <div id="gmap" class="contact-map">
                     </div>--}}
-                    @if ( session()->has('message') )
-                        <div class="alert alert-success">{{ session()->get('message') }}</div>
-                    @endif
                 </div>
 
 

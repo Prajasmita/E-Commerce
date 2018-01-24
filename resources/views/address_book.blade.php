@@ -10,10 +10,7 @@
             @endif
             <div class="col-sm-12">
                 @foreach($userAddress as $user_address)
-                <div class="col-sm-4">
-                        {{ $user_address->primary ? 'Primary' : 'Other' }}
-                </div>
-                <div class="fa-border col-sm-6" >
+                <div class="fa-border">
                     <tr>
                         <td>
                             <table>
@@ -27,22 +24,22 @@
                                     <td> {{$user_address->address1}},  {{$user_address->address2 ? $user_address->address2.',' : ''}}</td>
                                 </tr>
                                 <tr>
-                                    <td> {{$user_address->city}} : {{$user_address->zip_code}} , {{$user_address->state}}</td>
+                                    <td> {{$user_address->city}} : {{$user_address->zip_code}} , {{$user_address->states->name}}</td>
                                 </tr>
                                 <tr>
-                                    <td> {{$user_address->country}}</td>
+                                    <td> {{$user_address->countries->name}}</td>
+                                    <td><input name="primary" class="primary_address" data-id="{{$user_address->id}}" type="checkbox" id="primary_{{$user_address->id}}" {{ $user_address->primary ? 'checked' : '' }}></td>
+                                    <td class="primary_{{$user_address->id}}">{{ $user_address->primary ? 'Primary' : '' }}</td>
+                                </tr>
+                                <tr>
                                     <td>
-                                        <button type="button" class="btn btn-info btn-sm" id="edit_address" data-id="{{$user_address->id}}" data-toggle="modal" data-target="#edit_Modal"><i class=" glyphicon glyphicon-pencil">Edit</i></button>
+                                        <button type="button" class="btn btn-info btn-sm edit_address" id="edit_address" data-id="{{$user_address->id}}"><i class=" glyphicon glyphicon-pencil">Edit</i></button>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                 </div>
-                <div class="col-sm-2">
-                    <input name="primary" class="primary_address" data-id="{{$user_address->id}}" type="checkbox" id="primary_{{$user_address->id}}" {{ $user_address->primary ? 'checked' : '' }}>
-                </div>
-                    <span></span>
                 @endforeach
             </div>
         </div>

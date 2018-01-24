@@ -68,14 +68,14 @@
                                             </div>
                                             <select name="country" class="checkout-form-input select-country">
                                                 @foreach($countries as $country)
-                                                    <option value="{{ ($country->name) ? $country->id : '' }}" {{ ($user->country == $country->name) ? 'selected' : '' }}>{{ $country->name }}</option>
+                                                    <option value="{{ ($country->name) ? $country->id : '' }}" {{ ($user->country == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                                 @endforeach
                                             </select>
 
                                             <select name="state" class="checkout-form-input select-state">
                                                 @php $country_id = ($country->name) ? $country->id : ''  @endphp
                                                 @foreach($states as $state)
-                                                    <option value="{{ ($state->name) ? $state->id  : '' }}"  {{ ($user->state == $state->name) ? 'selected' : '' }}>{{ $state->name }}</option>
+                                                    <option value="{{ ($state->name) ? $state->id  : '' }}"  {{ ($user->state == $state->id) ? 'selected' : '' }}>{{ $state->name }}</option>
                                                 @endforeach
                                             </select>
                                             <div class="form-group {{ $errors->has('contact_no') ? 'has-error' : ''}}">
