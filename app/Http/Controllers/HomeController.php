@@ -18,8 +18,9 @@ use Illuminate\Queue\RedisQueue;
 use Illuminate\Support\Facades\Auth;
 Use Cart;
 Use Validator;
+use Illuminate\Support\Facades\Mail;
+Use App\Mail\SendMessage;
 Use Hash;
-Use Mail;
 
 
 
@@ -198,7 +199,7 @@ class HomeController extends Controller
      */
     public function addressStore(Request $request){
 
-        if($request->ajax()){
+        if($request->ajax()) {
 
             //Custom::showAll($this->rules());die;
 
@@ -206,14 +207,12 @@ class HomeController extends Controller
 
             if ($validator->fails()) {
 
-                return response()->json(['errors'=>$validator->errors()]);
+                return response()->json(['errors' => $validator->errors()]);
+            } else {
+                 User_address::create($request->all());
+                //return response()->json("true");
+                return response()->json(array('message' => 'New address store Successfully !!', 'redirecturl' => 'address_book'));
             }
-
-            else {
-                //User_address::create($request->all());
-                return response()->json("true");
-                //return Response::json(['data' => array('message' => 'New address store Successfully !!', 'redirecturl' => '/address_book')]);            }
-                }
         }
     }
 
@@ -261,7 +260,7 @@ class HomeController extends Controller
                 $userAddress->update($user_address);
 
 
-                return response()->json("true");
+                return response()->json(array('message' => 'Address Updated Successfully !!', 'redirecturl' => 'address_book'));
             }
 
         }
@@ -307,9 +306,9 @@ class HomeController extends Controller
     }
 
     /**
-     * Function for storing changed user password.
+     * Function for storing changed user password
      *
-     *
+     * and sending mail to the user.
      */
     public function storeChangedPassword(Request $request){
 
@@ -323,18 +322,21 @@ class HomeController extends Controller
             $new_password = $request->new_password;
             $hash_new_password = Hash::make($new_password);
 
-            if (Hash::check($old_password ,$user->password )) {
+            if (Hash::check($old_password, $user->password)) {
 
-                User::where('id','=',$user->id)->update(array('password' => $hash_new_password));
+                Mail::send([], [], function ($message) {
+                    $message->to(Auth::user()->email)
+                        ->subject('laravel test mail sending')
+                        ->setBody('Hi, welcome user!');
+                });
 
-                $text = "Hi,Password is reset successfully.";
-                Mail::to('prajakta.sisale@neosofttech.com')->send($text);
-                return redirect('change_password')->with('success_message','Password Changed Successfully.');
+                User::where('id', '=', $user->id)->update(array('password' => $hash_new_password));
 
-            }
-            else {
+                return redirect('change_password')->with('success_message', 'Password Changed Successfully.');
 
-                return redirect('change_password')->with('message','Old Password is Wrong.Please Enter Correct Password.');
+            } else {
+
+                return redirect('change_password')->with('message', 'Old Password is Wrong.Please Enter Correct Password.');
             }
         }
     }

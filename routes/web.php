@@ -93,6 +93,7 @@ Route::post('/cart/{id}/update',['as'=> 'cart.update','uses'=>'CartController@up
 Route::delete('/cart/{id}/delete',['as'=> 'cart.delete','uses'=>'CartController@delete']);
 Route::get('/checkout','CartController@checkout')->name('checkout');
 Route::post('/apply_coupon',['as'=> 'coupon.apply','uses'=>'CartController@applyCoupon']);
+
 Route::post('/order_store',['as'=> 'order.store','uses'=>'CartController@orderStore']);
 
 Route::post('/order_review',['as'=> 'order.review','uses'=>'CartController@orderReview']);
@@ -122,7 +123,12 @@ Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 
 //Route::post('/contact',['as' => 'contactUs', 'uses'=>'HomeController@saveContactDetails']);
 
-//Route::post('/paypal',['as'=> 'paypal','uses'=>'CartController@payWithPaypal']);
+Route::post('/paypal',['as'=> 'paywithpaypal','uses'=>'CartController@payWithPaypal']);
+
+Route::get('/paypal', array('as' => 'paypalsuccess','uses' => 'CartController@paypalPaymentSuccess'));
+/*Route::get('/paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));*/
+
+
 
 
 

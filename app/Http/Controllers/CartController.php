@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Countries;
+Use Illuminate\Support\Facades\URL;
 use App\Coupon;
 use App\Helper\Custom;
 use App\Order_details;
@@ -14,14 +15,48 @@ use App\User_order;
 use Illuminate\Http\Request;
 Use Cart;
 Use DB;
+Use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Srmklive\PayPal\Services\ExpressCheckout;
-Use Srmklive\PayPal\Facades\PayPal;
+use phpDocumentor\Reflection\Types\Null_;
 Use Illuminate\Support\Facades\Redirect;
+/** All Paypal Details class **/
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\ExecutePayment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\Transaction;
+
+
 
 
 class CartController extends Controller
 {
+
+    private $_api_context;
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        /** setup PayPal api context **/
+        $paypal_conf = \Config::get('paypal');
+
+        //Custom::showAll($paypal_conf);die;
+        $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
+        $this->_api_context->setConfig($paypal_conf['settings']);
+    }
+
 
     /*
      * Function for view cart
@@ -112,10 +147,11 @@ class CartController extends Controller
     public function checkout(){
 
 
-        $user = User_address::where('primary','=','1')->first();
+        $user_id = Auth::user()->id;
 
-        //Custom::showAll($user->toArray());die;
+        $user = User_address::where('primary','=','1')->where('user_id','=',$user_id)->first();
 
+        //Custom::showAll($user);die;
         $cart = Cart::content();
 
         $coupons = Coupon::select('id','code')->get();
@@ -126,11 +162,15 @@ class CartController extends Controller
 
         $countries = Countries::get();
 
-        //$country_id =Countries::select('id')->where('name','=',$user->country)->first();
+        if($user){
+            $states = States::where('country_id','=',$user->country)->get();
+            return view('checkout',array('user'=>$user,'cart'=>$cart,'user_id'=> $user_id,'codes'=>$codes,'countries'=>$countries,'states' => $states));
 
-        $states = States::where('country_id','=',$user->country)->get();
+        }else{
+            $states = States::get();
+            return view('checkout',array('user'=>$user,'user_id'=> $user_id,'cart'=>$cart,'codes'=>$codes,'countries'=>$countries,'states' => $states));
+        }
 
-        return view('checkout',array('user'=>$user,'cart'=>$cart,'codes'=>$codes,'countries'=>$countries,'states' => $states));
     }
     /*
        * Function for applying coupon
@@ -141,11 +181,8 @@ class CartController extends Controller
         if($request->ajax()){
 
             $selectedcountry = $request->country;
-            //Custom::showAll($selectedcountry);die;
             $states = States::select('id','name')->where('country_id','=',$selectedcountry)->get();
-           //Custom::showAll($states->toArray());die;
             return json_encode($states);
-
 
         }
 
@@ -165,7 +202,7 @@ class CartController extends Controller
 
             $total = $request->total;
 
-            $couponcodes =Coupon::select('id','code','percent_off','status')->where('status','=','1')->where(DB::raw('BINARY `code`'), $code)->first();
+            $couponcodes =Coupon::select('id','code','percent_off','no_of_uses','status')->where('status','=','1')->where(DB::raw('BINARY `code`'), $code)->first();
 
             if($couponcodes){
 
@@ -173,6 +210,9 @@ class CartController extends Controller
                 $percent_off = $couponcodes->percent_off;
                 $discount = floatval(($total * $percent_off)/100);
 
+                $coupon_used_count = intval(($couponcodes->no_of_uses == NULL ? 0 : $couponcodes->no_of_uses ) + 1) ;
+
+                Coupon::where('id','=',$coupon_id)->update(array('no_of_uses' => $coupon_used_count));
 
                 return json_encode(array($discount,$coupon_id));
             }
@@ -192,9 +232,6 @@ class CartController extends Controller
         $user_address = array();
         //Custom::showAll($request->toArray());die;
 
-        //Custom::showAll($country->name);
-        //Custom::showAll($state->name);die;
-
         $user_id = $request->user_id;
         $user_address['company_name'] = $request->company_name;
         $user_address['email'] = $request->email;
@@ -208,11 +245,13 @@ class CartController extends Controller
         $user_address['state'] = $request->state;
         $user_address['country'] = $request->country;
         $user_address['contact_no'] = $request->contact_no;
-        $user_address['message'] = $request->message;
+        $user_address['note'] = $request->message;
 
-        //Custom::showAll($user_address);die;
+       // Custom::showAll($user_address);die;
 
-        $updateAddress = User_address::findOrFail($user_id);
+        $updateAddress = User_address::where('user_id','=',$user_id);
+
+        //Custom::runQuery();die;
         $updateAddress->update($user_address);
     }
 
@@ -223,124 +262,170 @@ class CartController extends Controller
     public function orderStore(Request $request)
     {
 
-       //Custom::showAll($request->toArray());die;
+        //Custom::showAll($request->toArray());die;
 
-        if($this->validate($request, [
-            'payment_gateway'=> 'required',
-            'email'=> 'required|email',
-            'first_name'=> 'required',
-            'last_name'=> 'required',
-            'address1'=> 'required',
-            'zip_code'=> 'required|size:6',
-            'country'=> 'required',
-            'state'=> 'required',
-            'contact_no'=> 'required',
-        ])){
+        if ($this->validate($request, [
+            'payment_gateway' => 'required',
+            'email' => 'required|email',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'address1' => 'required',
+            'zip_code' => 'required|size:6',
+            'country' => 'required',
+            'state' => 'required',
+            'contact_no' => 'required',
+        ])) {
 
             $user_order = array();
             $user_id = Auth::user()->id;
 
-            $billing_address = User_address::select('id')->where('user_id','=',$user_id)->where('primary','=','1')->first();
+            $billing_address = User_address::select('id')->where('user_id', '=', $user_id)->where('primary', '=', '1')->first();
 
             $user_order['user_id'] = $user_id;
             $user_order['coupon_id'] = $request->coupon;
             $user_order['payment_gateway_id'] = $request->payment_gateway;
             $user_order['grand_total'] = $request->grand_total;
-            $user_order['shipping_charges'] = $request->shipping_charge == "Free" ? 0 :$request->shipping_charge;
-            $user_order['billing_address'] = $billing_address->id;
+            $user_order['shipping_charges'] = $request->shipping_charge == "Free" ? 0 : $request->shipping_charge;
+            $user_order['billing_address'] = $billing_address ? $billing_address->id : '';
             $user_order['discount'] = $request->discount;
+            $user_order['status'] = 'P';
+
 
             $this->storeUserAddress($request);
+
             $data1 = User_order::create($user_order);
 
             $order_id = $data1->id;
             $this->storeOrderDetail($order_id);
             //Cart::destroy();
+            if ($request->payment_gateway == 1) {
 
-            if($request->payment_gateway == 1){
+                User_order::where('id', '=', $order_id)->update(array('status' => 'O'));
 
-               $order_review_page = $this->orderReview($order_id);
+                $order_review_page = $this->orderReview($order_id);
 
-              //Custom::showAll($order_review_page);die;
+                //Custom::showAll($order_review_page);die;
 
-               return view('order_review',array('order_review_page' => $order_review_page));
+                return view('order_review', array('order_review_page' => $order_review_page));
 
-            }
-            else{
+            } else {
 
-                //echo "paypal";die;
-                $provider = PayPal::setProvider('express_checkout');  // To use express checkout(used by default).
+                $payer = new Payer();
+                $payer->setPaymentMethod('paypal');
 
-                $data=[];
-                $data['items'] = Order_details::Join('products','order_details.product_id','=','products.id')
-                    ->join('image_products as i', 'products.id','=','i.product_id')
-                    ->select('products.*','i.product_image_name','order_details.order_id','order_details.quantity')
-                    ->where('order_details.order_id','=',$order_id)
+
+                $order_details = Order_details::Join('products', 'order_details.product_id', '=', 'products.id')
+                    ->join('image_products as i', 'products.id', '=', 'i.product_id')
+                    ->select('products.*', 'i.product_image_name', 'order_details.order_id', 'order_details.quantity')
+                    ->where('order_details.order_id', '=', $order_id)
                     ->get();
-//                Custom::showAll($data);die;
-                $order_products = [];
-                $total = 0;
-                foreach ($data['items'] as $item => $product)
-                {
-                    $order_products['items'][0]['name']=$product->product_name;
-                    $order_products['items'][0]['price']=$product->price;
-                    $order_products['items'][0]['qty']=$product->quantity;
-                    $subtotal = floatval($product->quantity * $product->price);
-                    $total += $subtotal;
-                }
-                $order_products['total'] = $total;
 
-                $order_products['invoice_id'] = $order_id;
-                $order_products['invoice_description'] = "Order #{$order_products['invoice_id']} Invoice";
-                $order_products['return_url'] = url('/payment/success');
-                $order_products['cancel_url'] = url('/cart');
-
-               //Custom::showAll($order_products);die;
-//                $response = $provider->setExpressCheckout($data);
-
-               //Use the following line when creating recurring payment profiles (subscriptions)
+                /*Custom::showAll($order_details->toArray());
+                die;*/
+                User_order::where('id', '=', $order_id)->update(array('status' => 'P'));
 
 
-                $data1 = [];
-                $data1['items'] = [
-                    [
-                        'name' => 'Product 1',
-                        'price' => 9.99,
-                        'qty' => 1
-                    ],
-                    [
-                        'name' => 'Product 2',
-                        'price' => 4.99,
-                        'qty' => 2
-                    ]
-                ];
+                $payment_details = User_order::select('id', 'grand_total', 'shipping_charges', 'discount')->where('id', '=', $order_id)->first();
 
-                $data1['invoice_id'] = 1;
-                $data1['invoice_description'] = "Order #{$data1['invoice_id']} Invoice";
-                $data1['return_url'] = url('/payment/success');
-                $data1['cancel_url'] = url('/cart');
+                //Custom::showAll($payment_details->toArray());die;
 
-                $total = 0;
-                foreach($data1['items'] as $item) {
-                    $total += $item['price']*$item['qty'];
+                foreach ($order_details as $order) {
+
+                    $item = new Item();
+
+                    $item->setName($order->product_name)/** item name **/
+                    ->setCurrency('USD')
+                        ->setQuantity($order->quantity)
+                        ->setPrice($order->price);
+                    $new[] = $item;
                 }
 
-                $data1['total'] = $total;
+                /*Custom::showAll($new);
+                die;*/
+                $item_list = new ItemList();
+                $item_list->setItems($new);
+                //Custom::showAll($item_list);die;
 
-                $response = $provider->setExpressCheckout($data1);
-
-                //print_r($response);die;
-                // This will redirect user to PayPal
-                return redirect($response['paypal_link']);
+                $amount = new Amount();
+                $amount->setCurrency('USD')
+                    ->setTotal($payment_details->grand_total);
 
 
+                //dd($amount);
+                $transaction = new Transaction();
+                $transaction->setAmount($amount)
+                    ->setItemList($item_list);
+
+                //Custom::showAll($transaction);die;
+
+                $redirect_urls = new RedirectUrls();
+                $redirect_urls->setReturnUrl(URL::route('paypalsuccess'))/** Specify return URL **/
+                ->setCancelUrl(URL::route('checkout'));
+
+                //echo "hiii";die;
+
+                $payment = new Payment();
+                $payment->setIntent('Sale')
+                    ->setPayer($payer)
+                    ->setRedirectUrls($redirect_urls)
+                    ->setTransactions(array($transaction));
+
+                //dd($payment);
+                /*dd($payment->create($this->_api_context));
+
+                 exit;*/
+
+                try {
+
+                    //echo "jsdhfjk";die;
+                    $payment->create($this->_api_context);
+                    //dd($payment);
+
+
+                } catch (\PayPal\Exception\PPConnectionException $ex) {
+
+                    if (\Config::get('app.debug')) {
+                        \Session::put('error', 'Connection timeout');
+                        return Redirect::route('paywithpaypal');
+                        /** echo "Exception: " . $ex->getMessage() . PHP_EOL; **/
+                        /** $err_data = json_decode($ex->getData(), true); **/
+                        /** exit; **/
+                    } else {
+                        \Session::put('error', 'Some error occur, sorry for inconvenient');
+                        return Redirect::route('paywithpaypal');
+                        /** die('Some error occur, sorry for inconvenient'); **/
+
+                    }
+                }
+
+                foreach ($payment->getLinks() as $link) {
+                    if ($link->getRel() == 'approval_url') {
+                        $redirect_url = $link->getHref();
+                        break;
+                    }
+                }
+
+                /** add payment ID to session **/
+                Session::put('paypal_payment_id', $payment->getId());
+
+                if (isset($redirect_url)) {
+                    /** redirect to paypal **/
+                    return Redirect::away($redirect_url);
+                }
+
+                \Session::put('error', 'Unknown error occurred');
+                return Redirect::route('checkout');
             }
         }
-
     }
+
+
+
+
 
     public function storeOrderDetail($id){
 
+        //echo "hello";die;
 
         $cart = Cart::content();
         foreach ($cart as $item => $cartitem)
@@ -417,13 +502,28 @@ class CartController extends Controller
 
         //return redirect()->route('order_review',['user_info' => $user_info,'order_products' => $order_products,'payment_details' => $payment_details]);
 
-
     }
 
+    public function paypalPaymentSuccess(){
 
-    public function payWithPaypal(){
+        echo "hellooooo";die;
+/*        $user_order::where('id','=',$order_id)->update(array('status' => 'P'));*/
 
-        return view('paypal');
+      /* 127.0.0.1:8000/paypal
+        ?paymentId=PAY-38152819VE720423VLJX7PVY
+        &token=EC-8MT33991KF190133B&PayerID=CCSYPP7J6ASR4*/
+
+      $payment_Id = $_GET['paymentId'];
+      $payer_id = $_GET['PayerID'];
+
+
+
+      /*dd($payer_id);
+      die;*/
+
+
+
+
     }
 
 

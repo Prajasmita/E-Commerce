@@ -5,8 +5,8 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> (+91) 989 858 4545 </a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> prajakta.sisale@neosofttech.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,36 +32,10 @@
                     <div class="logo pull-left">
                         <a href="{{url('/')}}"><img src="{{asset('img/images/home/logo.png')}}" alt="" /></a>
                     </div>
-
                 </div>
-
-
-                {{--<div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="hidden-xs"><img href="#" id="user_id" data-user_id="{{Auth::user()->id}}" ><i class="fa fa-user"></i> {{Auth::user()->first_name}}  {{Auth::user()->last_name}}</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header">
-                                    address 1
-                                </li>
-                                <!-- Menu Footer-->
-                                <li>
-                                    address2
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
---}}
-
-
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
                             @if( Auth::user())
                                 <li class="dropdown user user-menu">
                                     <a href="" class="dropdown-toggle" data-toggle="dropdown">

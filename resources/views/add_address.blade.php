@@ -20,22 +20,21 @@
                 type: "POST",
                 url: addressStoreUrl,
                 data: $("#add_address").serialize(),
-                success: function(response) {
-                   //console.log(response.errors);
-
-                    if(response == "true"){
-                        console.log(response);
-                        alert("Successfully added New User Address.")
-
+                success: function(data) {
+                   // console.log(data.message);exit;
+                    if(data.message){
+                        if(confirm(data.message)) {
+                            window.location = base_url+data.redirecturl;
+                        }
                     }
-                    if(response.errors){
-                        var error = response.errors;
+
+                    if(data.errors){
+                        var error = data.errors;
                         $.each(error, function(key, value) {
                             $("#errors").append("<span class=\"require \">"+value+"</span><br/>");
                         });
                     }
-                    }
-
+                }
             });
 
 
