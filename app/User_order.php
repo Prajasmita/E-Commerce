@@ -35,6 +35,14 @@ class User_order extends Model
     {
         return $this->belongsTo('App\User');
     }
+    /**
+     * Function for users order and order details relationship.
+     *
+     */
+    public function order_details()
+    {
+        return $this->belongsTo('App\Order_details','id','order_id');
+    }
 
 
 }

@@ -1,12 +1,7 @@
 @extends('home_template')
-
-
 @section('content')
     <section id="cart_items">
         <div class="container">
-            @if ( session()->has('payment_message') )
-                <div class="alert alert-success">{{ session()->get('payment_message') }}</div>
-            @endif
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
                     <li><a href="#">Order</a></li>
@@ -58,14 +53,7 @@
                         </tr>
                         </thead>
                         <tbody>
-
-{{--
-                        @php echo "<pre>"; print_r($order_review_page);exit; @endphp
---}}
-
-
                         @foreach($order_review_page['order_products'] as $order_product)
-
                             <tr id=""  >
                                 <td class="cart_product">
                                     <a href="#"><img class="index_img" src="{{asset('img/product/'.$order_product['image_name'])}}" alt=""></a>
@@ -84,7 +72,6 @@
                                 <td class="cart_total">
                                     <p class="cart_total_price">${{$order_product['subtotal']}}</p>
                                 </td>
-
                             </tr>
                         @endforeach
                         <tr>
@@ -116,12 +103,6 @@
                     </table>
                 @endif
             </div>
-
-
-
-
-
         </div>
     </section>
-
 @endsection

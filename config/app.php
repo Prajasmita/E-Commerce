@@ -168,6 +168,7 @@ return [
         Illuminate\Auth\AuthServiceProvider::class,
         'Kodeine\Acl\AclServiceProvider',
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
 
 
         /*

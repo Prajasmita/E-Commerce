@@ -9,10 +9,6 @@ $(document).ready(function() {
             }
         });
 
-
-
-       // console.log(id);
-        //console.log(checkboxValue);
         var checked = $(this).prop('checked');
 
         if(checked){

@@ -45,9 +45,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.3/fonts/glyphicons-halflings-regular.woff2"></script>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
     <![endif]-->
-     <!-- Google Font -->
+    <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+
+
+
+    <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="skin-blue">
@@ -72,6 +75,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div><!-- /.content-wrapper -->
     <!-- Footer -->
     @include('admin.layouts.footer')
+    <script>
+        CKEDITOR.replace( '#ckeditor-note' );
+    </script>
 
 </div><!-- ./wrapper -->
 

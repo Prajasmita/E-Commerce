@@ -31,7 +31,15 @@ class Order_details extends Model
 
         return $this->hasMany('App\Product');
 
+    }
 
+    /**
+     * Function for users order and order details relationship.
+     *
+     */
+    public function user_order()
+    {
+        return $this->belongsTo('App\User_order','order_id','id');
     }
 
 

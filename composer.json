@@ -10,14 +10,12 @@
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "gloudemans/shoppingcart": "^2.4",
+        "guzzlehttp/guzzle": "~5.2",
         "kodeine/laravel-acl": "~1.0@dev",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "guzzlehttp/guzzle": "~5.2",
-        "paypal/rest-api-sdk-php": "*"
-
-
-
+        "paypal/rest-api-sdk-php": "*",
+        "unisharp/laravel-ckeditor": "^4.7"
     },
 
 
@@ -58,6 +56,11 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "post-update-cmd": [
+          "php artisan clear-compiled",
+          "php artisan optimize",
+          "php artisan vendor:publish"
         ]
     },
     "config": {

@@ -55,6 +55,10 @@
                                             <input type="text" name="address2" value="{{$user->address2 or ''}}" placeholder="Address 2" class="checkout-form-input">
                                             {!! $errors->first('address2', '<span class="help-block">:message</span>') !!}
                                         </div>
+                                        <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
+                                            <input type="text" name="city" value="{{$user->city or ''}}" placeholder="City *" class="checkout-form-input">
+                                            {!! $errors->first('city', '<span class="help-block">:message</span>') !!}
+                                        </div>
 
 
 {{--

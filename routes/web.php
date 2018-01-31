@@ -17,7 +17,7 @@ Route::get('/login', function () {
 
 Auth::routes();
 
-Route::group(['namespace' => 'Admin','middleware'=>['auth','checkrole'],'prefix'=>'admin'],function(){
+Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],function(){
 
     Route::get('/', 'DashboardController@index')->name('admin');
 
@@ -69,6 +69,14 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth','checkrole'],'prefix'
     Route::post('coupons',['as'=>'banners.store','uses'=>'CouponsController@store']);
     Route::get('coupons/{coupon}/destroy',['as'=> 'coupons.destroy','uses'=>'CouponsController@destroy']);
 
+    Route::get('contactus',['as'=> 'contact.admin','uses'=>'ContactUsContoller@index']);
+
+    Route::get('admin_note/{id}',['as'=> 'admin.note','uses'=>'ContactUsContoller@adminNote']);
+
+    Route::post('admin_note',['as'=> 'admin_note.save','uses'=>'ContactUsContoller@saveAdminNote']);
+
+
+
 });
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -87,45 +95,57 @@ Route::post('/wishlist/{id}',['as'=> 'products.wishlist','uses'=>'ProductControl
 
 Route::post('/user_login','Auth\UserLoginController@login')->name('user_login');
 
-Route::get('/cart','CartController@index')->name('cart');
-Route::post('/cart_data/{id}',['as'=> 'cart_data','uses'=>'CartController@store']);
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::post('/cart_data/{id}', ['as' => 'cart_data', 'uses' => 'CartController@store']);
 Route::post('/cart/{id}/update',['as'=> 'cart.update','uses'=>'CartController@update']);
 Route::delete('/cart/{id}/delete',['as'=> 'cart.delete','uses'=>'CartController@delete']);
-Route::get('/checkout','CartController@checkout')->name('checkout');
-Route::post('/apply_coupon',['as'=> 'coupon.apply','uses'=>'CartController@applyCoupon']);
 
-Route::post('/order_store',['as'=> 'order.store','uses'=>'CartController@orderStore']);
 
-Route::post('/order_review',['as'=> 'order.review','uses'=>'CartController@orderReview']);
+
+
+Route::group(['middleware'=>['auth']],function() {
+    Route::get('/checkout','CartController@checkout')->name('checkout');
+    Route::post('/apply_coupon',['as'=> 'coupon.apply','uses'=>'CartController@applyCoupon']);
+    Route::post('/order_review',['as'=> 'order.review','uses'=>'CartController@orderReview']);
+    Route::get('/contact_us',['as'=>'contact_us','uses'=>'HomeController@contactUs']);
+
+    Route::post('/contact_us','HomeController@saveContactDetails')->name('contact');
+    Route::get('/address_book',['as'=> 'address.book','uses'=>'HomeController@addressBook']);
+    Route::get('/address_add',['as'=> 'address.add','uses'=>'HomeController@addAddress']);
+
+    Route::get('/address_edit/{id}',['as'=> 'address.edit','uses'=>'HomeController@addressEdit']);
+    Route::post('/address_Update',['as'=> 'address.update','uses'=>'HomeController@addressUpdate']);
+
+    Route::post('/address_store',['as'=> 'address.store','uses'=>'HomeController@addressStore']);
+
+    Route::post('/address_primary',['as'=> 'address.primary','uses'=>'HomeController@makePrimaryAddress']);
+
+
+    Route::get('/change_password',['as'=> 'change.password','uses'=>'HomeController@changePassword']);
+    Route::post('/change_password',['as'=> 'store.change_password','uses'=>'HomeController@storeChangedPassword']);
+    Route::post('/order_store',['as'=> 'order.store','uses'=>'CartController@orderStore']);
+
+    Route::post('/paypal',['as'=> 'paywithpaypal','uses'=>'CartController@payWithPaypal']);
+
+    Route::get('/paypal/{id}', ['as' => 'paypalsuccess','uses' => 'CartController@paypalPaymentSuccess']);
+    Route::get('/my_orders', ['as' => 'my.orders','uses' => 'CartController@myOrders']);
+    Route::get('/my_order/{id}', ['as' => 'my.order','uses' => 'CartController@myOrder']);
+
+});
+
+Route::get('/track_order', ['as' => 'track.order','uses' => 'CartController@trackOrder']);
+Route::post('/track_order', ['as' => 'track.my_order','uses' => 'CartController@trackMyOrder']);
+
+Route::get('forget_password',['as' => 'forget.password','uses' => 'HomeController@forgetPassword']);
+Route::post('forget_password',['as' => 'retrieve.password','uses' => 'HomeController@retrievePassword']);
+
 
 Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@selectStates']);
-
-Route::get('/contact_us',['as'=>'contact_us','uses'=>'HomeController@contactUs']);
-Route::post('/contact_us','HomeController@saveContactDetails')->name('contact');
-Route::get('/address_book',['as'=> 'address.book','uses'=>'HomeController@addressBook']);
-Route::get('/address_add',['as'=> 'address.add','uses'=>'HomeController@addAddress']);
-
-Route::get('/address_edit/{id}',['as'=> 'address.edit','uses'=>'HomeController@addressEdit']);
-Route::post('/address_Update',['as'=> 'address.update','uses'=>'HomeController@addressUpdate']);
-
-Route::post('/address_store',['as'=> 'address.store','uses'=>'HomeController@addressStore']);
-
-Route::post('/address_primary',['as'=> 'address.primary','uses'=>'HomeController@makePrimaryAddress']);
-
-
-Route::get('/change_password',['as'=> 'change.password','uses'=>'HomeController@changePassword']);
-Route::post('/change_password',['as'=> 'store.change_password','uses'=>'HomeController@storeChangedPassword']);
-
-
 
 Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 
 
 //Route::post('/contact',['as' => 'contactUs', 'uses'=>'HomeController@saveContactDetails']);
-
-Route::post('/paypal',['as'=> 'paywithpaypal','uses'=>'CartController@payWithPaypal']);
-
-Route::get('/paypal', array('as' => 'paypalsuccess','uses' => 'CartController@paypalPaymentSuccess'));
 /*Route::get('/paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));*/
 
 

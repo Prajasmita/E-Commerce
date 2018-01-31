@@ -14,7 +14,10 @@ use App\User_address;
 use App\User_order;
 use Illuminate\Http\Request;
 Use Cart;
+Use Mail;
 Use DB;
+Use Cost;
+Use PayPal\Api\Invoice;
 Use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
@@ -151,9 +154,7 @@ class CartController extends Controller
 
         $user = User_address::where('primary','=','1')->where('user_id','=',$user_id)->first();
 
-        //Custom::showAll($user);die;
         $cart = Cart::content();
-
         $coupons = Coupon::select('id','code')->get();
         $codes = array();
         foreach ($coupons as $code => $coupon ){
@@ -161,7 +162,6 @@ class CartController extends Controller
         }
 
         $countries = Countries::get();
-
         if($user){
             $states = States::where('country_id','=',$user->country)->get();
             return view('checkout',array('user'=>$user,'cart'=>$cart,'user_id'=> $user_id,'codes'=>$codes,'countries'=>$countries,'states' => $states));
@@ -185,8 +185,6 @@ class CartController extends Controller
             return json_encode($states);
 
         }
-
-
 
     }
 
@@ -232,27 +230,41 @@ class CartController extends Controller
         $user_address = array();
         //Custom::showAll($request->toArray());die;
 
-        $user_id = $request->user_id;
-        $user_address['company_name'] = $request->company_name;
-        $user_address['email'] = $request->email;
-        $user_address['title'] = $request->title;
-        $user_address['first_name'] = $request->first_name;
-        $user_address['middle_name'] = $request->middle_name;
-        $user_address['last_name'] = $request->last_name;
-        $user_address['address1'] = $request->address1;
-        $user_address['address2'] = $request->address2;
-        $user_address['zip_code'] = $request->zip_code;
-        $user_address['state'] = $request->state;
-        $user_address['country'] = $request->country;
-        $user_address['contact_no'] = $request->contact_no;
-        $user_address['note'] = $request->message;
+        $address = User_address::where('user_id','=',$request->user_id)->get()->toArray();
+        //Custom::showAll($address);die;
+        if(!empty($address)){
 
-       // Custom::showAll($user_address);die;
+            //echo "updated";die;
+            $user_id = $request->user_id;
+            $user_address['company_name'] = $request->company_name;
+            $user_address['email'] = $request->email;
+            $user_address['title'] = $request->title;
+            $user_address['first_name'] = $request->first_name;
+            $user_address['middle_name'] = $request->middle_name;
+            $user_address['last_name'] = $request->last_name;
+            $user_address['address1'] = $request->address1;
+            $user_address['address2'] = $request->address2;
+            $user_address['zip_code'] = $request->zip_code;
+            $user_address['state'] = $request->state;
+            $user_address['country'] = $request->country;
+            $user_address['contact_no'] = $request->contact_no;
+            $user_address['note'] = $request->message;
 
-        $updateAddress = User_address::where('user_id','=',$user_id);
+            // Custom::showAll($user_address);die;
+            $updateAddress = User_address::where('user_id','=',$user_id);
+            //Custom::runQuery();die;
+            $updateAddress->update($user_address);
+        }
+        else{
 
-        //Custom::runQuery();die;
-        $updateAddress->update($user_address);
+            //echo "created";die;
+
+            $request['primary']= '1';
+            //dd($request->all());
+            User_address::create($request->all());
+            //echo "created";die;
+        }
+
     }
 
     /*
@@ -272,6 +284,7 @@ class CartController extends Controller
             'address1' => 'required',
             'zip_code' => 'required|size:6',
             'country' => 'required',
+            'city' => 'required',
             'state' => 'required',
             'contact_no' => 'required',
         ])) {
@@ -297,12 +310,14 @@ class CartController extends Controller
 
             $order_id = $data1->id;
             $this->storeOrderDetail($order_id);
-            //Cart::destroy();
+            Cart::destroy();
             if ($request->payment_gateway == 1) {
 
                 User_order::where('id', '=', $order_id)->update(array('status' => 'O'));
 
                 $order_review_page = $this->orderReview($order_id);
+
+                $request->session()->flash('payment_message', 'Payment Mode will be cash on delivery. Thank you For Using Our Shopping Cart !!!');
 
                 //Custom::showAll($order_review_page);die;
 
@@ -312,7 +327,6 @@ class CartController extends Controller
 
                 $payer = new Payer();
                 $payer->setPaymentMethod('paypal');
-
 
                 $order_details = Order_details::Join('products', 'order_details.product_id', '=', 'products.id')
                     ->join('image_products as i', 'products.id', '=', 'i.product_id')
@@ -324,11 +338,9 @@ class CartController extends Controller
                 die;*/
                 User_order::where('id', '=', $order_id)->update(array('status' => 'P'));
 
-
-                $payment_details = User_order::select('id', 'grand_total', 'shipping_charges', 'discount')->where('id', '=', $order_id)->first();
-
                 //Custom::showAll($payment_details->toArray());die;
 
+                $subtotal = 0 ;
                 foreach ($order_details as $order) {
 
                     $item = new Item();
@@ -338,6 +350,9 @@ class CartController extends Controller
                         ->setQuantity($order->quantity)
                         ->setPrice($order->price);
                     $new[] = $item;
+
+                    $subtotal = $subtotal + ($order->quantity * $order->price);
+
                 }
 
                 /*Custom::showAll($new);
@@ -346,12 +361,26 @@ class CartController extends Controller
                 $item_list->setItems($new);
                 //Custom::showAll($item_list);die;
 
+                $ship_tax = 0;
+
+                $user_order_details = User_order::where('id','=',$order_id)->first();
+                $ship_cost = $user_order_details->shipping_charges;
+                $currency = 'USD';
+                $discount = $user_order_details->discount;
+
+                $total = $subtotal + $ship_tax + $ship_cost - $discount;
+
+                $details = new Details();
+                $details->setSubtotal($subtotal)
+                    ->setTax($ship_tax)
+                    ->setShipping($ship_cost)
+                    ->setShippingDiscount($discount);
+
                 $amount = new Amount();
-                $amount->setCurrency('USD')
-                    ->setTotal($payment_details->grand_total);
+                $amount->setCurrency($currency)
+                    ->setTotal($total)
+                    ->setDetails($details);
 
-
-                //dd($amount);
                 $transaction = new Transaction();
                 $transaction->setAmount($amount)
                     ->setItemList($item_list);
@@ -359,7 +388,7 @@ class CartController extends Controller
                 //Custom::showAll($transaction);die;
 
                 $redirect_urls = new RedirectUrls();
-                $redirect_urls->setReturnUrl(URL::route('paypalsuccess'))/** Specify return URL **/
+                $redirect_urls->setReturnUrl(URL::route('paypalsuccess', ['id' => $order_id]))/** Specify return URL **/
                 ->setCancelUrl(URL::route('checkout'));
 
                 //echo "hiii";die;
@@ -456,7 +485,7 @@ class CartController extends Controller
         $user_id = Auth::user()->id;
 
         $user_info = User_address::where('user_id',"=",$user_id)->first();
-        //Custom::showAll($user_info->toArray());
+        //Custom::showAll($user_info);
 
         $country = Countries::where('id','=',$user_info->country)->first();
         $state = States::where('id','=',$user_info->state)->first();
@@ -491,7 +520,7 @@ class CartController extends Controller
         /*Custom::showAll($order_products);
 
         die;*/
-        $payment_details = User_order::select('id','grand_total','shipping_charges','discount')->where('id','=',$order_id)->first();
+        $payment_details = User_order::select('id','grand_total','shipping_charges','discount','status')->where('id','=',$order_id)->first();
 
         //Custom::showAll($payment_details->toArray());die;
 
@@ -504,28 +533,97 @@ class CartController extends Controller
 
     }
 
-    public function paypalPaymentSuccess(){
+    /**
+     * Function for paypal payment success
+     *
+     *
+     */
+    public function paypalPaymentSuccess($id,Request $request){
 
-        echo "hellooooo";die;
-/*        $user_order::where('id','=',$order_id)->update(array('status' => 'P'));*/
+        //dd($request);
+        //echo $id ;die;
+        $payment_Id = $_GET['paymentId'];
+        User_order::where('id','=',$id)->update(array('status' => 'O','transaction_id'=>$payment_Id));
 
-      /* 127.0.0.1:8000/paypal
-        ?paymentId=PAY-38152819VE720423VLJX7PVY
-        &token=EC-8MT33991KF190133B&PayerID=CCSYPP7J6ASR4*/
-
-      $payment_Id = $_GET['paymentId'];
-      $payer_id = $_GET['PayerID'];
-
-
-
-      /*dd($payer_id);
-      die;*/
+        $order_review_page = $this->orderReview($id);
 
 
+        $request->session()->flash('payment_message', 'Payment Done Succesfully !! Thank You For Using Our Shopping Cart !!!');
 
+        //dd(session()->get('payment_message') );
+
+        return view('order_review', array('order_review_page' => $order_review_page));
 
     }
 
+    /**
+     * Function for fetching my orders
+     *
+     *
+     */
+    public function myOrders(){
+
+        $user_id = Auth::user()->id;
+
+        $my_order = User_order::with('order_details')->where('user_id','=',$user_id)->get();
+
+        //Custom::showAll($my_order->toArray());die;
+
+        return view('my_orders',array('my_order' => $my_order));
+
+    }
+    /**
+     * Function for fetching my orders
+     *
+     *
+     */
+    public function myOrder($id){
+
+        $order_review_page = $this->orderReview($id);
+        //Custom::showAll($order_review_page);die;
+        return view('my_order', array('order_review_page' => $order_review_page));
+    }
+
+    /**
+     * Function for tracking order
+     *
+     */
+    public function trackOrder(){
+
+        //echo "track";die;
+        //Custom::showAll($order_review_page);die;
+        return view('track_order');
+    }
+
+    public function trackMyOrder(Request $request){
+
+       //Custom::showAll($request->toArray());die;
+        if ($this->validate($request, [
+            'order_id' => 'required',
+            'email' => 'required|email'])){
+
+            $email = $request->email;
+            $order_id = $request->order_id;
+
+
+            $orderId =  ltrim($order_id, "ORD0");
+
+            $order_review_page = $this->orderReview($orderId);
+
+            //Custom::showAll(Auth::user()->email);die;
+
+            Mail::send('order_review', ['order_review_page'=>$order_review_page], function ($message) use ($email)
+            {
+                $message->to($email)
+                    ->subject('Order Review');
+            });
+
+            return redirect('track_order')->with('traced_order','Order Traced Succesfully !!!');
+
+
+        }
+
+    }
 
 }
 

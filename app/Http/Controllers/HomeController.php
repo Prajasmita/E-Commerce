@@ -24,6 +24,7 @@ Use Hash;
 
 
 
+
 class HomeController extends Controller
 {
     /**
@@ -117,7 +118,9 @@ class HomeController extends Controller
             'name'=> 'required',
             'email'=> 'required|email',
             'contact_no'=> 'required|min:10|max:11',
-            'message' => 'required'
+            'message' => 'required',
+            'subject' => 'required',
+
         ])) {
 
             $request_data = array();
@@ -145,12 +148,7 @@ class HomeController extends Controller
 
         $user_id = Auth::user()->id;
 
-        $userAddress = User_address::with('countries','states')->where('user_id','=',$user_id)->get();
-
-       /*Custom::runQuery();
-        Custom::showAll($userAddress->toArray());die;*/
-
-        $userAddress = User_address::orderBy('primary','desc')->get();
+        $userAddress = User_address::with('countries','states')->where('user_id','=',$user_id)->orderBy('primary','desc')->get();
 
         return view('address_book',array('userAddress'=> $userAddress));
 
@@ -165,9 +163,7 @@ class HomeController extends Controller
         //echo "hello";
         $userAddress = User_address::orderBy('primary', 'desc')->get();
         $countries = Countries::get();
-
         $states = States::get();
-
         return view('add_address',array('userAddress'=> $userAddress,'countries'=>$countries,'states'=>$states));
 
     }
@@ -340,4 +336,46 @@ class HomeController extends Controller
             }
         }
     }
+    /**
+     * Function for forget password view
+     *
+     */
+    public function forgetPassword(){
+
+        return view('forget_password');
+
+    }
+    /**
+     * Function for sending mail to the user about new password.
+     *
+     */
+    public function retrievePassword(Request $request){
+
+        $email = $request->email;
+        $random_password =str_random(8);
+        $hashed_random_password = Hash::make($random_password);
+
+        User::where('email','=',$email)->update(array('password' => $hashed_random_password ));
+
+        if( User::where('email', '=',$email)->exists() ){
+
+            Mail::send([], [], function ($message) use ($email ,$random_password) {
+                $message->to($email)
+                    ->subject('New Password')
+                    ->setBody('Hi, welcome user, Your password is '.$random_password.'!!!');
+            });
+            return redirect('forget_password')->with('retrieve_password','Password Send to Your Mail Successfully. Please Check Your Mail For Password !!!');
+
+        }
+        else{
+
+            return redirect('forget_password')->with('register_email','Invalid Email Address. Please First Register with us. !!!');
+
+        }
+
+    }
+
+
+
+
 }

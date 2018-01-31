@@ -33,50 +33,57 @@
                     <span class="pull-right-container"></span>
                 </a>
             </li>
-                        <li class="treeview active menu-open">
-                            <a href="{{ route('admin') }}">
-                                <i class="fa fa-dashboard"></i> <span>Master</span>
-                                <span class="pull-right-container"></span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li>
-                                    <a href="{{ route('users.index') }}">
-                                        <i class="fa fa-list"></i> <span>Users</span>
-                                        <span class="pull-right-container"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('configuration.index') }}">
-                                        <i class="fa fa-list"></i> <span>Configurations</span>
-                                        <span class="pull-right-container"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('banners.index') }}">
-                                        <i class="fa fa-list"></i> <span>Banners</span>
-                                        <span class="pull-right-container"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('products.index') }}">
-                                        <i class="fa fa-list"></i> <span>Products</span>
-                                        <span class="pull-right-container"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('categories.index') }}">
-                                        <i class="fa fa-list"></i> <span>Categories</span>
-                                        <span class="pull-right-container"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('coupons.index') }}">
-                                        <i class="fa fa-list"></i> <span>Coupons</span>
-                                        <span class="pull-right-container"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+            <li class="treeview {{--active menu-open--}} ">
+                <a href="{{ route('admin') }}">
+                    <i class="fa fa-dashboard"></i> <span>Master</span>
+                    <span class="pull-right-container"></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="{{ route('users.index') }}">
+                            <i class="fa fa-list"></i> <span>Users</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('configuration.index') }}">
+                            <i class="fa fa-list"></i> <span>Configurations</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('banners.index') }}">
+                            <i class="fa fa-list"></i> <span>Banners</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('products.index') }}">
+                            <i class="fa fa-list"></i> <span>Products</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('categories.index') }}">
+                            <i class="fa fa-list"></i> <span>Categories</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('coupons.index') }}">
+                            <i class="fa fa-list"></i> <span>Coupons</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li >
+                <a href="{{ route('contact.admin') }}">
+                    <i class="glyphicon glyphicon-phone-alt"></i> <span>Contact Us</span>
+                    <span class="pull-right-container"></span>
+                </a>
+            </li>
+
 
             <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
                    </ul>

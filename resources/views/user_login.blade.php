@@ -38,10 +38,12 @@
 
                             <div class="login-box">
                                 <div class="form-group form-actions">
-                                    <span>
-								<input type="checkbox" class="checkbox">
-								Keep me signed in
-							</span>
+                                    {{--<span>
+                                        <input type="checkbox" class="checkbox">
+								        Keep me signed in
+							        </span>--}}
+                                    <span><a href="{{route('forget.password')}}">Forget Password</a></span>
+
                                     <button type="submit" class="btn btn-default">Login</button>
                                 </div>
                             </div>
