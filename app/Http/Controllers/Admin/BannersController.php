@@ -188,19 +188,21 @@ class BannersController extends Controller
             'status' => 'required'
 
         ]);
-        $current_time = Carbon::now()->toDateTimeString();
+        if($request->banner_image){
+            $current_time = Carbon::now()->toDateTimeString();
 
-        $image = $request->file('banner_image');
-        $img_name = $image->getClientOriginalName();
-        $input['imagename'] = $img_name.'_'.$current_time.'.'.$image->getClientOriginalExtension();
+            $image = $request->file('banner_image');
+            $img_name = $image->getClientOriginalName();
+            $input['imagename'] = $img_name.'_'.$current_time.'.'.$image->getClientOriginalExtension();
 
-        $destinationPath = 'img/banner';
+            $destinationPath = 'img/banner';
 
-        $image->move($destinationPath, $input['imagename']);
+            $image->move($destinationPath, $input['imagename']);
+            $requestData['banner_image'] = $input['imagename'];
+        }
 
         $requestData['banner_name'] = $request->banner_name;
 
-        $requestData['banner_image'] = $input['imagename'];
         //Custom::showAll($request->status);die;
        // Custom::showAll(gettype($request->status));die;
 
