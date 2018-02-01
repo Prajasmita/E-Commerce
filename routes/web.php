@@ -73,7 +73,7 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],f
 
     Route::get('admin_note/{id}',['as'=> 'admin.note','uses'=>'ContactUsContoller@adminNote']);
 
-    Route::post('admin_note',['as'=> 'admin_note.save','uses'=>'ContactUsContoller@saveAdminNote']);
+    Route::post('/admin_note_save',['as'=> 'admin_note.save','uses'=>'ContactUsContoller@saveAdminNote']);
 
 
 

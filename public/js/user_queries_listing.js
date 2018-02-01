@@ -2,7 +2,6 @@
 $(function () {
 
     //console.log(adminNoteUrl);exit;
-
     $('#queries').DataTable({
         "ajax":{
             "url": dataTableContactAdminUrl,
@@ -42,9 +41,17 @@ $(function () {
                 index+1
             );
 
-            $('td:eq(4)', row).html(
+            if(data.note_admin){
+                $('td:eq(4)', row).html(
 
-                '<a href="'+adminNoteUrl+data.id+'"><button type="button" id="reply" class="btn btn-info btn-xs"><i class="fa fa-reply" aria-hidden="true"></i>Reply</button>');
+                    '<button type="button" id="reply" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> Replied</button>'
+                );
+            }else{
+                $('td:eq(4)', row).html(
+                    '<a href="'+adminNoteUrl+data.id+'"><button type="button" id="reply" class="btn btn-info btn-xs"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>'
+                );
+            }
+
         }
 
     });

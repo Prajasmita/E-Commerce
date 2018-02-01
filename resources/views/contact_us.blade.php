@@ -1,7 +1,7 @@
 @extends('home_template')
 @section('content')
-    @if ( session()->has('message') )
-        <div class="alert alert-danger">{{ session()->get('message') }}</div>
+    @if ( session()->has('query_message') )
+        <div class="alert alert-success">{{ session()->get('query_message') }}</div>
     @endif
     <div id="contact-page" class="container">
         <div class="bg">

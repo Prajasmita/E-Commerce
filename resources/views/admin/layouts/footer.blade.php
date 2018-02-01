@@ -24,6 +24,7 @@
 <!-- iCheck -->
 <script src="{{asset('js/icheck.min.js')}}"></script>
 
+<script src="{{asset('js/script.js')}}"></script>
 
 
 <script>

@@ -48,6 +48,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <![endif]-->
     <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 
+    <script>
+        var saveAdminNote = "{{route('admin_note.save')}}";
+    </script>
 
 
     <!-- Google Font -->
@@ -76,7 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Footer -->
     @include('admin.layouts.footer')
     <script>
-        CKEDITOR.replace( '#ckeditor-note' );
+        CKEDITOR.replace( 'ckeditor-note' );
     </script>
 
 </div><!-- ./wrapper -->

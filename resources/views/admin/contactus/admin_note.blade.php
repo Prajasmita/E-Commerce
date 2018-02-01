@@ -6,13 +6,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><strong># Admin Note</strong></div>
                 <div class="panel-body">
-                    @if ( session()->has('admin_note') )
-                        <div class="alert alert-success">{{ session()->get('admin_note') }}</div>
-                    @endif
                     <div class="col-sm-6 col-sm-offset-3">
                         <div class="login-form">
                             <h2>{{$query_data->subject}}</h2>
-                            {!! Form::open(['route' => 'admin_note.save']) !!}
+                            {!! Form::open(['route'=>'admin_note.save']) !!}
+{{--
+                            <form method="post" action="{{route('admin_note.save')}}" >
+--}}
                             {{ csrf_field() }}
                             <input type="text" name="id" id="id" value="{{$query_data->id}}" class="hidden_field">
 
@@ -32,12 +32,11 @@
                                     {!! $errors->first('note_admin', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="pull-right">
-                                    {!! Form::submit('Save',array('class'=>'btn btn-primary')); !!}
-                                </div>
-                            </div>
-                            {!! Form::close() !!}
+                                    {!! Form::submit('Save',array('class'=>'btn btn-primary','data-id'=>$query_data->id )); !!}
+                                    <a href="{{ route('contact.admin') }}" class="btn btn-danger">Cancel</a>
+
+                            {{--</form>--}}
+                            {!! Form::close(); !!}
                         </div>
                     </div>
                 </div>

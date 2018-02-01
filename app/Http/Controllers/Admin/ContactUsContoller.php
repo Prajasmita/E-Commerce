@@ -49,7 +49,7 @@ class ContactUsContoller extends Controller
             $email = $column[$sortBy]['data'];
             $id = $column[$sortBy]['data'];
 
-            $queries = Contact_us::select('id','name','email','contact_no','message','subject');
+            $queries = Contact_us::select('id','name','email','contact_no','message','note_admin','subject');
 
             if ($search_word != '' ) {
                 $queries = Contact_us::where('name', 'LIKE', "%$search_word%")
@@ -77,6 +77,8 @@ class ContactUsContoller extends Controller
                 $res_data['name'] = $val['name'];
                 $res_data['email'] = $val['email'];
                 $res_data['contact_no'] = $val['contact_no'];
+                $res_data['message'] = $val['message'];
+                $res_data['note_admin'] = $val['note_admin'];
                 $final[] = $res_data;
             }
 
@@ -115,7 +117,9 @@ class ContactUsContoller extends Controller
             'note_admin'=> 'required',
         ])) {
             Contact_us::where('id', '=', $request->id)->update(array('note_admin' => $request->note_admin));
-           // return view('admin.contactus.contact_admin')->with('admin_note', 'Successfully replied to user Query!! ');
+
+            return redirect('admin/contactus')->with('admin_note', 'Successfully replied to the query !!!!');
+
         }
 
     }

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     /*function for making address primary*/
     $('.primary_address').click(function(){
 
@@ -14,6 +13,7 @@ $(document).ready(function() {
         if(checked){
                 $(".primary_address").prop("checked", false);
         }
+
 
 
     var id = $(this).attr('data-id');

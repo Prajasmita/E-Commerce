@@ -1,6 +1,9 @@
 @extends('admin.admin_template')
 
 @section('content')
+    @if ( session()->has('admin_note') )
+        <div class="alert alert-success">{{ session()->get('admin_note') }}</div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">

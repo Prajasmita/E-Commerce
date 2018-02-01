@@ -134,7 +134,7 @@ class HomeController extends Controller
            // Custom::showAll($request_data);die;
 
             Contact_us::create($request_data);
-            return redirect('contact_us')->with('message', 'Your message has been recorded in our database.Thank You !!!');
+            return redirect('contact_us')->with('query_message', 'Your message has been recorded in our database.Thank You !!!');
         }
     }
 
