@@ -25,7 +25,7 @@ class Image_product extends Model
      *
      * @var array
      */
-    protected $fillable = ['product_image_name', 'product_id','id'];
+    protected $fillable = ['product_image_name', 'product_id','id','status'];
 
     /**
      * Function for product image and product relationship.

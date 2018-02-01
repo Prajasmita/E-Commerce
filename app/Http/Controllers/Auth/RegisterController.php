@@ -119,7 +119,7 @@ class RegisterController extends Controller
                 ->setBody(html_entity_decode(strip_tags($admin_content)));
         });
         return redirect('register')->with('flash_message', 'You are register successfully !!!');
-        
+
     }
 
     public function showRegistrationForm()

@@ -155,18 +155,25 @@ class ProductsController extends Controller
 
             If (Input::hasFile('image_name')) {
 
+                $current_time = time();
+
                 $images = Input::file('image_name');
 
                 $destinationPath = 'img/product';
 
                 foreach($images as $image){
 
-                    $filename = $image->getClientOriginalName();
-                    $image->move($destinationPath, $filename);
-                    $requestData1['product_image_name'] = $filename;
+                    $filename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                    $unique_image_name = $filename.'_'.$current_time.'.'.$image->getClientOriginalExtension();
+                    $image->move($destinationPath, $unique_image_name);
+
+                    $requestData1['product_image_name'] = $unique_image_name;
                     $requestData1['product_id'] = $product_data['id'];
+                    $requestData1['status']=$request->status;
+
                     Image_product::create($requestData1);
                 }
+
 
         }
 
@@ -259,6 +266,10 @@ class ProductsController extends Controller
         $requestData['meta_title']=$request->meta_title;
         $requestData['meta_discription']=$request->meta_discription;
         $requestData['meta_keyword']=$request->meta_keyword;
+        $requestData1['status']=$request->status;
+
+        Image_product::where('product_id','=',$id)->update(array('status'=> $requestData1['status'] ));
+        //Custom::showAll($request->all());die;
 
         $product_data = Product::findOrFail($id);
         $product_data->update($requestData);
@@ -277,7 +288,6 @@ class ProductsController extends Controller
                 $requestData1['product_id'] = $product_data['id'];
 
                 $product_data1 = Image_product::where('product_id','=',$id);
-
                 $product_data1->update($requestData1);
             }
 
