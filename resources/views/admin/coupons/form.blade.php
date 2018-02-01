@@ -28,10 +28,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
-        {!! Form::submit('Create',array('class'=>'btn btn-primary')); !!}
-{{--
-        {!! Form::button('Cancel',array('url'=>'admin/coupons','class'=>'btn btn-danger')); !!}
---}}
+        <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Create' }}">
         <a href="{{url('/admin/coupons/')}}" class="btn btn-danger">Cancel</a>
         <br/>
     </div>
