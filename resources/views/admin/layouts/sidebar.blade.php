@@ -83,6 +83,12 @@
                     <span class="pull-right-container"></span>
                 </a>
             </li>
+            <li >
+                <a href="{{route('email.template')}}">
+                    <i class="glyphicon glyphicon-envelope"></i> <span>Email Template</span>
+                    <span class="pull-right-container"></span>
+                </a>
+            </li>
 
 
             <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
