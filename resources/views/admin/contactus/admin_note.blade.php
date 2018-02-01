@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><strong># Admin Note</strong></div>
                 <div class="panel-body">
-                    <div class="col-sm-6 col-sm-offset-3">
+                    <div class="col-sm-6 col-sm-offset-1">
                         <div class="login-form">
                             <h2>{{$query_data->subject}}</h2>
                             {!! Form::open(['route'=>'admin_note.save']) !!}
@@ -32,8 +32,11 @@
                                     {!! $errors->first('note_admin', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                                    {!! Form::submit('Save',array('class'=>'btn btn-primary','data-id'=>$query_data->id )); !!}
-                                    <a href="{{ route('contact.admin') }}" class="btn btn-danger">Cancel</a>
+                            <div class="pull-right">
+                                {!! Form::submit('Save',array('class'=>'btn btn-primary','data-id'=>$query_data->id )); !!}
+                                <a href="{{ route('contact.admin') }}" class="btn btn-danger">Cancel</a>
+                            </div>
+
 
                             {{--</form>--}}
                             {!! Form::close(); !!}
