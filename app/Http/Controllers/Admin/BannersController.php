@@ -9,7 +9,8 @@ use App\Product;
 use Illuminate\Http\UploadedFile;
 use App\Banner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;Use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+Use Illuminate\Support\Carbon;
 /**
  * Class BannersController for CRUD operation of banner images.
  *
