@@ -36,7 +36,7 @@ $(function () {
 
         "rowCallback": function( row, data, index ) {
 
-            console.log(data);
+            //console.log(data);
             $('td:eq(0)' , row).html(
                 index+1
             );
