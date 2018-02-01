@@ -13,7 +13,7 @@ class CretaeEmailTemplateTable extends Migration
      */
     public function up()
     {
-        Schema::create('email_notification', function (Blueprint $table) {
+        Schema::create('email_template', function (Blueprint $table) {
             $table->increments('id');
             $table->text('title');
             $table->text('subject');
@@ -31,6 +31,6 @@ class CretaeEmailTemplateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('email_notification');
+        Schema::dropIfExists('email_template');
     }
 }
