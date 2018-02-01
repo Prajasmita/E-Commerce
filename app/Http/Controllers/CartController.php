@@ -618,6 +618,9 @@ class CartController extends Controller
                     ->subject('Order Review');
             });
 
+
+
+
             return redirect('track_order')->with('traced_order','Order Traced Succesfully !!!');
 
 

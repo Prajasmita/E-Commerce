@@ -153,8 +153,10 @@
 
     <label for="is_feature" class="col-md-4 control-label">{{ 'Is Feature' }}<span class="require">*</span></label>
     <div class="col-md-6">
-
+        <input   name="is_feature" value="1" type="checkbox" id="is_feature" {{ isset( $product->is_feature) ? $product->is_feature == 1 ? 'checked' :'' : '' }}>
+{{--
         {{ Form::checkbox('is_feature', 0, false) }}
+--}}
 
         {{--<input   name="is_feature" value="1" type="radio" id="is_feature" {{ isset( $product->is_feature) ? $product->is_feature == 1 ? 'checked' :'' : '' }}>True
         <input  name="is_feature" value="0" type="radio" id="is_feature" {{ isset( $product->is_feature) ? $product->is_feature == 0 ? 'checked' :'' : '' }}>False

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Custom;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -126,6 +127,9 @@ class emailTemplateController extends Controller
     {
         $template = Email_template::findOrFail($id);
 
+        //$template['content'] = strip_tags($template->content);
+
+        //Custom::showAll($template);die;
         $authUser = Auth::user();
 
         return view('admin.email_template.show', compact('template','authUser'));
