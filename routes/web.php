@@ -70,11 +70,15 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],f
     Route::get('coupons/{coupon}/destroy',['as'=> 'coupons.destroy','uses'=>'CouponsController@destroy']);
 
     Route::get('contactus',['as'=> 'contact.admin','uses'=>'ContactUsContoller@index']);
-
     Route::get('admin_note/{id}',['as'=> 'admin.note','uses'=>'ContactUsContoller@adminNote']);
-
     Route::post('/admin_note_save',['as'=> 'admin_note.save','uses'=>'ContactUsContoller@saveAdminNote']);
 
+    Route::get('email_template',['as'=>'email.template','uses'=> 'emailTemplateController@emailTemplate']);
+    Route::get('email_template/create',['as'=> 'email_template.create','uses'=>'emailTemplateController@create']);
+    Route::post('email_template',['as'=>'email_template.store','uses'=>'emailTemplateController@store']);
+    Route::get('email_template/{email_template_id}',['as'=> 'email_template.show','uses'=>'emailTemplateController@show']);
+    Route::get('email_template/{email_template_id}/edit',['as'=> 'email_template.edit','uses'=>'emailTemplateController@edit']);
+    Route::patch('email_template/{email_template_id}',['as'=> 'email_template.update','uses'=>'emailTemplateController@update']);
 
 
 });
