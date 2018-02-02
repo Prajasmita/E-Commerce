@@ -153,8 +153,6 @@ class HomeController extends Controller
         //Custom::showAll($data->name);die;
         $template_content = Email_template::where('title','=','contact_us_submission_for_admin')->select('content')->first();
 
-        /*        $email = $user_info->email;*/
-        $email = 'prajakta.sisale@neosofttech.com';
         $string = array();
         $string[0] = '{{name}}';
         $string[1] = '{{email}}';
@@ -171,7 +169,7 @@ class HomeController extends Controller
 
         $new_template_content = str_replace($string,$replace, $template_content->content);
 
-        Custom::showAll($new_template_content);die;
+        //Custom::showAll($new_template_content);die;
         $admin_email = Configuration::where('conf_key','=','Admin_email')->select('conf_value')->first();
 
         $admin_mail = $admin_email->conf_value;
@@ -184,8 +182,6 @@ class HomeController extends Controller
 
         });
     }
-
-
 
     /**
      * Function for showing address book.

@@ -89,6 +89,12 @@
                     <span class="pull-right-container"></span>
                 </a>
             </li>
+            <li >
+                <a href="{{route('user.orders')}}">
+                    <i class="glyphicon glyphicon-list"></i> <span>User Orders</span>
+                    <span class="pull-right-container"></span>
+                </a>
+            </li>
 
 
             <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
