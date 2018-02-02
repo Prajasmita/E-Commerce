@@ -169,7 +169,7 @@ class ContactUsContoller extends Controller
         Mail::send([], [], function ($message) use ($new_template_content,$email)
         {
             $message->to($email)
-                ->subject('Customer Message')
+                ->subject('Admin Reply')
                 ->setBody(html_entity_decode(strip_tags($new_template_content)));
 
         });
