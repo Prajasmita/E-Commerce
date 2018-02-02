@@ -21,6 +21,9 @@ Use Validator;
 use Illuminate\Support\Facades\Mail;
 Use App\Mail\SendMessage;
 Use Hash;
+Use App\Email_template;
+Use App\Configuration;
+
 
 
 
@@ -124,7 +127,6 @@ class HomeController extends Controller
         ])) {
 
             $request_data = array();
-
             $request_data['name'] = $request->name;
             $request_data['email'] = $request->email;
             $request_data['contact_no'] = $request->contact_no;
@@ -134,9 +136,56 @@ class HomeController extends Controller
            // Custom::showAll($request_data);die;
 
             Contact_us::create($request_data);
+
+            $this->sendMail($request);
+
             return redirect('contact_us')->with('query_message', 'Your message has been recorded in our database.Thank You !!!');
         }
     }
+
+    /**
+     * Function for sending mail to admin
+     * about query through contact us form.
+     *
+     */
+    public function sendMail($data){
+
+        //Custom::showAll($data->name);die;
+        $template_content = Email_template::where('title','=','contact_us_submission_for_admin')->select('content')->first();
+
+        /*        $email = $user_info->email;*/
+        $email = 'prajakta.sisale@neosofttech.com';
+        $string = array();
+        $string[0] = '{{name}}';
+        $string[1] = '{{email}}';
+        $string[2] = '{{contact_no}}';
+        $string[3] = '{{subject}}';
+        $string[4] = '{{message}}';
+
+        $replace=array();
+        $replace[0] = $data->name;
+        $replace[1] = $data->email;
+        $replace[2] = $data->contact_no;
+        $replace[3] = $data->subject;
+        $replace[4] = $data->message;
+
+        $new_template_content = str_replace($string,$replace, $template_content->content);
+
+        Custom::showAll($new_template_content);die;
+        $admin_email = Configuration::where('conf_key','=','Admin_email')->select('conf_value')->first();
+
+        $admin_mail = $admin_email->conf_value;
+
+        Mail::send([], [], function ($message) use ($new_template_content,$admin_mail)
+        {
+            $message->to($admin_mail)
+                ->subject('Customer Message')
+                ->setBody(html_entity_decode(strip_tags($new_template_content)));
+
+        });
+    }
+
+
 
     /**
      * Function for showing address book.

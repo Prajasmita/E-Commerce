@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+Use App\Configuration;
 use App\Countries;
 Use Illuminate\Support\Facades\URL;
 use App\Coupon;
@@ -13,6 +13,7 @@ use App\States;
 use App\User_address;
 use App\User_order;
 use Illuminate\Http\Request;
+Use View;
 Use Cart;
 Use Mail;
 Use DB;
@@ -22,6 +23,7 @@ Use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
 Use Illuminate\Support\Facades\Redirect;
+Use App\Email_template;
 /** All Paypal Details class **/
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
@@ -35,8 +37,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
-
-
+use Symfony\Component\VarDumper\Caster\CutArrayStub;
 
 
 class CartController extends Controller
@@ -317,6 +318,8 @@ class CartController extends Controller
 
                 $order_review_page = $this->orderReview($order_id);
 
+                $this->sendMails($order_review_page);
+
                 $request->session()->flash('payment_message', 'Payment Mode will be cash on delivery. Thank you For Using Our Shopping Cart !!!');
 
                 //Custom::showAll($order_review_page);die;
@@ -476,19 +479,16 @@ class CartController extends Controller
     /*
      * Function for order review page
      */
-    public function orderReview($order_id){
+    public function orderReview($order_id)
+    {
 
-
-        /*return view('order_review');
-        die;*/
-        //$order_id = 1;
         $user_id = Auth::user()->id;
 
-        $user_info = User_address::where('user_id',"=",$user_id)->first();
-        //Custom::showAll($user_info);
+        $user_info = User_address::where('user_id', "=", $user_id)->first();
+        //Custom::showAll($user_info);die;
 
-        $country = Countries::where('id','=',$user_info->country)->first();
-        $state = States::where('id','=',$user_info->state)->first();
+        $country = Countries::where('id', '=', $user_info->country)->first();
+        $state = States::where('id', '=', $user_info->state)->first();
 
 
         $user_info['country'] = $country->name;
@@ -496,40 +496,30 @@ class CartController extends Controller
 
         //Custom::showAll($user_info->toArray());die;
 
-        $order_details = Order_details::Join('products','order_details.product_id','=','products.id')
-            ->join('image_products as i', 'products.id','=','i.product_id')
-            ->select('products.*','i.product_image_name','order_details.order_id','order_details.quantity')
-            ->where('order_details.order_id','=',$order_id)
+        $order_details = Order_details::Join('products', 'order_details.product_id', '=', 'products.id')
+            ->join('image_products as i', 'products.id', '=', 'i.product_id')
+            ->select('products.*', 'i.product_image_name', 'order_details.order_id', 'order_details.quantity','order_details.created_at')
+            ->where('order_details.order_id', '=', $order_id)
             ->get();
 
-
+//Custom::showAll($order_details->created_at);die;
         $order_product = array();
 
-        $order_products=array();
-        foreach ($order_details as $item => $product)
-        {
-            $order_product['price']=$product->price;
-            $order_product['quantity']=$product->quantity;
-            $order_product['image_name']=$product->product_image_name;
+        $order_products = array();
+        foreach ($order_details as $item => $product) {
+            $order_product['price'] = $product->price;
+            $order_product['quantity'] = $product->quantity;
+            $order_product['image_name'] = $product->product_image_name;
             $subtotal = floatval($product->quantity * $product->price);
-            $order_product['subtotal']=$subtotal;
-            $order_product['name']=$product->product_name;
+            $order_product['subtotal'] = $subtotal;
+            $order_product['name'] = $product->product_name;
             $order_products[] = $order_product;
 
         }
-        /*Custom::showAll($order_products);
 
-        die;*/
-        $payment_details = User_order::select('id','grand_total','shipping_charges','discount','status')->where('id','=',$order_id)->first();
+        $payment_details = User_order::select('id', 'grand_total', 'shipping_charges', 'discount', 'status')->where('id', '=', $order_id)->first();
 
-        //Custom::showAll($payment_details->toArray());die;
-
-
-        return array('user_info' => $user_info,'order_products' => $order_products,'payment_details' => $payment_details );
-
-        //redirect('order_review')->with(['user_info' => $user_info,'order_products' => $order_products,'payment_details' => $payment_details]);
-
-        //return redirect()->route('order_review',['user_info' => $user_info,'order_products' => $order_products,'payment_details' => $payment_details]);
+        return array('user_info' => $user_info, 'order_products' => $order_products, 'payment_details' => $payment_details);
 
     }
 
@@ -540,8 +530,6 @@ class CartController extends Controller
      */
     public function paypalPaymentSuccess($id,Request $request){
 
-        //dd($request);
-        //echo $id ;die;
         $payment_Id = $_GET['paymentId'];
         User_order::where('id','=',$id)->update(array('status' => 'O','transaction_id'=>$payment_Id));
 
@@ -567,8 +555,6 @@ class CartController extends Controller
 
         $my_order = User_order::with('order_details')->where('user_id','=',$user_id)->get();
 
-        //Custom::showAll($my_order->toArray());die;
-
         return view('my_orders',array('my_order' => $my_order));
 
     }
@@ -580,7 +566,7 @@ class CartController extends Controller
     public function myOrder($id){
 
         $order_review_page = $this->orderReview($id);
-        //Custom::showAll($order_review_page);die;
+
         return view('my_order', array('order_review_page' => $order_review_page));
     }
 
@@ -590,8 +576,6 @@ class CartController extends Controller
      */
     public function trackOrder(){
 
-        //echo "track";die;
-        //Custom::showAll($order_review_page);die;
         return view('track_order');
     }
 
@@ -618,13 +602,101 @@ class CartController extends Controller
                     ->subject('Order Review');
             });
 
-
-
-
             return redirect('track_order')->with('traced_order','Order Traced Succesfully !!!');
 
 
         }
+
+    }
+
+    /**
+     * Function for sending mail to admin and customer about placed order
+     *
+     */
+    public function sendMails($data){
+
+        //Custom::showAll($data['payment_details']['id']);die;
+
+        $user_order = User_order::where('id','=',$data['payment_details']['id'])->first();
+
+        /*$html ='<table style="border: 1px solid black;border-collapse: collapse;"><tr><thstyle="border: 1px solid black;
+    border-collapse: collapse;">Item</th><th style="border: 1px solid black;
+    border-collapse: collapse;">Price</th></tr></table>' ;*/
+
+        $view = View::make('admin.email_template.order_details_table');
+        $html = $view->render();
+        //Custom::showAll($html);die;
+
+
+        $template_content = Email_template::where('title','=','order_details')->select('content')->first();
+
+/*        Custom::showAll(htmlentities($template_content->content));die;*/
+        /*        $email = $user_info->email;*/
+        $email = 'prajakta.sisale@neosofttech.com';
+        $string = array();
+        $string[0] = '{{first_name}}';
+        $string[1] = '{{email}}';
+        $string[2] = '{{contact_no}}';
+        $string[3] = '{{address1}}';
+        $string[4] = '{{city}}';
+        $string[5] = '{{state}}';
+        $string[6] = '{{payment status}}';
+        $string[7] = '{{last_name}}';
+        $string[8] = '{{address2}}';
+        $string[9] = '{{zip_code}}';
+        $string[10] = '{{country}}';
+        $string[11] = '{{order_id}}';
+        $string[12] = '{{created date}}';
+        $string[13] = '{{product table}}';
+
+
+        $replace=array();
+        $replace[0] = $data['user_info']['first_name'];
+        $replace[1] = $email;
+        $replace[2] = $data['user_info']['contact_no'];
+        $replace[3] = $data['user_info']['address1'];
+        $replace[4] = $data['user_info']['city'];
+        $replace[5] = $data['user_info']['state'];
+        $replace[6] = $data['payment_details']['status']== 'O' ? 'Processing':'Pending';
+        $replace[7] = $data['user_info']['last_name'];
+        $replace[8] = $data['user_info']['address2'];
+        $replace[9] = $data['user_info']['zip_code'];
+        $replace[10] = $data['user_info']['country'];
+        $replace[11] = 'ORD'.str_pad($data['payment_details']['id'], 4, '0', STR_PAD_LEFT);
+        $replace[12] = $user_order->created_at->format('j F, Y');
+        $replace[13] = $html;
+
+        $new_template_content = str_replace($string,$replace, $template_content->content);
+
+        //Custom::showAll(htmlentities($new_template_content));die;
+
+        $admin_template_content = Email_template::where('title','=','order_details_for_admin')->select('content')->first();
+
+        $admin_email = Configuration::where('conf_key','=','Admin_email')->select('conf_value')->first();
+
+        $admin_mail = $admin_email->conf_value;
+
+/*        $admin_mail = 'prajakta.sisale@neosofttech.com';*/
+        $admin_content = str_replace($string,$replace, $admin_template_content->content);
+
+        //dd(html_entity_decode($new_template_content));
+        Mail::send([], [], function ($message) use ($new_template_content,$email)
+        {
+            $message->to($email)
+                ->subject('Placed Order Details')
+                ->setBody(html_entity_decode(strip_tags($new_template_content)));
+
+        });
+
+        Mail::send([], [], function ($message) use ($admin_content,$admin_mail)
+        {
+
+            $message->to($admin_mail)
+                ->subject('Order Details of customer')
+                ->setBody(html_entity_decode(strip_tags($admin_content)));
+        });
+
+
 
     }
 
