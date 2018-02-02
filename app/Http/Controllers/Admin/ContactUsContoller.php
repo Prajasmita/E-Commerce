@@ -8,6 +8,8 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
 Use Auth;
+Use App\Email_template;
+Use Mail;
 
 /**
 * Class Contact us Controller for check message and reply.
@@ -111,17 +113,66 @@ class ContactUsContoller extends Controller
         return view('admin.contactus.admin_note',array('authUser'=>$authUser,'query_data'=>$query_data));
     }
 
+    /**
+     * Function for storing admin reply as admin note.
+     *
+     */
     public function saveAdminNote(Request $request){
 
         if($this->validate($request, [
             'note_admin'=> 'required',
         ])) {
+
             Contact_us::where('id', '=', $request->id)->update(array('note_admin' => $request->note_admin));
+
+            $Contact_us_details = Contact_us::where('id','=',$request->id)->first()->toArray();
+
+            //Custom::showAll($Contact_us_details);die;
+            $this->sendMail($Contact_us_details);
 
             return redirect('admin/contactus')->with('admin_note', 'Successfully replied to the query !!!!');
 
         }
 
+    }
+
+    /**
+     * Function for sending mail to admin
+     * about query through contact us form.
+     *
+     */
+    public function sendMail($data){
+
+        //Custom::showAll($data['email']);die;
+        $template_content = Email_template::where('title','=','admin_note')->select('content')->first();
+
+        $email = $data['email'];
+        $string = array();
+        $string[0] = '{{name}}';
+        $string[1] = '{{email}}';
+        $string[2] = '{{contact_no}}';
+        $string[3] = '{{subject}}';
+        $string[4] = '{{message}}';
+        $string[5] = '{{admin_note}}';
+
+
+        $replace=array();
+        $replace[0] = $data['name'];
+        $replace[1] = $data['email'];
+        $replace[2] = $data['contact_no'];
+        $replace[3] = $data['subject'];
+        $replace[4] = $data['message'];
+        $replace[5] = $data['note_admin'];
+
+        $new_template_content = str_replace($string,$replace, $template_content->content);
+
+        Mail::send([], [], function ($message) use ($new_template_content,$email)
+        {
+            $message->to($email)
+                ->subject('Customer Message')
+                ->setBody(html_entity_decode(strip_tags($new_template_content)));
+
+        });
     }
 
 }
