@@ -45,6 +45,12 @@
         {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+<div class="form-group">
+    <label for="password-confirm" class="col-md-4 control-label">Confirm Password<span class="require">*</span></label>
+    <div class="col-md-6">
+        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
+    </div>
+</div>
 
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
 
