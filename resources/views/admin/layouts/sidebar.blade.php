@@ -75,6 +75,12 @@
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('cms.index') }}">
+                            <i class="fa fa-list"></i> <span>CMS</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li >

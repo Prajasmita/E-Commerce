@@ -66,7 +66,7 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],f
     Route::get('coupons/{coupon}',['as'=> 'coupons.show','uses'=>'CouponsController@show']);
     Route::get('coupons/{coupon}/edit',['as'=> 'coupons.edit','uses'=>'CouponsController@edit']);
     Route::patch('coupons/{coupon}',['as'=> 'coupons.update','uses'=>'CouponsController@update']);
-    Route::post('coupons',['as'=>'banners.store','uses'=>'CouponsController@store']);
+    Route::post('coupons',['as'=>'coupons.store','uses'=>'CouponsController@store']);
     Route::get('coupons/{coupon}/destroy',['as'=> 'coupons.destroy','uses'=>'CouponsController@destroy']);
 
     Route::get('contactus',['as'=> 'contact.admin','uses'=>'ContactUsContoller@index']);
@@ -82,6 +82,16 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],f
 
     Route::get('user_orders',['as'=> 'user.orders','uses'=>'UserOrderController@index']);
     Route::get('user_orders/{id}',['as'=> 'order.details','uses'=>'UserOrderController@orderDetails']);
+
+    Route::get('cms/create',['as'=> 'cms.create','uses'=>'CmsController@create']);
+    Route::get('cms',['as'=>'cms.index','uses'=>'CmsController@index']);
+    Route::get('cms/{cms}',['as'=> 'cms.show','uses'=>'CmsController@show']);
+    Route::get('cms/{cms}/edit',['as'=> 'cms.edit','uses'=>'CmsController@edit']);
+    Route::patch('cms/{cms}',['as'=> 'cms.update','uses'=>'CmsController@update']);
+    Route::post('cms',['as'=>'banners.store','uses'=>'CmsController@store']);
+    Route::get('cms/{cms}/destroy',['as'=> 'cms.destroy','uses'=>'CmsController@destroy']);
+
+
 
 
 });
@@ -148,6 +158,8 @@ Route::post('forget_password',['as' => 'retrieve.password','uses' => 'HomeContro
 
 
 Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@selectStates']);
+
+Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);
 
 Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 

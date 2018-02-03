@@ -94,6 +94,7 @@
                                     <li><a href="blog-single.html">Blog Single</a></li>
                                 </ul>
                             </li>
+                            <li><a href="{{route('about.us')}}">About Us</a></li>
                             <li><a href="404.html">404</a></li>
                             <li><a href="{{route('contact_us')}}">Contact</a></li>
                         </ul>

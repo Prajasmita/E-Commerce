@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Banner;
 use App\Category;
 use App\Category_product;
+use App\Cms;
 use App\Contact_us;
 use App\Helper\Custom;
 use App\Product;
@@ -418,6 +419,17 @@ class HomeController extends Controller
 
         }
 
+    }
+    /**
+     * Display the about us page.
+     *
+     *
+     */
+    public function aboutUs()
+    {
+        $page_data = Cms::where('title','=','About_us')->first();
+        //Custom::showAll($page_data->content);die;
+        return view('about_us',array('page_data' => $page_data));
     }
 
 
