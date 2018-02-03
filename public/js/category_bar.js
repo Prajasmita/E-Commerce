@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    var presentCartCount = ($(this).attr("data-count"));
+
+    console.log(presentCartCount);
+
+
     addToWishlist();
     addToCart();
 
@@ -107,7 +112,7 @@ $(document).ready(function() {
                 }
             });
             var id = ($(this).attr("data-id"));
-            var presentCartCount = ($(this).attr("data-count"));
+            var presentCartCount = ($('.cart-count').attr("data-count"));
             var changedCartCount = parseInt(presentCartCount) + parseInt(1);
 
             $.ajax({
