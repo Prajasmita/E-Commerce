@@ -81,6 +81,7 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],f
     Route::patch('email_template/{email_template_id}',['as'=> 'email_template.update','uses'=>'emailTemplateController@update']);
 
     Route::get('user_orders',['as'=> 'user.orders','uses'=>'UserOrderController@index']);
+    Route::get('user_orders/{id}',['as'=> 'order.details','uses'=>'UserOrderController@orderDetails']);
 
 
 });

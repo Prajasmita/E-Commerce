@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+Use App\Helper\Custom;
 
 class CouponsController extends Controller
 {
@@ -36,6 +37,7 @@ class CouponsController extends Controller
             $sortBy = $order[0]['column'];
             $sortOf = $order[0]['dir'];
             $code = $column[$sortBy]['data'];
+
             $coupons = Coupon::select('id','code','percent_off');
             if ($search_word != '' ) {
 

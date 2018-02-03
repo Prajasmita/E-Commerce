@@ -82,6 +82,7 @@
                                     </div>
                                 </td>
                                 <td class="cart_total">
+                                    @php $total = $total + $order_product['subtotal']  @endphp
                                     <p class="cart_total_price">${{$order_product['subtotal']}}</p>
                                 </td>
 
@@ -93,7 +94,7 @@
                                 <table class="table table-condensed total-result order-amount">
                                     <tr>
                                         <td>Cart Sub Total</td>
-                                        <td>{{"$".$order_review_page['payment_details']['grand_total']}}</td>
+                                        <td>{{"$".$total}}</td>
                                     </tr>
                                     @if(($order_review_page['payment_details']['discount']))
                                         <tr>
