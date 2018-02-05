@@ -425,11 +425,11 @@ class HomeController extends Controller
      *
      *
      */
-    public function aboutUs()
+    public function getPages($page_name)
     {
-        $page_data = Cms::where('title','=','About_us')->first();
-        //Custom::showAll($page_data->content);die;
-        return view('about_us',array('page_data' => $page_data));
+        $page_data = Cms::where('title','=',$page_name)->first();
+
+        return view('get_page',array('page_data' => $page_data));
     }
 
 
