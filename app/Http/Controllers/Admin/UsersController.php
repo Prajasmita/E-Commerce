@@ -106,8 +106,7 @@ class UsersController extends Controller
     public function create()
     {
 
-
-        $roles = Role::with('users')->get();
+        $roles = Role::get();
 
         $authUser = Auth::user();
 
@@ -149,13 +148,11 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $roles = User::with('role')->get();
-
-        $user = User::findOrFail($id);
+        $user = User::with('role')->where('id','=',$id)->first();
 
         $authUser = Auth::user();
 
-        return view('admin.users.show', compact('user','authUser','roles'));
+        return view('admin.users.show', compact('user','authUser'));
     }
 
     /**
@@ -169,10 +166,10 @@ class UsersController extends Controller
     {
 
         $authUser = Auth::user();
+
         $user = User::findOrFail($id);
         Hash::make($user['Password']);
-/*        $roles=User::get();*/
-        $roles = Role::with('users')->get();
+        $roles = Role::get();
 
         return view('admin.users.edit',array('authUser'=>$authUser,'roles'=> $roles,'user'=>$user));
     }
@@ -192,11 +189,16 @@ class UsersController extends Controller
             'last_name' => 'required',
             'email' => 'required|email',
             'status' => 'required',
+            'password' => 'sometimes|confirmed',
             'role_id' => 'required'
         ]);
 
+        if($request->password == ''){
+            $request->offsetUnset('password');
+        }
 
         $requestData = $request->all();
+
         $user = User::findOrFail($id);
         $user->update($requestData);
 
