@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Helper\Custom;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Product;
-use Illuminate\Http\UploadedFile;
 use App\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
