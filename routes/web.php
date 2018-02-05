@@ -161,6 +161,11 @@ Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@select
 
 Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);
 
+Route::get('/cms/{page_name}',['as'=> 'cms.page','uses'=>'HomeController@getPages']);
+
+/*Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);*/
+
+
 Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 
 
