@@ -17,7 +17,7 @@
                     <tbody>
                     @foreach($my_order as $order)
                     <tr>
-                        <td>{{$order->created_at->format('j F, Y')}}</td>
+                        <td>{{$order->created_at->format('d M,Y')}}</td>
                         <td>{{'ORD'.str_pad($order->id, 4, '0', STR_PAD_LEFT)}}</td>
                         <td>{{$order->grand_total}}</td>
                         <td>{{($order->status == 'O') ? 'Processing' : 'Pending' }}</td>

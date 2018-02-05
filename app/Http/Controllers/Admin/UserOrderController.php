@@ -42,14 +42,17 @@ class UserOrderController extends Controller
 
             $offset=$request->input('start');
             $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $search_word=ltrim($search['value'] ,'0');
+
+            //Custom::showAll($search_word);die;
             $draw = $request->input('draw');
             $column = $request->input('columns');
             $order = $request->input('order');
-            /*$sortBy = $order[0]['column'];
+            $sortBy = $order[0]['column'];
             $sortOf = $order[0]['dir'];
-            $date = $column[$sortBy]['data'];
-            $orderId = $column[$sortBy]['data'];*/
+            //$date = $column[$sortBy]['data'];
+            //Custom::showAll($date);die;
+            $orderId = $column[$sortBy]['data'];
 
             $user_orders = User_order::select('id','grand_total','user_id','status','payment_gateway_id','created_at');
 
@@ -57,14 +60,13 @@ class UserOrderController extends Controller
             $user_orders = $user_orders
                 ->skip($offset)
                 ->take($limit)
-                /*->orderBy($date , $sortOf)
-                ->orderBy($orderId ,$sortOf)*/
+                //->orderBy($date , $sortOf)
+                //->orderBy($orderId ,$sortOf)
                 ->get();
 
             if ($search_word != '' ) {
 
-                $user_orders = User_order::where('created_at', 'LIKE', "%$search_word%")
-                    ->orWhere('order_id', 'LIKE', ltrim("%$search_word%",'0'));
+                $user_orders = User_order::Where('id', 'LIKE', "%$search_word%");
             }
 
             if ($search_word != '' ) {
@@ -83,7 +85,7 @@ class UserOrderController extends Controller
                 $res_data = array();
                 $res_data['user_id'] = $val['user_id'];
                 $res_data['id'] = $val['id'];
-                $res_data['date'] = $val['created_at']->format('j F, Y');
+                $res_data['date'] = $val['created_at']->format('d M,Y');
                 $res_data['order_id'] = 'ORD'.str_pad($val['id'] , '4','0',STR_PAD_LEFT);
                 $res_data['total'] = $val['grand_total'];
                 $res_data['status'] = $val['status'] == 'O' ? 'Processing' : 'Pending';
