@@ -8,20 +8,22 @@ $(function () {
             },
         },
         "paging": true,
-        "ordering": true,
+        //"ordering": true,
         "info": true,
         "lengthMenu": [[2, 5, 10, 25, -1], [2, 5, 10, 25, "All"]],
         "pageLength": 5,
-        "order": [[1, "asc"]],
+        //"order": [[0, "asc"]],
         "processing": true,
         "serverSide": true,
         "columnDefs": [
             {"orderable": false, "targets": [0]},
             {"orderable": false , "targets": [1]},
-            {"orderable":true,"orderSequence": ["asc" ,"desc"],"targets": [2]},
+            {"orderable":false,"targets": [2]},
             {"orderable":false,"targets": [3]},
             {"orderable": false, "targets": [4]},
             {"orderable": false, "targets": [5]},
+            {"orderable": false, "targets": [6]},
+
 
         ],
         "columns": [
@@ -37,7 +39,7 @@ $(function () {
 
         "rowCallback": function( row, data, index ) {
 
-            console.log(data);
+            //console.log(data);
             $('td:eq(0)' , row).html(
                 index+1
             );
@@ -51,7 +53,7 @@ $(function () {
 
             $('td:eq(6)', row).html(
 
-                '<a href="'+ViewUrl+'" title="View templates"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;');
+                '<a href="'+ViewUrl+'" title="View user_orders"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;');
 
         }
     });

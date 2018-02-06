@@ -169,6 +169,9 @@ return [
         'Kodeine\Acl\AclServiceProvider',
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Unisharp\Ckeditor\ServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+
+
 
 
         /*
@@ -233,6 +236,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class
+
     ],
 
 ];

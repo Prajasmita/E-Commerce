@@ -93,7 +93,6 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],f
 
 
 
-
 });
 
 Route::get('/', 'HomeController@index')->name('home');

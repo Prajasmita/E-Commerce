@@ -26,7 +26,6 @@
 
 <script src="{{asset('js/script.js')}}"></script>
 
-
 <script>
     var baseUrl = '{{url('')}}';
     var productPath = "{{config('constants.product_path')}}";
@@ -35,14 +34,6 @@
 </script>
 
 <!-- DataTables -->
-{{--<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('js/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{asset('js/admin_listing.js')}}"></script>
-<script src="{{asset('js/configuration_listing.js')}}"></script>
-<script src="{{asset('js/banner_listing.js')}}"></script>
-<script src="{{asset('js/categories_listing.js')}}"></script>
-<script src="{{asset('js/product_listing.js')}}"></script>
-<script src="{{asset('js/coupon_listing.js')}}"></script>--}}
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/dataTables.bootstrap.min.js')}}"></script>
 @if(isset($js))
@@ -51,6 +42,8 @@
 {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+
 
 </body>
 </html>
