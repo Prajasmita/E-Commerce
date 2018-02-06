@@ -50,7 +50,7 @@
                                 </li>
                             @endif
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="{{ Auth::user() ? route('checkout') : route('register') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a href="{{ Auth::user() ? (Cart::count() ? route('checkout') : route('cart') ): route('register') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a class="cart-count" data-count="{{Cart::count()}}" href="{{route('cart')}}"><i class="fa fa-shopping-cart "></i> Cart({{Cart::count()}})</a></li>
                                 @if( Auth::user())
                                 <li><a href="{{route('user_logout')}}"><i class="fa fa-unlock"></i> Logout</a></li>
