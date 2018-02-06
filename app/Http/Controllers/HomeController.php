@@ -225,6 +225,7 @@ class HomeController extends Controller
             'last_name'=> 'required',
             'email'=> 'required|email',
             'address1' => 'required',
+            'city' => 'required',
             'zip_code' => 'required',
             'state' => 'required',
             'country' => 'required',
@@ -243,16 +244,14 @@ class HomeController extends Controller
 
         if($request->ajax()) {
 
-            //Custom::showAll($this->rules());die;
-
             $validator = Validator::make($request->all(), $this->rules());
 
             if ($validator->fails()) {
 
                 return response()->json(['errors' => $validator->errors()]);
             } else {
-                 User_address::create($request->all());
-                //return response()->json("true");
+
+                User_address::create($request->all());
                 return response()->json(array('message' => 'New address store Successfully !!', 'redirecturl' => 'address_book'));
             }
         }
@@ -266,7 +265,6 @@ class HomeController extends Controller
     public function addressEdit($id){
 
         $user_address = User_address::findorfail($id);
-        //Custom::showAll($user_address->toArray());die;
 
         $countries = Countries::get();
 
@@ -295,9 +293,6 @@ class HomeController extends Controller
 
                 $user_address = $request->all();
 
-/*                $user_address['country'] = $request->country ?  ;*/
-
-                //Custom::showAll($user_address['id']);die;
                 $userAddress = User_address::findOrFail($user_address['id']);
                 $userAddress->update($user_address);
 
@@ -334,6 +329,17 @@ class HomeController extends Controller
 
 
       }
+    }
+
+    /*
+    * Function to delete user_address
+    *
+    */
+    public function addressDelete($id){
+
+        User_address::destroy($id);
+
+        return redirect('address_book')->with('message', 'Address deleted !!!');
 
 
     }

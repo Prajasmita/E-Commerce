@@ -76,13 +76,13 @@
                                 <input type="text" name="zip_code" placeholder="Zip / Postal Code *" class="checkout-form-input">
                                 <select name="country" class="checkout-form-input select-country">
                                     @foreach($countries as $country)
-                                       <option>{{ $country->name }}</option>
+                                        <option value="{{ $country->id}}">{{ $country->name }}</option>
                                     @endforeach
                                 </select>
                                 <select name="state" class="checkout-form-input select-state">
-                                    @php $country_id = ( $country->name ) ? $country->id : ''  @endphp
+                                    @php $country_id = ($country->name) ? $country->id : ''  @endphp
                                     @foreach($states as $state)
-                                        <option>{{$state->name}}</option>
+                                        <option value="{{ $state->id}}">{{ $state->name }}</option>
                                     @endforeach
                                 </select>
                                 <input type="text" name="contact_no" placeholder="Mobile Phone" class="checkout-form-input">

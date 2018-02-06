@@ -133,7 +133,7 @@ Route::group(['middleware'=>['auth']],function() {
     Route::post('/address_Update',['as'=> 'address.update','uses'=>'HomeController@addressUpdate']);
 
     Route::post('/address_store',['as'=> 'address.store','uses'=>'HomeController@addressStore']);
-
+    Route::get('/address_delete/{id}',['as'=> 'address.delete','uses'=>'HomeController@addressDelete']);
     Route::post('/address_primary',['as'=> 'address.primary','uses'=>'HomeController@makePrimaryAddress']);
 
 
