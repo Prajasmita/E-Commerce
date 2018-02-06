@@ -17,7 +17,7 @@
             <div class="user_info">
                 <table class="pull-right">
                     <tr>
-                        <td> {{$order_review_page['user_info']['first_name']}} {{$order_review_page['user_info']['middle_name']}} {{$order_review_page['user_info']['last_name']}} </td>
+                        <td><strong><h4>{{$order_review_page['user_info']['first_name']}} {{$order_review_page['user_info']['middle_name']}} {{$order_review_page['user_info']['last_name']}}<h4><strong></td>
                     </tr>
                     <tr>
                         <td> {{$order_review_page['user_info']['email']}}</td>

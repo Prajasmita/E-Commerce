@@ -15,7 +15,7 @@
                         <td>
                             <table>
                                 <tr>
-                                    <td>{{$user_address->first_name}} {{ $user_address->middle_name ? $user_address->middle_name  : ''}} {{$user_address->last_name}} </td>
+                                    <td><strong><h4>{{$user_address->first_name}} {{ $user_address->middle_name ? $user_address->middle_name  : ''}} {{$user_address->last_name}} <h4><strong></td>
                                 </tr>
                                 <tr>
                                     <td> {{$user_address->email}} , {{$user_address->contact_no}}</td>
