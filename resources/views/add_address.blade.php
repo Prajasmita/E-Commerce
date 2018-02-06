@@ -68,11 +68,11 @@
                                 <input type="text" name="first_name" placeholder="First Name *" class="checkout-form-input">
                                 <input type="text" name="middle_name" placeholder="Middle Name" class="checkout-form-input">
                                 <input type="text" name="last_name" placeholder="Last Name *" class="checkout-form-input">
+                                </div>
+                            <div class="col-sm-6">
                                 <input type="text" name="address1" placeholder="Address 1 *" class="checkout-form-input">
                                 <input type="text" name="address2" placeholder="Address 2" class="checkout-form-input">
                                 <input type="text" name="city" placeholder="City" class="checkout-form-input">
-                            </div>
-                            <div class="col-sm-6">
                                 <input type="text" name="zip_code" placeholder="Zip / Postal Code *" class="checkout-form-input">
                                 <select name="country" class="checkout-form-input select-country">
                                     @foreach($countries as $country)
