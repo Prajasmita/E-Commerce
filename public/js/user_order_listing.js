@@ -39,16 +39,19 @@ $(function () {
 
         "rowCallback": function( row, data, index ) {
 
-            //console.log(data);
             $('td:eq(0)' , row).html(
                 index+1
+            );
+
+            $('td:eq(3)' , row).html(
+                '$'+data.total
             );
 
             var reExp = /id/;
             var showUrl = dataTableUserOrderDetail;
             var ViewUrl = showUrl.replace(reExp, data.id);
 
-            console.log(ViewUrl);
+            //console.log(ViewUrl);
 
 
             $('td:eq(6)', row).html(
