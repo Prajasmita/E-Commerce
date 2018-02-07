@@ -166,7 +166,7 @@
                                                         @if(in_array($cat->products->id,$my_wishlist))
                                                         <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist link_text_color added" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-heart "></i></a></li>
                                                         @else
-                                                        <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-heart-o"></i></a></li>
                                                         @endif
                                                 </div>
                                             </div>
