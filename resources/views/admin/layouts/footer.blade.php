@@ -23,6 +23,8 @@
 <script src="{{asset('js/demo.js')}}"></script>
 <!-- iCheck -->
 <script src="{{asset('js/icheck.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('js/select2.full.min.js')}}"></script>
 
 <script src="{{asset('js/script.js')}}"></script>
 

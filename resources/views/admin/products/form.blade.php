@@ -129,12 +129,13 @@
     <label for="category" class="col-md-4 control-label">{{ 'Category' }}<span class="require">*</span></label>
 
     <div class="col-md-6">
+{{--
         <select  name="category[]"  class="form-control" id="category" multiple>
-
+--}}
+        <select name="category[]" class="form-control select2" multiple="multiple" data-placeholder="Select Category">
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}"  {{--{{ (isset($product->product_id) && $product->product_id == $product->id) ? 'selected' : ''}}--}}>{{ $category->name }}</option>
             @endforeach
-
         </select>
 
         {!! $errors->first('category', '<p class="help-block">:message</p>') !!}

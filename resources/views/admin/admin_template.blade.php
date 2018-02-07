@@ -23,7 +23,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
-
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
 
     <link rel="stylesheet" href="{{asset('css/blue.css')}}">
     {{--style css--}}
@@ -82,8 +83,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Footer -->
     @include('admin.layouts.footer')
     <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+        })
+    </script>
+    <script>
         CKEDITOR.replace( 'ckeditor-note' );
     </script>
+    <!--Multiple Image Upolad -->
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            $("#fileupload").change(function () {
+                if (typeof (FileReader) != "undefined") {
+                    var dvPreview = $("#dvPreview");
+                    dvPreview.html("");
+                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                    $($(this)[0].files).each(function () {
+                        var file = $(this);
+                        if (regex.test(file[0].name.toLowerCase())) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                var img = $("<img />");
+                                img.attr("style", "height:100px;width: 100px");
+                                img.attr("src", e.target.result);
+                                dvPreview.append(img);
+                            }
+                            reader.readAsDataURL(file[0]);
+                        } else {
+                            alert(file[0].name + " is not a valid image file.");
+                            dvPreview.html("");
+                            return false;
+                        }
+                    });
+                } else {
+                    alert("This browser does not support HTML5 FileReader.");
+                }
+            });
+        });
+    </script>
+
+
 
 </div><!-- ./wrapper -->
 

@@ -121,6 +121,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
+        Custom::showAll($request->category);die;
         //Custom::showAll($request->has('is_feature')?1:0);die;
         $this->validate($request, [
             'product_name' => 'required',
@@ -202,6 +203,7 @@ class ProductsController extends Controller
            $query->with('category');
        }])->findOrFail($id);
 
+       //Custom::showAll($product_data->toArray());die;
         $product_data['image_products'] = empty($product_data['image']['product_image_name']) ? Custom::imageExistence(''):Custom::imageExistence($product_data['image']['product_image_name']);
 
         $authUser = Auth::user();
