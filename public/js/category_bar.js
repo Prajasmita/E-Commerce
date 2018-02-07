@@ -50,9 +50,9 @@ $(document).ready(function() {
                             html += "                                       <div  class=\" choose nav nav-pills nav-justified "+hidden+"\">\n" ;
                                                                             if($.inArray(value, my_wishlist) != -1) {
 
-                                                                                html += "<li><a class=\"link_text_color\"><i class=\" glyphicon glyphicon-ok\"></i>Added to Wishlist</a></li>\n";
+                                                                                html += "<li><a class=\"link_text_color added\"><i class=\" fa fa-heart \"></i></a></li>\n";
                                                                             }else {
-                                                                                html += "<li class=\"product_id_"+data.products.id+" choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id="+data.products.id+"><i class=\"fa fa-plus-square \"  ></i> Add to wishlist</a></li>\n";
+                                                                                html += "<li class=\"product_id_"+data.products.id+" choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id="+data.products.id+"><i class=\"fa fa-heart-o \"></i></a></li>\n";
                                                                             }
                         html += "                                            </div>\n" +
                             "                                            </div>\n" +
@@ -92,7 +92,9 @@ $(document).ready(function() {
                   // console.log(data);exit;
                     if (data == "true") {
                         var html = "";
-                        html = "<a class=\"link_text_color \"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Wishlist</a>";
+
+
+                        html = "<a class=\"link_text_color added \"><i class=\" fa fa-heart\"  ></i></a>";
 
                         $('.product_id_' + product_id).html(html);
                     }

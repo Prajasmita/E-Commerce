@@ -50,7 +50,7 @@ $(document).ready(function(){
                 if(data == "true")
                 {
                     var html = "";
-                    html = "<a class=\"link_text_color\"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Wishlist</a>";
+                    html = "<a class=\"link_text_color added\"><i class=\" fa fa-heart \"></i></a>";
                     $('#product_id_' + product_id).html(html);
 
                 }

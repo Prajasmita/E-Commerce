@@ -113,7 +113,7 @@
                                             <h2>${{$featured_product->price}}</h2>
                                             <p><a class=""  href="{{route('products.details',$featured_product->id)}}">{{$featured_product->product_name}}</a></p>
                                             @if(in_array($featured_product->id,$cart_product))
-                                                <span><a href="javascript:void(0)" class="btn btn-default product-added"><i class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
+                                                <span><a href="javascript:void(0)" class="btn btn-default product-added "><i class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
                                             @else
                                                 <a href="javascript:void(0)" data-id="{{$featured_product->id}}" data-count="{{count($cart_product)}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$featured_product->id}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             @endif
@@ -124,9 +124,9 @@
                                 <div  class="choose {{ Auth::user() ?'':'hidden_field' }}">
                                     <ul class="nav nav-pills nav-justified">
                                         @if(in_array($featured_product->id,$my_wishlist))
-                                            <li><a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a></li>
+                                            <li><a class="link_text_color added"><i class="fa fa-heart"></i></a></li>
                                         @else
-                                            <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
+                                            <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-heart-o"></i></a></li>
                                     @endif
                                     </ul>
                                 </div>
@@ -164,13 +164,11 @@
                                                 <div  class="choose nav nav-pills nav-justified {{ Auth::user() ?'':'hidden_field' }}">
 
                                                         @if(in_array($cat->products->id,$my_wishlist))
-                                                        <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
+                                                        <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist link_text_color added" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-heart "></i></a></li>
                                                         @else
-                                                            <li class="{{"product_id_".$cat->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$cat->products->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
+                                                        <li class="{{"product_id_".$featured_product->id}}"><a class="wishlist" href="javascript:void(0)" data-id="{{$featured_product->id}}"><i class="fa fa-heart-o"></i></a></li>
                                                         @endif
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
