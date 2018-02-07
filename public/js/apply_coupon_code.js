@@ -73,7 +73,7 @@ $(document).ready(function(){
                         "                                    </tr>\n" +
                         "                                    <tr>\n" +
                         "                                        <td>Total</td>\n" +
-                        "                                        <td id=\"finalTotal\" data-finalTotal="+finalTotal+"><span>"+finalTotal+"</span></td>\n" +
+                        "                                        <td id=\"finalTotal\" data-finalTotal="+finalTotal+">$"+finalTotal+"</td>\n" +
                         "                                    </tr>\n" +
                         "                                </table>\n" +
                         "                                        <input type=\"text\"  name=\"shipping_charge\" class=\"hidden_field\" value="+shipping_cost+">\n"+
