@@ -53,7 +53,7 @@ class HomeController extends Controller
         $banner_images = Banner::select('banner_name','banner_image')
             ->where('status','=','1')->get();
 
-        $categories = Category::with('sub_category')->where('parent_id','=',0)->get();
+        $categories = Category::with('sub_category')->where('status','=','1')->where('parent_id','=',0)->get();
 
         $featured_products = Product::with('image_products')->where('is_feature','=','1')->get();
 
