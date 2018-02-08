@@ -126,7 +126,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('category') ? 'has-error' : ''}}">
-    <label for="category" class="col-md-4 control-label">{{ 'Category' }}<span class="require">*</span></label>
+    <label for="category" class="col-md-4 control-label">{{ 'Category' }} <span class="require">*</span></label>
 
     <div class="col-md-6">
 {{--

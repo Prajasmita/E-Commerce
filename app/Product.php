@@ -69,6 +69,6 @@ class Product extends Model
 
     public function order_details()
     {
-        return $this->hasOne('App\Order_details');
+        return $this->hasMany('App\Order_details');
     }
 }
