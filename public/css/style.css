@@ -60,10 +60,17 @@
 }
 a{
     cursor: pointer;
+
 }
 
 .added{
     cursor: text;
+    color:red!important;
+
+}
+
+.wishlist_color{
+    background-color: transparent!important;
 }
 
 /*css for checkout form*/
