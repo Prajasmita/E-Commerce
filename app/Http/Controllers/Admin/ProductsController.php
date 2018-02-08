@@ -121,7 +121,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
-        Custom::showAll($request->category);die;
+        //Custom::showAll($request->category);die;
         //Custom::showAll($request->has('is_feature')?1:0);die;
         $this->validate($request, [
             'product_name' => 'required',

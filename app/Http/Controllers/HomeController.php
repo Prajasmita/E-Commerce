@@ -55,7 +55,13 @@ class HomeController extends Controller
 
         $categories = Category::with('sub_category')->where('status','=','1')->where('parent_id','=',0)->get();
 
-        $featured_products = Product::with('image_products')->where('is_feature','=','1')->get();
+        $featured_products = Product::with('image')->where('is_feature','=','1')->limit(6)->get()->toArray();
+
+        foreach($featured_products as $key => $value ){
+
+            $featured_products[$key]['image']['product_image_name'] = empty($value['image']['product_image_name']) ? Custom::imageExistence(''):Custom::imageExistence($value['image']['product_image_name']);
+
+        }
 
         $my_wishlist =array();
         if(Auth::user()){
@@ -76,10 +82,17 @@ class HomeController extends Controller
         $products = Category_product::select('category_id','product_id')->with((['products' => function($query){
             $query->select('id','product_name','price');
             $query->with(['image'=>function($query1){
-                $query1->select('product_image_name','product_id');
+                $query1->select('product_id');
             }]);
-        }]))->where('category_id','=','1')->limit(4)->get();
+        }]))->where('category_id','=','1')->limit(4)->get()->toArray();
 
+        foreach($products as $key => $value ){
+
+            $products[$key]['products']['image'] = empty($value['products']['image']) ? Custom::imageExistence(''):Custom::imageExistence($value['products']['image']);
+
+        }
+
+        //Custom::showAll($products);die;
 
         $cart_product = array();
         if(Cart::count()){
@@ -437,8 +450,5 @@ class HomeController extends Controller
 
         return view('get_page',array('page_data' => $page_data));
     }
-
-
-
 
 }

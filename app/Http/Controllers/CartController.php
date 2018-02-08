@@ -87,9 +87,12 @@ class CartController extends Controller
 
             $products = Product::with(['image' => function ($query) {
                 $query->get();
-            }])->select('id', 'product_name', 'price', 'quantity')->where('id', '=', $id)->first();
+            }])->select('id', 'product_name', 'price', 'quantity')->where('id', '=', $id)->first()->toArray();
+            
+            $products['image'] = empty($products['image']) ? Custom::imageExistence(''):Custom::imageExistence($products['image']['product_image_name']);
 
-            Cart::add(array('id' => $id, 'name' => $products->product_name, 'qty' => 1, 'price' => $products->price, 'options' => ['image' => $products->image->product_image_name]));
+
+            Cart::add(array('id' => $id, 'name' => $products['product_name'], 'qty' => 1, 'price' => $products['price'], 'options' => ['image' => $products['image']]));
 
             return json_encode('true');
 
