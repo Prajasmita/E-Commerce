@@ -334,13 +334,19 @@ class CartController extends Controller
                 $payer = new Payer();
                 $payer->setPaymentMethod('paypal');
 
-                $order_details = Order_details::Join('products', 'order_details.product_id', '=', 'products.id')
+                /*$order_details = Order_details::Join('products', 'order_details.product_id', '=', 'products.id')
                     ->join('image_products as i', 'products.id', '=', 'i.product_id')
                     ->select('products.*', 'i.product_image_name', 'order_details.order_id', 'order_details.quantity')
-                    ->where('order_details.order_id', '=', $order_id)
-                    ->get();
+                    ->where('order_details.order_id', '=', 91)
+                    ->get();*/
 
-                /*Custom::showAll($order_details->toArray());
+                //$order_id = 94 ;
+
+                $order_details = Order_details::with(['product' => function($query){
+                    $query->with('image')->get();
+                }])->where('order_id','=',$order_id)->get()->toArray();
+
+                /*Custom::showAll($order_details);
                 die;*/
                 User_order::where('id', '=', $order_id)->update(array('status' => 'P'));
 
@@ -351,21 +357,18 @@ class CartController extends Controller
 
                     $item = new Item();
 
-                    $item->setName($order->product_name)/** item name **/
+                    $item->setName($order['product']['0']['product_name'])/** item name **/
                     ->setCurrency('USD')
-                        ->setQuantity($order->quantity)
-                        ->setPrice($order->price);
+                        ->setQuantity($order['quantity'])
+                        ->setPrice($order['amount']);
                     $new[] = $item;
 
-                    $subtotal = $subtotal + ($order->quantity * $order->price);
+                    $subtotal = $subtotal + ($order['quantity'] * $order['amount']);
 
                 }
 
-                /*Custom::showAll($new);
-                die;*/
                 $item_list = new ItemList();
                 $item_list->setItems($new);
-                //Custom::showAll($item_list);die;
 
                 $ship_tax = 0;
 
@@ -699,7 +702,6 @@ class CartController extends Controller
         $admin_email = Configuration::where('conf_key','=','Admin_email')->select('conf_value')->first();
 
         $admin_mail = $admin_email->conf_value;
-
 /*        $admin_mail = 'prajakta.sisale@neosofttech.com';*/
         $admin_content = str_replace($string,$replace, $admin_template_content->content);
 
