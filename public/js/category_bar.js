@@ -21,6 +21,9 @@ $(document).ready(function() {
             data:{id:id},
             dataType: 'json',
             success: function (output) {
+
+                //console.log(output);exit;
+
                 var html = "";
                 var hidden = "hidden_field";
                 if(authUser){
@@ -33,13 +36,22 @@ $(document).ready(function() {
                 $.each(products ,function (index,data) {
 
 
+                    //console.log(data);exit;
                     var value = data.products.id;
 
-                        html += "                                <div class=\"col-sm-3\">\n" +
+                    var image = data.products.image ;
+                    if(image == null){
+                        image = 'defaultimage.jpeg' ;
+                    }
+                    else{
+                        image = data.products.image.product_image_name;
+                    }
+                    
+                    html += "                                <div class=\"col-sm-3\">\n" +
                             "                                    <div class=\"product-image-wrapper\">\n" +
                             "                                        <div class=\"single-products\">\n" +
                             "                                            <div class=\"productinfo text-center\">\n" +
-                            "                                                <img class=\"show_img\" src="+base_url+"img/product/"+data.products.image.product_image_name+"\>\n" +
+                            "                                                <img class=\"show_img\" src="+base_url+"img/product/"+image+"\>\n" +
                             "                                                <h2>$"+data.products.price+"</h2>\n" +
                             "                                                <p><a href=\""+base_url+'product_details/'+data.products.id+"\" >"+data.products.product_name+"</a></p>\n" ;
                                                                             if($.inArray(value, cart_product) != -1) {
@@ -63,6 +75,7 @@ $(document).ready(function() {
 
 
                 });
+
 
               $('#category_product').html(html);
                 addToWishlist();

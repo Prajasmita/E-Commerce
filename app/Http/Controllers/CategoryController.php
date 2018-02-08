@@ -87,6 +87,7 @@ class CategoryController extends Controller
                     array_push($cart_product,intval($cart_list->id));
                 }
             }
+            //Custom::showAll($cart_product);die;
             return json_encode(array($products,$my_wishlist,$cart_product));
         }
     }
