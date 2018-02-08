@@ -82,12 +82,12 @@
 
                                         <span><div  class="choose {{ Auth::user() ?'':'hidden_field' }}">
                                             @if(in_array($products->id,$my_wishlist))
-                                                    <button type="button" class="btn btn-fefault cart added ">
-                                                <a class="link_text_color product-added-towishlist added "><i class=" fa fa-heart"  ></i></a>
-                                                </button>
+                                                    <button type="button" class="btn btn-lg wishlist_color added ">
+                                                      <a class=" added "><i class="fa fa-heart"  ></i></a>
+                                                    </button>
                                                 @else
-                                                    <button type="button" class="btn btn-fefault cart">
-                                                    <a  href="javascript:void(0)" class="{{"product_id_".$products->id}} wishlist wishlist_color" data-id="{{$products->id}}"><i class="fa fa-heart-o"></i></a></li>
+                                                    <button type="button" class="btn btn-lg wishlist_color">
+                                                    <a  href="javascript:void(0)" class="{{"product_id_".$products->id}} wishlist " data-id="{{$products->id}}"><i class="fa fa-heart-o"></i></a></li>
                                                 </button>
                                                 @endif
                                         </div> </span>

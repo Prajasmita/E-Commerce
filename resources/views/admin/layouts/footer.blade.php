@@ -31,8 +31,6 @@
 <script>
     var baseUrl = '{{url('')}}';
     var productPath = "{{config('constants.product_path')}}";
-    var adminNoteUrl = "{{config('constants.admin_note_url')}}";
-
 </script>
 
 <!-- DataTables -->

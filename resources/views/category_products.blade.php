@@ -22,7 +22,6 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <img src="{{asset('img/banner/'.$banner->banner_image)}}" class="girl img-responsive" alt="" />
-                                    <img src="{{asset('img/images/home/pricing.png')}}"  class="pricing" alt="" />
                                 </div>
                             </div>
                         @endforeach
@@ -123,9 +122,9 @@
                             <div  class="choose nav nav-pills nav-justified {{ Auth::user() ?'':'hidden_field' }}">
 
                                 @if(in_array($product->products->id,$my_wishlist))
-                                    <li><a class="link_text_color"><i class=" glyphicon glyphicon-ok"  ></i>Added to Wishlist</a></li>
+                                    <li><a class="added "><i class=" fa fa-heart"  ></i></a></li>
                                 @else
-                                    <li class="{{"product_id_".$product->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$product->products->id}}"><i class="fa fa-plus-square "  ></i>Add to wishlist</a></li>
+                                    <li class="{{"product_id_".$product->products->id}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$product->products->id}}"><i class="fa fa-heart-o"></i></a></li>
                                 @endif
 
                             </div>

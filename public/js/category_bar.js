@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var presentCartCount = ($(this).attr("data-count"));
 
-    console.log(presentCartCount);
+    //console.log(presentCartCount);
 
 
     addToWishlist();
@@ -32,6 +32,7 @@ $(document).ready(function() {
 
                 $.each(products ,function (index,data) {
 
+
                     var value = data.products.id;
 
                         html += "                                <div class=\"col-sm-3\">\n" +
@@ -40,7 +41,7 @@ $(document).ready(function() {
                             "                                            <div class=\"productinfo text-center\">\n" +
                             "                                                <img class=\"show_img\" src="+base_url+"img/product/"+data.products.image.product_image_name+"\>\n" +
                             "                                                <h2>$"+data.products.price+"</h2>\n" +
-                            "                                                <p><a href=\""+productDetailsUrl+data.products.id+"\" >"+data.products.product_name+"</a></p>\n" ;
+                            "                                                <p><a href=\""+base_url+'product_details/'+data.products.id+"\" >"+data.products.product_name+"</a></p>\n" ;
                                                                             if($.inArray(value, cart_product) != -1) {
 
                                                                                 html += "<a href=\"javascript:void(0)\" class=\" btn btn-default product-added \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
@@ -52,7 +53,7 @@ $(document).ready(function() {
 
                                                                                 html += "<li><a class=\"link_text_color added\"><i class=\" fa fa-heart \"></i></a></li>\n";
                                                                             }else {
-                                                                                html += "<li class=\"product_id_"+data.products.id+" choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id="+data.products.id+"><i class=\"fa fa-heart-o \"></i></a></li>\n";
+                                                                                html += "<li class=\"product_id_"+data.products.id+" choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id="+data.products.id+"><i class=\"fa fa-plus-square \"></i> Add to Wishlist</a></li>\n";
                                                                             }
                         html += "                                            </div>\n" +
                             "                                            </div>\n" +
