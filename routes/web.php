@@ -158,7 +158,7 @@ Route::post('forget_password',['as' => 'retrieve.password','uses' => 'HomeContro
 
 Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@selectStates']);
 
-Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);
+//Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);
 
 Route::get('/cms/{page_name}',['as'=> 'cms.page','uses'=>'HomeController@getPages']);
 
