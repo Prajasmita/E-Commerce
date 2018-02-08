@@ -130,40 +130,35 @@ class UserOrderController extends Controller
     {
 
         $payment_details = User_order::select('id','user_id','grand_total', 'shipping_charges', 'discount', 'status')->where('id', '=', $order_id)->first();
-        
 
         $user_info = User_address::where('user_id', "=", $payment_details->user_id)->first();
-        //Custom::showAll($user_info);die;
 
         $country = Countries::where('id', '=', $user_info->country)->first();
         $state = States::where('id', '=', $user_info->state)->first();
 
-
         $user_info['country'] = $country->name;
         $user_info['state'] = $state->name;
 
-        //Custom::showAll($user_info->toArray());die;
-
-        $order_details = Order_details::Join('products', 'order_details.product_id', '=', 'products.id')
-            ->join('image_products as i', 'products.id', '=', 'i.product_id')
-            ->select('products.*', 'i.product_image_name', 'order_details.order_id', 'order_details.quantity','order_details.created_at')
-            ->where('order_details.order_id', '=', $order_id)
-            ->get();
+        $order_details = Order_details::with(['product' => function($query){
+            $query->with('image')->get();
+        }])->where('order_id','=',$order_id)->get()->toArray();
 
         $order_product = array();
-
         $order_products = array();
+
         foreach ($order_details as $item => $product) {
-            $order_product['price'] = $product->price;
-            $order_product['quantity'] = $product->quantity;
-            $order_product['image_name'] = $product->product_image_name;
-            $subtotal = floatval($product->quantity * $product->price);
+
+            $order_product['price'] = $product['amount'];
+            $order_product['quantity'] = $product['quantity'];
+            $order_product['image_name'] = empty($product['product']['0']['image']['product_image_name'])
+                ? Custom::imageExistence('')
+                :Custom::imageExistence($product['product']['0']['image']['product_image_name']);
+            $subtotal = floatval($product['quantity'] * $product['amount']);
             $order_product['subtotal'] = $subtotal;
-            $order_product['name'] = $product->product_name;
+            $order_product['name'] = $product['product']['0']['product_name'];
             $order_products[] = $order_product;
 
         }
-
 
         return array('user_info' => $user_info, 'order_products' => $order_products, 'payment_details' => $payment_details);
 
