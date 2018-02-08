@@ -25,6 +25,7 @@ use phpDocumentor\Reflection\Types\Null_;
 Use Illuminate\Support\Facades\Redirect;
 Use App\Email_template;
 /** All Paypal Details class **/
+
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Amount;
@@ -44,6 +45,7 @@ class CartController extends Controller
 {
 
     private $_api_context;
+
     /**
      * Create a new controller instance.
      *
@@ -89,7 +91,7 @@ class CartController extends Controller
                 $query->get();
             }])->select('id', 'product_name', 'price', 'quantity')->where('id', '=', $id)->first()->toArray();
 
-            $products['image'] = empty($products['image']) ? Custom::imageExistence(''):Custom::imageExistence($products['image']['product_image_name']);
+            $products['image'] = empty($products['image']) ? Custom::imageExistence('') : Custom::imageExistence($products['image']['product_image_name']);
 
             Cart::add(array('id' => $id, 'name' => $products['product_name'], 'qty' => 1, 'price' => $products['price'], 'options' => ['image' => $products['image']]));
 
@@ -120,8 +122,7 @@ class CartController extends Controller
 
                 return json_encode($count);
 
-            }
-            else {
+            } else {
                 return json_encode("false");
             }
         }
@@ -150,41 +151,44 @@ class CartController extends Controller
     * Function for checkout
     *
     */
-    public function checkout(){
+    public function checkout()
+    {
 
 
         $user_id = Auth::user()->id;
 
-        $user = User_address::where('primary','=','1')->where('user_id','=',$user_id)->first();
+        $user = User_address::where('primary', '=', '1')->where('user_id', '=', $user_id)->first();
 
         $cart = Cart::content();
-        $coupons = Coupon::select('id','code')->get();
+        $coupons = Coupon::select('id', 'code')->get();
         $codes = array();
-        foreach ($coupons as $code => $coupon ){
-            array_push($codes,$coupon->id);
+        foreach ($coupons as $code => $coupon) {
+            array_push($codes, $coupon->id);
         }
 
         $countries = Countries::get();
-        if($user){
-            $states = States::where('country_id','=',$user->country)->get();
-            return view('checkout',array('user'=>$user,'cart'=>$cart,'user_id'=> $user_id,'codes'=>$codes,'countries'=>$countries,'states' => $states));
+        if ($user) {
+            $states = States::where('country_id', '=', $user->country)->get();
+            return view('checkout', array('user' => $user, 'cart' => $cart, 'user_id' => $user_id, 'codes' => $codes, 'countries' => $countries, 'states' => $states));
 
-        }else{
+        } else {
             $states = States::get();
-            return view('checkout',array('user'=>$user,'user_id'=> $user_id,'cart'=>$cart,'codes'=>$codes,'countries'=>$countries,'states' => $states));
+            return view('checkout', array('user' => $user, 'user_id' => $user_id, 'cart' => $cart, 'codes' => $codes, 'countries' => $countries, 'states' => $states));
         }
 
     }
+
     /*
        * Function for applying coupon
        *
        */
-    public function selectStates(Request $request){
+    public function selectStates(Request $request)
+    {
 
-        if($request->ajax()){
+        if ($request->ajax()) {
 
             $selectedcountry = $request->country;
-            $states = States::select('id','name')->where('country_id','=',$selectedcountry)->get();
+            $states = States::select('id', 'name')->where('country_id', '=', $selectedcountry)->get();
             return json_encode($states);
 
         }
@@ -196,28 +200,28 @@ class CartController extends Controller
        * Function for applying coupon
        *
        */
-    public function applyCoupon(Request $request){
-        if($request->ajax()){
+    public function applyCoupon(Request $request)
+    {
+        if ($request->ajax()) {
 
             $code = $request->couponCode;
 
             $total = $request->total;
 
-            $couponcodes =Coupon::select('id','code','percent_off','no_of_uses','status')->where('status','=','1')->where(DB::raw('BINARY `code`'), $code)->first();
+            $couponcodes = Coupon::select('id', 'code', 'percent_off', 'no_of_uses', 'status')->where('status', '=', '1')->where(DB::raw('BINARY `code`'), $code)->first();
 
-            if($couponcodes){
+            if ($couponcodes) {
 
-                $coupon_id=$couponcodes->id;
+                $coupon_id = $couponcodes->id;
                 $percent_off = $couponcodes->percent_off;
-                $discount = floatval(($total * $percent_off)/100);
+                $discount = floatval(($total * $percent_off) / 100);
 
-                $coupon_used_count = intval(($couponcodes->no_of_uses == NULL ? 0 : $couponcodes->no_of_uses ) + 1) ;
+                $coupon_used_count = intval(($couponcodes->no_of_uses == NULL ? 0 : $couponcodes->no_of_uses) + 1);
 
-                Coupon::where('id','=',$coupon_id)->update(array('no_of_uses' => $coupon_used_count));
+                Coupon::where('id', '=', $coupon_id)->update(array('no_of_uses' => $coupon_used_count));
 
-                return json_encode(array($discount,$coupon_id));
-            }
-            else{
+                return json_encode(array($discount, $coupon_id));
+            } else {
 
                 return json_encode("false");
             }
@@ -228,14 +232,15 @@ class CartController extends Controller
     * Function to store user_address
     *
     */
-    public function storeUserAddress(Request $request){
+    public function storeUserAddress(Request $request)
+    {
 
         $user_address = array();
         //Custom::showAll($request->toArray());die;
 
-        $address = User_address::where('user_id','=',$request->user_id)->get()->toArray();
+        $address = User_address::where('user_id', '=', $request->user_id)->get()->toArray();
         //Custom::showAll($address);die;
-        if(!empty($address)){
+        if (!empty($address)) {
 
             //echo "updated";die;
             $user_id = $request->user_id;
@@ -254,15 +259,14 @@ class CartController extends Controller
             $user_address['note'] = $request->message;
 
             // Custom::showAll($user_address);die;
-            $updateAddress = User_address::where('user_id','=',$user_id);
+            $updateAddress = User_address::where('user_id', '=', $user_id);
             //Custom::runQuery();die;
             $updateAddress->update($user_address);
-        }
-        else{
+        } else {
 
             //echo "created";die;
 
-            $request['primary']= '1';
+            $request['primary'] = '1';
             //dd($request->all());
             User_address::create($request->all());
             //echo "created";die;
@@ -342,9 +346,9 @@ class CartController extends Controller
 
                 //$order_id = 94 ;
 
-                $order_details = Order_details::with(['product' => function($query){
+                $order_details = Order_details::with(['product' => function ($query) {
                     $query->with('image')->get();
-                }])->where('order_id','=',$order_id)->get()->toArray();
+                }])->where('order_id', '=', $order_id)->get()->toArray();
 
                 /*Custom::showAll($order_details);
                 die;*/
@@ -352,7 +356,7 @@ class CartController extends Controller
 
                 //Custom::showAll($payment_details->toArray());die;
 
-                $subtotal = 0 ;
+                $subtotal = 0;
                 foreach ($order_details as $order) {
 
                     $item = new Item();
@@ -372,7 +376,7 @@ class CartController extends Controller
 
                 $ship_tax = 0;
 
-                $user_order_details = User_order::where('id','=',$order_id)->first();
+                $user_order_details = User_order::where('id', '=', $order_id)->first();
                 $ship_cost = $user_order_details->shipping_charges;
                 $currency = 'USD';
                 $discount = $user_order_details->discount;
@@ -458,25 +462,22 @@ class CartController extends Controller
     }
 
 
-
-
-
-    public function storeOrderDetail($id){
+    public function storeOrderDetail($id)
+    {
 
         //echo "hello";die;
 
         $cart = Cart::content();
-        foreach ($cart as $item => $cartitem)
-        {
+        foreach ($cart as $item => $cartitem) {
             $cart_item = array();
             $order_details = array();
 
-            array_push($cart_item , $cartitem);
+            array_push($cart_item, $cartitem);
 
             $order_details['amount'] = $cartitem->price;
             $order_details['product_id'] = $cartitem->id;
             $order_details['quantity'] = $cartitem->qty;
-            $order_details['order_id'] =  $id;
+            $order_details['order_id'] = $id;
 
             //Custom::showAll($order_details);die;
 
@@ -484,6 +485,7 @@ class CartController extends Controller
 
         }
     }
+
     /*
      * Function for order review page
      */
@@ -509,13 +511,12 @@ class CartController extends Controller
             ->where('order_details.order_id', '=', 39)
             ->get();*/
 
-        $order_details = Order_details::with(['product' => function($query){
+        $order_details = Order_details::with(['product' => function ($query) {
             $query->with('image')->get();
-        }])->where('order_id','=',$order_id)->get()->toArray();
+        }])->where('order_id', '=', $order_id)->get()->toArray();
 
 
-
-       // Custom::showAll($order_details);die;
+        // Custom::showAll($order_details);die;
 
         $order_product = array();
         $order_products = array();
@@ -528,13 +529,13 @@ class CartController extends Controller
 
         }
         die;*/
-       foreach ($order_details as $item => $product) {
+        foreach ($order_details as $item => $product) {
 
             $order_product['price'] = $product['amount'];
             $order_product['quantity'] = $product['quantity'];
             $order_product['image_name'] = empty($product['product']['0']['image']['product_image_name'])
-              ? Custom::imageExistence('')
-              :Custom::imageExistence($product['product']['0']['image']['product_image_name']);
+                ? Custom::imageExistence('')
+                : Custom::imageExistence($product['product']['0']['image']['product_image_name']);
             $subtotal = floatval($product['quantity'] * $product['amount']);
             $order_product['subtotal'] = $subtotal;
             $order_product['name'] = $product['product']['0']['product_name'];
@@ -555,10 +556,11 @@ class CartController extends Controller
      *
      *
      */
-    public function paypalPaymentSuccess($id,Request $request){
+    public function paypalPaymentSuccess($id, Request $request)
+    {
 
         $payment_Id = $_GET['paymentId'];
-        User_order::where('id','=',$id)->update(array('status' => 'O','transaction_id'=>$payment_Id));
+        User_order::where('id', '=', $id)->update(array('status' => 'O', 'transaction_id' => $payment_Id));
 
         $order_review_page = $this->orderReview($id);
 
@@ -576,21 +578,24 @@ class CartController extends Controller
      *
      *
      */
-    public function myOrders(){
+    public function myOrders()
+    {
 
         $user_id = Auth::user()->id;
 
-        $my_order = User_order::with('order_details')->where('user_id','=',$user_id)->get();
+        $my_order = User_order::with('order_details')->where('user_id', '=', $user_id)->get();
 
-        return view('my_orders',array('my_order' => $my_order));
+        return view('my_orders', array('my_order' => $my_order));
 
     }
+
     /**
      * Function for fetching my orders
      *
      *
      */
-    public function myOrder($id){
+    public function myOrder($id)
+    {
 
         $order_review_page = $this->orderReview($id);
 
@@ -601,35 +606,36 @@ class CartController extends Controller
      * Function for tracking order
      *
      */
-    public function trackOrder(){
+    public function trackOrder()
+    {
 
         return view('track_order');
     }
 
-    public function trackMyOrder(Request $request){
+    public function trackMyOrder(Request $request)
+    {
 
-       //Custom::showAll($request->toArray());die;
+        //Custom::showAll($request->toArray());die;
         if ($this->validate($request, [
             'order_id' => 'required',
-            'email' => 'required|email'])){
+            'email' => 'required|email'])) {
 
             $email = $request->email;
             $order_id = $request->order_id;
 
 
-            $orderId =  ltrim($order_id, "ORD0");
+            $orderId = ltrim($order_id, "ORD0");
 
             $order_review_page = $this->orderReview($orderId);
 
             //Custom::showAll(Auth::user()->email);die;
 
-            Mail::send('order_review', ['order_review_page'=>$order_review_page], function ($message) use ($email)
-            {
+            Mail::send('order_review', ['order_review_page' => $order_review_page], function ($message) use ($email) {
                 $message->to($email)
                     ->subject('Order Review');
             });
 
-            return redirect('track_order')->with('traced_order','Order Traced Succesfully !!!');
+            return redirect('track_order')->with('traced_order', 'Order Traced Succesfully !!!');
 
 
         }
@@ -640,11 +646,12 @@ class CartController extends Controller
      * Function for sending mail to admin and customer about placed order
      *
      */
-    public function sendMails($data){
+    public function sendMails($data)
+    {
 
         //Custom::showAll($data['payment_details']['id']);die;
 
-        $user_order = User_order::where('id','=',$data['payment_details']['id'])->first();
+        $user_order = User_order::where('id', '=', $data['payment_details']['id'])->first();
 
         /*$html ='<table style="border: 1px solid black;border-collapse: collapse;"><tr><thstyle="border: 1px solid black;
     border-collapse: collapse;">Item</th><th style="border: 1px solid black;
@@ -655,9 +662,9 @@ class CartController extends Controller
         //Custom::showAll($html);die;
 
 
-        $template_content = Email_template::where('title','=','order_details')->select('content')->first();
+        $template_content = Email_template::where('title', '=', 'order_details')->select('content')->first();
 
-/*        Custom::showAll(htmlentities($template_content->content));die;*/
+        /*        Custom::showAll(htmlentities($template_content->content));die;*/
         /*        $email = $user_info->email;*/
         $email = 'prajakta.sisale@neosofttech.com';
         $string = array();
@@ -677,51 +684,48 @@ class CartController extends Controller
         $string[13] = '{{product table}}';
 
 
-        $replace=array();
+        $replace = array();
         $replace[0] = $data['user_info']['first_name'];
         $replace[1] = $email;
         $replace[2] = $data['user_info']['contact_no'];
         $replace[3] = $data['user_info']['address1'];
         $replace[4] = $data['user_info']['city'];
         $replace[5] = $data['user_info']['state'];
-        $replace[6] = $data['payment_details']['status']== 'O' ? 'Processing':'Pending';
+        $replace[6] = $data['payment_details']['status'] == 'O' ? 'Processing' : 'Pending';
         $replace[7] = $data['user_info']['last_name'];
         $replace[8] = $data['user_info']['address2'];
         $replace[9] = $data['user_info']['zip_code'];
         $replace[10] = $data['user_info']['country'];
-        $replace[11] = 'ORD'.str_pad($data['payment_details']['id'], 4, '0', STR_PAD_LEFT);
+        $replace[11] = 'ORD' . str_pad($data['payment_details']['id'], 4, '0', STR_PAD_LEFT);
         $replace[12] = $user_order->created_at->format('j F, Y');
         $replace[13] = $html;
 
-        $new_template_content = str_replace($string,$replace, $template_content->content);
+        $new_template_content = str_replace($string, $replace, $template_content->content);
 
         //Custom::showAll(htmlentities($new_template_content));die;
 
-        $admin_template_content = Email_template::where('title','=','order_details_for_admin')->select('content')->first();
+        $admin_template_content = Email_template::where('title', '=', 'order_details_for_admin')->select('content')->first();
 
-        $admin_email = Configuration::where('conf_key','=','Admin_email')->select('conf_value')->first();
+        $admin_email = Configuration::where('conf_key', '=', 'Admin_email')->select('conf_value')->first();
 
         $admin_mail = $admin_email->conf_value;
-/*        $admin_mail = 'prajakta.sisale@neosofttech.com';*/
-        $admin_content = str_replace($string,$replace, $admin_template_content->content);
+        /*        $admin_mail = 'prajakta.sisale@neosofttech.com';*/
+        $admin_content = str_replace($string, $replace, $admin_template_content->content);
 
         //dd(html_entity_decode($new_template_content));
-        Mail::send([], [], function ($message) use ($new_template_content,$email)
-        {
+        Mail::send([], [], function ($message) use ($new_template_content, $email) {
             $message->to($email)
                 ->subject('Placed Order Details')
                 ->setBody(html_entity_decode(strip_tags($new_template_content)));
 
         });
 
-        Mail::send([], [], function ($message) use ($admin_content,$admin_mail)
-        {
+        Mail::send([], [], function ($message) use ($admin_content, $admin_mail) {
 
             $message->to($admin_mail)
                 ->subject('Order Details of customer')
                 ->setBody(html_entity_decode(strip_tags($admin_content)));
         });
-
 
 
     }

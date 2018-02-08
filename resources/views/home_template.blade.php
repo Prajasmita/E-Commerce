@@ -59,8 +59,6 @@
     </script>
 
 
-
-
     {{--style css--}}
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
@@ -72,70 +70,61 @@
 </head><!--/head-->
 
 <body>
-    {{--Header--}}
-    @include('layouts.header')
+{{--Header--}}
+@include('layouts.header')
 
-    <section>
-        <!-- Your Page Content Here -->
+<section>
+    <!-- Your Page Content Here -->
 
-        @yield('content')
+    @yield('content')
 
-    </section><!-- /.content -->
-
-
-    {{--Footer--}}
-    @include('layouts.footer')
-    <script src="{{asset('js/jquery.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
-    <script src="{{asset('js/price-range.js')}}"></script>
-    <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
-    <script src="{{asset('js/main.js')}}"></script>
-
-    {{--<script src="{{asset('js/user_wishlist.js')}}"></script>--}}
-    <script src="{{asset('js/category_bar.js')}}"></script>
-    <script src="{{asset('js/zoom-slideshow.js')}}"></script>
-
-    <!-- XZOOM JQUERY PLUGIN  -->
-    <script src="{{asset('js/xzoom.js')}}"></script>
-    <script src="{{asset('js/image_gallery.js')}}"></script>
-    <script src="{{asset('js/inc_dec_qty.js')}}"></script>
-    <script src="{{asset('js/script.js')}}"></script>
-    <script src="{{asset('js/cart.js')}}"></script>
-    <script src="{{asset('js/apply_coupon_code.js')}}"></script>
-    <!-- Modal Popup For editing address-->
-   <script>
-        $(document).ready(function(){
-
-            $('#add').on('click', function() {
-                $("#load_modal_add").load(addressAddUrl);
-            });
-
-           $('.edit_address').on('click', function() {
-               //console.log("hello");
-               var id = $(this).attr('data-id');
-               //alert(id);
-               var reExp = /id/;
-               var url = addressEditUrl;
-               var editUrl = url.replace(reExp, id);
-
-               $( "#load_modal_edit" ).load(editUrl);
-           });
+</section><!-- /.content -->
 
 
+{{--Footer--}}
+@include('layouts.footer')
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
+<script src="{{asset('js/price-range.js')}}"></script>
+<script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
 
+{{--<script src="{{asset('js/user_wishlist.js')}}"></script>--}}
+<script src="{{asset('js/category_bar.js')}}"></script>
+<script src="{{asset('js/zoom-slideshow.js')}}"></script>
 
+<!-- XZOOM JQUERY PLUGIN  -->
+<script src="{{asset('js/xzoom.js')}}"></script>
+<script src="{{asset('js/image_gallery.js')}}"></script>
+<script src="{{asset('js/inc_dec_qty.js')}}"></script>
+<script src="{{asset('js/script.js')}}"></script>
+<script src="{{asset('js/cart.js')}}"></script>
+<script src="{{asset('js/apply_coupon_code.js')}}"></script>
+<!-- Modal Popup For editing address-->
+<script>
+    $(document).ready(function () {
+
+        $('#add').on('click', function () {
+            $("#load_modal_add").load(addressAddUrl);
         });
 
-    </script>
-    <script src="{{asset('js/address_book.js')}}"></script>
+        $('.edit_address').on('click', function () {
+            //console.log("hello");
+            var id = $(this).attr('data-id');
+            //alert(id);
+            var reExp = /id/;
+            var url = addressEditUrl;
+            var editUrl = url.replace(reExp, id);
+
+            $("#load_modal_edit").load(editUrl);
+        });
 
 
+    });
 
-
-
-
-
+</script>
+<script src="{{asset('js/address_book.js')}}"></script>
 
 
 </body>

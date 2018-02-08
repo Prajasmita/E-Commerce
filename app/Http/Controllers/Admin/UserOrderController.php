@@ -16,6 +16,7 @@ use App\States;
 Use View;
 Use Cart;
 Use Cost;
+
 /**
  * Class UserOrderController for orders details.
  *
@@ -27,22 +28,23 @@ class UserOrderController extends Controller
      * Function for user order listing.
      *
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
         $user_orders = array();
         $result = array();
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
             $totalRecords = User_order::count();
 
-            $limit=$request->input('length');
-            if($limit == -1){
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
 
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=ltrim($search['value'] ,'0');
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = ltrim($search['value'], '0');
 
             //Custom::showAll($search_word);die;
             $draw = $request->input('draw');
@@ -54,7 +56,7 @@ class UserOrderController extends Controller
             //Custom::showAll($date);die;
             $orderId = $column[$sortBy]['data'];
 
-            $user_orders = User_order::select('id','grand_total','user_id','status','payment_gateway_id','created_at');
+            $user_orders = User_order::select('id', 'grand_total', 'user_id', 'status', 'payment_gateway_id', 'created_at');
 
             //Custom::showAll($user_orders);die;
             $user_orders = $user_orders
@@ -64,16 +66,16 @@ class UserOrderController extends Controller
                 //->orderBy($orderId ,$sortOf)
                 ->get();
 
-            if ($search_word != '' ) {
+            if ($search_word != '') {
 
                 $user_orders = User_order::Where('id', 'LIKE', "%$search_word%");
             }
 
-            if ($search_word != '' ) {
+            if ($search_word != '') {
                 $recordsFiltered = $user_orders->count();
                 $recordsTotal = $user_orders->count();
 
-            }else{
+            } else {
                 $recordsFiltered = User_order::count();
                 $recordsTotal = User_order::count();
             }
@@ -81,30 +83,30 @@ class UserOrderController extends Controller
             $recordsTotal = User_order::count();*/
 
             $final = array();
-            foreach($user_orders as $key => $val){
+            foreach ($user_orders as $key => $val) {
                 $res_data = array();
                 $res_data['user_id'] = $val['user_id'];
                 $res_data['id'] = $val['id'];
                 $res_data['date'] = $val['created_at']->format('d M,Y');
-                $res_data['order_id'] = 'ORD'.str_pad($val['id'] , '4','0',STR_PAD_LEFT);
+                $res_data['order_id'] = 'ORD' . str_pad($val['id'], '4', '0', STR_PAD_LEFT);
                 $res_data['total'] = $val['grand_total'];
                 $res_data['status'] = $val['status'] == 'O' ? 'Processing' : 'Pending';
-                $res_data['payment'] = $val['payment_gateway_id'] == 1 ? 'COD' : 'Paypal' ;
+                $res_data['payment'] = $val['payment_gateway_id'] == 1 ? 'COD' : 'Paypal';
                 $final[] = $res_data;
             }
 
             //Custom::showAll($final);die;
 
             $result['draw'] = $draw;
-            $result['recordsFiltered'] =$recordsFiltered;
+            $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
-            $result['data'] =   $final;
+            $result['data'] = $final;
 
             return $result;
         }
 
         $authUser = Auth::user();
-        return view('admin.user_orders.index', compact('templates','authUser'),array('js'=>'user_order_listing'));
+        return view('admin.user_orders.index', compact('templates', 'authUser'), array('js' => 'user_order_listing'));
 
     }
 
@@ -112,24 +114,25 @@ class UserOrderController extends Controller
      * Function for user order details.
      *
      */
-    public function orderDetails($order_id){
+    public function orderDetails($order_id)
+    {
 
-        $authUser =  Auth::user();
+        $authUser = Auth::user();
 
         $order_review_page = $this->orderReview($order_id);
 
-        return view('admin.user_orders.show', array('authUser'=>$authUser,'order_review_page' => $order_review_page));
-
+        return view('admin.user_orders.show', array('authUser' => $authUser, 'order_review_page' => $order_review_page));
 
 
     }
+
     /*
      * Function for order review page variables.
      */
     public function orderReview($order_id)
     {
 
-        $payment_details = User_order::select('id','user_id','grand_total', 'shipping_charges', 'discount', 'status')->where('id', '=', $order_id)->first();
+        $payment_details = User_order::select('id', 'user_id', 'grand_total', 'shipping_charges', 'discount', 'status')->where('id', '=', $order_id)->first();
 
         $user_info = User_address::where('user_id', "=", $payment_details->user_id)->first();
 
@@ -139,9 +142,9 @@ class UserOrderController extends Controller
         $user_info['country'] = $country->name;
         $user_info['state'] = $state->name;
 
-        $order_details = Order_details::with(['product' => function($query){
+        $order_details = Order_details::with(['product' => function ($query) {
             $query->with('image')->get();
-        }])->where('order_id','=',$order_id)->get()->toArray();
+        }])->where('order_id', '=', $order_id)->get()->toArray();
 
         $order_product = array();
         $order_products = array();
@@ -152,7 +155,7 @@ class UserOrderController extends Controller
             $order_product['quantity'] = $product['quantity'];
             $order_product['image_name'] = empty($product['product']['0']['image']['product_image_name'])
                 ? Custom::imageExistence('')
-                :Custom::imageExistence($product['product']['0']['image']['product_image_name']);
+                : Custom::imageExistence($product['product']['0']['image']['product_image_name']);
             $subtotal = floatval($product['quantity'] * $product['amount']);
             $order_product['subtotal'] = $subtotal;
             $order_product['name'] = $product['product']['0']['product_name'];
@@ -163,8 +166,6 @@ class UserOrderController extends Controller
         return array('user_info' => $user_info, 'order_products' => $order_products, 'payment_details' => $payment_details);
 
     }
-
-
 
 
 }
