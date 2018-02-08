@@ -46,7 +46,7 @@ $(document).ready(function() {
                     else{
                         image = data.products.image.product_image_name;
                     }
-                    
+
                     html += "                                <div class=\"col-sm-3\">\n" +
                             "                                    <div class=\"product-image-wrapper\">\n" +
                             "                                        <div class=\"single-products\">\n" +
