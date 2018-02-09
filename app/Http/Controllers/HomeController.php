@@ -85,7 +85,7 @@ class HomeController extends Controller
 
         foreach ($products as $key => $value) {
 
-            $products[$key]['products']['image'] = empty($value['products']['image']) ? Custom::imageExistence('') : Custom::imageExistence($value['products']['image']);
+            $products[$key]['products']['image'] = empty($value['products']['image']) ? Custom::imageExistence('') : Custom::imageExistence($value['products']['image']['product_image_name']);
 
         }
 
@@ -202,7 +202,6 @@ class HomeController extends Controller
      *
      *
      */
-
     public function addressBook()
     {
 

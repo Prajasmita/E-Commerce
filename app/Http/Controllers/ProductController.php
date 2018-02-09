@@ -22,7 +22,11 @@ class ProductController extends Controller
 
         $categories = Category::with('sub_category')->where('parent_id','=',0)->get();
 
-        $products = Product::with('image_products','image')->select('id','product_name','price','quantity','short_discription','is_feature')->where('id','=',$id)->get()->first();
+        $products = Product::with('image_products','image')->select('id','product_name','price','quantity','short_discription','is_feature')->where('id','=',$id)->first()->toArray();
+
+        if(empty($products['image_products'])){
+                $products['image']['product_image_name'] = Custom::imageExistence('');
+        }
 
         $my_wishlist =array();
         if(Auth::user() && $my_wishlist !== ''){
