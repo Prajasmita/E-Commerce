@@ -25,7 +25,15 @@ class CategoryController extends Controller
             $query->with(['image'=>function($query1){
                 $query1->select('product_image_name','product_id');
             }]);
-        }]))->where('category_id','=',$id)->get();
+        }]))->where('category_id','=',$id)->get()->toArray();
+
+        //Custom::showAll($products);die;
+
+        foreach ($products as $key => $value) {
+
+            $products[$key]['products']['image'] = empty($value['products']['image']) ? Custom::imageExistence('') : Custom::imageExistence($value['products']['image']['product_image_name']);
+
+        }
 
         $banner_images = Banner::select('banner_name','banner_image')
             ->where('status','=','1')->get();
