@@ -31,7 +31,9 @@
                                             <ul>
                                                 @foreach($category->sub_category as $sub_category)
                                                     @if($sub_category->parent_id == $category->id )
-                                                        <li><a href="#">{{$sub_category->name}}</a></li>
+                                                        <li>
+                                                            <a href="{{route('category_product',$sub_category->id)}}">{{$sub_category->name}}</a>
+                                                        </li>
                                                     @endif
                                                 @endforeach
                                             </ul>
