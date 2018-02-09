@@ -52,7 +52,7 @@
                                     </ul>
                                 </li>
                             @endif
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a href="{{route('my.wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li>
                                 <a href="{{ Auth::user() ? (Cart::count() ? route('checkout') : route('cart') ): route('register') }}"><i
                                             class="fa fa-crosshairs"></i> Checkout</a></li>

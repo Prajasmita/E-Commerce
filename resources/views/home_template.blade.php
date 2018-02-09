@@ -56,6 +56,8 @@
 
         var addressUpdateUrl = "{{route('address.update')}}";
 
+        var wishlistDeleteUrl = "{{route('wishlist.delete',['id'])}}";
+
     </script>
 
 
@@ -89,8 +91,6 @@
 <script src="{{asset('js/price-range.js')}}"></script>
 <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-
-{{--<script src="{{asset('js/user_wishlist.js')}}"></script>--}}
 <script src="{{asset('js/category_bar.js')}}"></script>
 <script src="{{asset('js/zoom-slideshow.js')}}"></script>
 
@@ -101,6 +101,8 @@
 <script src="{{asset('js/script.js')}}"></script>
 <script src="{{asset('js/cart.js')}}"></script>
 <script src="{{asset('js/apply_coupon_code.js')}}"></script>
+
+
 <!-- Modal Popup For editing address-->
 <script>
     $(document).ready(function () {

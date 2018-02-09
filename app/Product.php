@@ -62,9 +62,8 @@ class Product extends Model
      * Function for products and wishlist relationship.
      *
      */
-    public function user_wishlist()
-    {
-        return $this->hasMany('App\User_wishlist');
+    public function wishlist(){
+        return $this->hasMany(Wishlist::class);
     }
 
     public function order_details()

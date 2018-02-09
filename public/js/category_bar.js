@@ -157,13 +157,30 @@ $(document).ready(function() {
         });
     }
 
+    $('.wishlist_delete').click(function () {
 
+        var id = ($(this).attr("data-id"));
 
+        console.log(id);
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "Delete",
+            url: wishlistDeleteUrl,
+            data: {id: id},
+            dataType: 'json',
+            success: function (data) {
+                if (data == "true") {
 
+                    $('#delete_wishlist_' + id).animate({backgroundColor: "#fbc7c7"}, "fast")
+                        .animate({opacity: "hide"}, "slow");
 
-
-
-
-
+                }
+            }
+        });
+    });
 });

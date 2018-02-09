@@ -105,8 +105,6 @@ Route::get('/category_products/{id}',['as'=>'category_product','uses'=>'Category
 Route::post('/category_data/{id}',['as'=>'category_data','uses'=>'CategoryController@ajaxByCategoryId']);
 
 
-Route::get('/product_details/{product}',['as'=> 'products.details','uses'=>'ProductController@product_details']);
-Route::post('/wishlist/{id}',['as'=> 'products.wishlist','uses'=>'ProductController@ajaxAddProductToWishlist']);
 
 
 Route::post('/user_login','Auth\UserLoginController@login')->name('user_login');
@@ -146,6 +144,13 @@ Route::group(['middleware'=>['auth']],function() {
     Route::get('/paypal/{id}', ['as' => 'paypalsuccess','uses' => 'CartController@paypalPaymentSuccess']);
     Route::get('/my_orders', ['as' => 'my.orders','uses' => 'CartController@myOrders']);
     Route::get('/my_order/{id}', ['as' => 'my.order','uses' => 'CartController@myOrder']);
+
+    Route::get('/wishlist',['as' => 'my.wishlist','uses' => 'HomeController@userWishList']);
+    Route::delete('/wishlist/{id}/delete',['as'=> 'wishlist.delete','uses'=>'ProductController@deleteWishlist']);
+
+    Route::get('/product_details/{product}',['as'=> 'products.details','uses'=>'ProductController@product_details']);
+    Route::post('/wishlist/{id}',['as'=> 'products.wishlist','uses'=>'ProductController@ajaxAddProductToWishlist']);
+
 
 });
 

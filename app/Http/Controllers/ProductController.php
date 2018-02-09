@@ -68,5 +68,19 @@ class ProductController extends Controller
 
 
     }
+    /*
+    * Function for delete product from wish list
+    *
+    */
+    public function deleteWishlist(Request $request)
+    {
+        if ($request->ajax()) {
+
+            User_wishlist::where('product_id','=',$request->id)->delete();
+
+            return json_encode("true");
+        }
+    }
+
 
 }

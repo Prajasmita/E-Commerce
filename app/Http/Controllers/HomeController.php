@@ -464,4 +464,28 @@ class HomeController extends Controller
         return view('get_page', array('page_data' => $page_data));
     }
 
+    /**
+     * Display wish list.
+     *
+     *
+     */
+    public function userWishList()
+    {
+        $user_id = Auth::user()->id;
+        //$wishlist = User_wishlist::with('product')->where('user_id','=',$user_id)->first();
+
+        $wishlists = User_wishlist::where("user_id", "=", $user_id)->orderby('id', 'desc')->get();
+
+        //Custom::runQuery();die;
+        //Custom::showAll($wishlists);die;
+        $cart_product = array();
+        if (Cart::count()) {
+            foreach (Cart::content() as $item => $cart_list) {
+                array_push($cart_product, $cart_list->id);
+            }
+        }
+
+        return view('wishlist',array('wishlists' => $wishlists,'cart_product'=>$cart_product));
+    }
+
 }
