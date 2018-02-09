@@ -17,7 +17,7 @@
                                                 <span class="badge pull-right">
                                                 <i class=" fa fa-plus"></i></span>
                                             @endif
-                                            {{$category->name}}
+                                            <a href="{{route('category_product',$category->id)}}">{{$category->name}}</a>
 
                                         </a>
                                     </h4>
