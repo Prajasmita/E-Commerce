@@ -11,14 +11,14 @@
         "fideloper/proxy": "~3.3",
         "gloudemans/shoppingcart": "^2.4",
         "guzzlehttp/guzzle": "~5.2",
+        "khill/lavacharts": "3.0.*",
         "kodeine/laravel-acl": "~1.0@dev",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "*",
         "scopdrag/laravel-google-chart": "^1.0",
-        "unisharp/laravel-ckeditor": "^4.7",
-        "khill/lavacharts" : "3.0.*"
-
+        "skovmand/mailchimp-laravel": "^1.0",
+        "unisharp/laravel-ckeditor": "^4.7"
     },
 
 

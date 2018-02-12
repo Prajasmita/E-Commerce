@@ -198,7 +198,7 @@
                                                                         class="fa fa-heart "></i></a></li>
                                                     @else
                                                         <li class="{{"product_id_".$cat['products']['id']}}"><a
-                                                                    class="wishlist link " href="javascript:void(0)"
+                                                                    class="wishlist link_text_color " href="javascript:void(0)"
                                                                     data-id="{{$cat['products']['id']}}"><i
                                                                         class="fa fa-plus-square"></i> Add to
                                                                 Wishlist</a></li>

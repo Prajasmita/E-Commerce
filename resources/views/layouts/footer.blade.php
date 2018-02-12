@@ -131,14 +131,21 @@
                     </div>
                 </div>
                 <div class="col-sm-3 col-sm-offset-1">
-                    <div class="single-widget">
+                    <div class="single-widget {{ $errors->has('email') ? 'has-error' : ''}}">
+                        @if ( session()->has('subscriber') )
+                            <div class="alert alert-success">{{ session()->get('subscriber') }}</div>
+                        @endif
+                            @if ( session()->has('subscribers') )
+                                <div class="alert alert-danger">{{ session()->get('subscribers') }}</div>
+                            @endif
                         <h2>About Shopper</h2>
-                        <form action="#" class="searchform">
-                            <input type="text" placeholder="Your email address"/>
+                        {!! Form::open(['route'=>'subscriber.add','class'=>'searchform']) !!}
+                            <input type="text" name="email" placeholder="Your email address"/>
                             <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i>
                             </button>
+                            {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                             <p>Get the most recent updates from <br/>our site and be updated your self...</p>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </div>
 

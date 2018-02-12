@@ -170,7 +170,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Unisharp\Ckeditor\ServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
-
+        Skovmand\Mailchimp\MailchimpServiceProvider::class,
 
 
 

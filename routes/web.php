@@ -151,6 +151,10 @@ Route::group(['middleware'=>['auth']],function() {
     Route::get('/product_details/{product}',['as'=> 'products.details','uses'=>'ProductController@product_details']);
     Route::post('/wishlist/{id}',['as'=> 'products.wishlist','uses'=>'ProductController@ajaxAddProductToWishlist']);
 
+    Route::post('/subscription',['as'=> 'subscriber.add','uses'=>'MailChimpController@addSubscriber']);
+
+
+
 
 });
 

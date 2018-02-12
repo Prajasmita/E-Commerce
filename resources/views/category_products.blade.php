@@ -124,7 +124,7 @@
                                 @if(in_array($product['products']['id'],$my_wishlist))
                                     <li><a class="added "><i class=" fa fa-heart"  ></i></a></li>
                                 @else
-                                    <li class="{{"product_id_".$product['products']['id']}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$product['products']['id']}}"><i class="fa fa-heart-o"></i></a></li>
+                                    <li class="{{"product_id_".$product['products']['id']}}"><a class="wishlist link_text_color" href="javascript:void(0)" data-id="{{$product['products']['id']}}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
                                 @endif
 
                             </div>

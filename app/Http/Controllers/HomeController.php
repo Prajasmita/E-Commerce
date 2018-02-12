@@ -11,6 +11,7 @@ use App\Helper\Custom;
 use App\Product;
 Use App\Countries;
 Use App\States;
+use App\Subscribers;
 use App\User;
 use App\User_address;
 use App\User_wishlist;
