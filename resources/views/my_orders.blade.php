@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="table-responsive ">
-                @if(count($order))
+                @if(count($my_order))
                 <table class="table">
                     <thead>
                     <tr>
