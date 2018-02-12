@@ -3,6 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="table-responsive ">
+                @if(count($order))
                 <table class="table">
                     <thead>
                     <tr>
@@ -27,8 +28,14 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
-
+                @else
+                    <div>
+                        <br/>
+                        <p class="text-center"><strong>You have not yet order anything from our site.</strong></p>
+                        <br/>
+                    </div>
+                @endif
         </div>
+    </div>
     </div>
 @endsection
