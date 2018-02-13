@@ -54,7 +54,7 @@
                             @endif
                             <li><a href="{{route('my.wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li>
-                                <a href="{{ Auth::user() ? (Cart::count() ? route('checkout') : route('cart') ): route('register') }}"><i
+                                <a href="{{ Auth::user() ? ((Cart::count()) ? route('checkout') : route('cart') ): route('register') }}"><i
                                             class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a class="cart-count" data-count="{{Cart::count()}}" href="{{route('cart')}}"><i
                                             class="fa fa-shopping-cart "></i> Cart({{Cart::count()}})</a></li>
