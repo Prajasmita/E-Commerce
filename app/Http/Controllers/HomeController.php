@@ -473,12 +473,19 @@ class HomeController extends Controller
     public function userWishList()
     {
         $user_id = Auth::user()->id;
-        //$wishlist = User_wishlist::with('product')->where('user_id','=',$user_id)->first();
 
-        $wishlists = User_wishlist::where("user_id", "=", $user_id)->orderby('id', 'desc')->get();
+        $wishlists = User_wishlist::with(['product'=>function($query){
+            $query->with(['image' => function($query1){
+                $query1->select('product_image_name','product_id');
+            }]);
+        }])->where("user_id", "=", $user_id)->get()->toArray();
 
-        //Custom::runQuery();die;
-        //Custom::showAll($wishlists);die;
+        foreach ($wishlists as $key => $value) {
+
+            $wishlists[$key]['product']['image']['product_image_name'] = empty($value['product']['image']) ? Custom::imageExistence('') : Custom::imageExistence($value['product']['image']['product_image_name']);
+
+        }
+
         $cart_product = array();
         if (Cart::count()) {
             foreach (Cart::content() as $item => $cart_list) {
