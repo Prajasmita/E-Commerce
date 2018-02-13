@@ -11,6 +11,7 @@
                 </ol>
             </div><!--/breadcrums-->
             <div class="form-group">
+                @if(count($cart))
 
                 {!! Form::open(['route' => ['order.store'],'class'=>'checkout_form']) !!}
                 <div class="shopper-informations">
@@ -107,7 +108,6 @@
 
                     {{--*/ $total = '0' /*--}}
                     @php $total = 0 @endphp
-                    @if(count($cart))
                         <table class="table table-condensed no-item">
                             <thead>
                             <tr class="cart_menu">
@@ -148,7 +148,6 @@
 
                                 </tr>
                             @endforeach
-                            @endif
 
                             <tr>
                                 <td>
@@ -213,6 +212,14 @@
                 </div>
                 {!! Form::close() !!}
             </div>
+            @else
+                <div>
+                    <br/>
+                    <p class="text-center"><strong>You Have No Items In The Shopping Cart.Buy Something For Checkout.</strong></p>
+                    <br/>
+                </div>
+
+            @endif
         </div>
 
 
