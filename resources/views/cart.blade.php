@@ -40,7 +40,7 @@
                     <td class="cart_quantity">
                         <div class="cart_quantity_button" id="{{"qty_".$cartItem->id}}" data-quantity="{{$cartItem->qty}}" data-id="{{$cartItem->id}}" data-rowid="{{$cartItem->rowId}}" data-price={{$cartItem->price}}>
                             <a class="minus cart_quantity_down qty" > - </a>
-                            <input type="text" class="qty cart_quantity_input"  name="quantity" value="{{$cartItem->qty}}" min="1"  size="2" id="number" />
+                            <input type="text" class="qty cart_quantity_input"  name="quantity" value="{{$cartItem->qty}}" min="1"  size="2" id="number" readonly/>
                             <a class="plus cart_quantity_up qty"> + </a>
                         </div>
                     </td>

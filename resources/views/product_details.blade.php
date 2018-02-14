@@ -70,18 +70,32 @@
                                     <span>
                                         <span>${{ $products['price'] }}</span>
                                             <div class="container">
-                                                <div class="quantity">
+                                                <div class="quantity" >
                                                     <label><b>Quantity:</b></label>
                                                     <input type="button" class="qty_minus" value="-" />
-                                                    <input type="text" class="qty" id="quantity" name="quantity" value="1" min="1" max="{{$products['quantity']}}" size="1" id="number" />
-                                                    <input type="button" class="qty_plus" value="+" />
+                                                    <input type="text" class="qty" id="quantity" name="quantity" data-value="1" value="1" min="1" max="{{$products['quantity']}}" size="1" id="number" readonly/>
+                                                    <input type="button" class="qty_plus"  value="+" />
                                                 </div>
+                                                {{--<div class="quantity">
+                                                    <label><b>Quantity:</b></label>
+                                                    <input type="button" class="qty_minus" value="-" />
+                                                    <input type="text" class="qty" id="quantity" name="quantity" value="1" min="1" max="{{$products['quantity']}}" size="1" id="number" readonly/>
+                                                    <input type="button" class="qty_plus" value="+" />
+                                                </div>--}}
+                                                {{--<p class="cart_quantity">
+                                                    <div class="cart_quantity_button" id="{{"qty_".$products['id']}}" data-quantity="{{$products['quantity']}}" data-id="{{$products['id']}}" --}}{{--data-rowid="{{$cartItem->rowId}}"--}}{{-- data-price={{$products['price']}}>
+                                                    <a class="minus cart_quantity_down qty" > - </a>
+                                                    <input type="text" class="qty cart_quantity_input"  name="quantity" value="1" min="1" max="{{$products['quantity']}}" size="2" id="number" readonly/>
+                                                    <a class="plus cart_quantity_up qty"> + </a>
+                                                    </div>
+                                                </p>--}}
+
                                             </div>
 
                                         @if(in_array($products['id'],$cart_product))
                                            <a href="javascript:void(0)" class=" btn btn-default link_text_color product-added"><i class="glyphicon glyphicon-ok"></i>Added to cart</a>
                                         @else
-                                            <a href="javascript:void(0)" data-id="{{$products['id']}}" data-count="{{Cart::count()}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$products['id']}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="javascript:void(0)" data-id="{{$products['id']}}" data-price="{{$products['price']}}" data-count="{{Cart::count()}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$products['id']}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         @endif
 
                                         <span><div  class="choose {{ Auth::user() ?'':'hidden_field' }}">

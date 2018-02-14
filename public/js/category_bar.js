@@ -36,7 +36,7 @@ $(document).ready(function() {
                 if (!(products.length === 0) ) {
                     $.each(products, function (index, data) {
 
-                        //console.log(data);exit;
+                        //console.log(index);
                         var value = data.products.id;
 
                         var image = data.products.image;
@@ -47,7 +47,7 @@ $(document).ready(function() {
                             image = data.products.image.product_image_name;
                         }
 
-                        html += "                                <div class=\"col-sm-3 proinfo\">\n" +
+                        html += "                                <div class=\"col-sm-3 proinfo"+index+"\">\n" +
                             "                                    <div class=\"product-image-wrapper\">\n" +
                             "                                        <div class=\"single-products\">\n" +
                             "                                            <div  class=\"productinfo text-center\">\n" +
@@ -86,8 +86,9 @@ $(document).ready(function() {
                         "                        <p class=\"text-center\"><strong>Sorry, No item available.</strong></p>\n" +
                         "                    <br/>\n" +
                         "                    </div>";
-                    $('.proinfo').html(html);
+                    $('.proinfo0').html(html);
 
+                    $('.proinfo1').empty();$('.proinfo2').empty();$('.proinfo3').empty();
                 }
                     addToWishlist();
                     addToCart();
@@ -140,13 +141,21 @@ $(document).ready(function() {
                 }
             });
             var id = ($(this).attr("data-id"));
+
             var presentCartCount = $('.cart-count').attr("data-count");
-            var changedCartCount = parseInt(presentCartCount) + parseInt(1);
+            if(presentCartCount)
+                var changedCartCount = parseInt(presentCartCount) + parseInt(1);
+
+            var count = $('.qty').attr("data-value");
+            if(count > 1)
+                var changedCartCount = parseInt(count) + parseInt(1);
+
+            var quantity =  count ? count : 1 ;
 
             $.ajax({
                 type: "POST",
                 url: cartUrl,
-                data: {id: id},
+                data: {id: id , qty : quantity},
                 dataType: 'json',
                 success: function (data) {
 
