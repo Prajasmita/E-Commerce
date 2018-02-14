@@ -15,7 +15,9 @@
             @foreach($order_review_page['order_products'] as $order_product)
                 <tr id=""  >
                     <td colspan="2">
-                        <a href="#"><img class="index_img" height="10px" width="10px" src="{{asset('img/product/'.$order_product['image_name'])}}" alt=""></a>
+                        @php $image_name = $order_product['image_name'] @endphp
+
+                        <a href="#"><img class="index_img" height="25px" width="25px" src="{{asset('img/product/'.$image_name)}}" alt=""></a>
                         <h4>{{$order_product['name']}}</h4>
                     </td>
                     <td>
