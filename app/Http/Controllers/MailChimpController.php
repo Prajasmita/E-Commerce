@@ -16,6 +16,7 @@ Use App\Helper\Custom;
 class MailChimpController extends Controller
 {
 
+
     public $mailchimp;
     public $listId = '25ef8b5ed0';
 
@@ -36,8 +37,6 @@ class MailChimpController extends Controller
             'email' => 'required|email'
         ]);
 
-       //Custom::showAll(['email' => $request->input('email')]);die;
-
         try {
 
             if($this->mailchimp
@@ -56,10 +55,10 @@ class MailChimpController extends Controller
         }
         catch (\Mailchimp_Error $e) {
 
-            //Custom::showAll($e);die;
             return redirect('/')->with('subscribers','Error from MailChimp');
         }
 
     }
-
 }
+
+

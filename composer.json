@@ -18,7 +18,8 @@
         "paypal/rest-api-sdk-php": "*",
         "scopdrag/laravel-google-chart": "^1.0",
         "skovmand/mailchimp-laravel": "^1.0",
-        "unisharp/laravel-ckeditor": "^4.7"
+        "unisharp/laravel-ckeditor": "^4.7",
+      "drewm/mailchimp-api": "^2.1"
     },
 
 
