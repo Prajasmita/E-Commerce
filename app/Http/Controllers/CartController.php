@@ -317,9 +317,10 @@ class CartController extends Controller
 
             if ($request->payment_gateway == 1) {
 
-                User_order::where('id', '=', $order_id)->update(array('status' => 'O'));
-                $order_review_page = $this->orderReview($order_id);
 
+                User_order::where('id', '=', $order_id)->update(array('status' => 'O'));
+
+                $order_review_page = $this->orderReview($order_id);
 
                 $this->sendMails($order_review_page);
 
@@ -452,7 +453,7 @@ class CartController extends Controller
             $order_details['quantity'] = $cartitem->qty;
             $order_details['order_id'] = $id;
 
-            Order_details::create($order_details);
+            //Order_details::create($order_details);
 
         }
     }
