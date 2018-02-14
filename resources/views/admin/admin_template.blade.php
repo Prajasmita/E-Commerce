@@ -53,6 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script>
         var saveAdminNote = "{{route('admin_note.save')}}";
+        var base_url = "{{config('constants.base_url')}}"
     </script>
 
 

@@ -21,7 +21,7 @@
                 url: addressStoreUrl,
                 data: $("#add_address").serialize(),
                 success: function(data) {
-                   // console.log(data.message);exit;
+                   //  console.log(data.message);exit;
                     if(data.message){
                         if(confirm(data.message)) {
                             window.location = base_url+data.redirecturl;

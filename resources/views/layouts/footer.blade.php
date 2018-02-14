@@ -149,6 +149,17 @@
                     </div>
                 </div>
 
+                @if ( session()->has('campaigns') )
+                    <div class="alert alert-success">{{ session()->get('campaigns') }}</div>
+                @endif
+                @if ( session()->has('campaign') )
+                    <div class="alert alert-danger">{{ session()->get('campaign') }}</div>
+                @endif
+                {!! Form::open(['route'=>'send.campaigns','class'=>'searchform']) !!}
+                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i>
+                </button>
+                {!! Form::close() !!}
+
             </div>
         </div>
     </div>

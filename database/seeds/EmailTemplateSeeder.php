@@ -23,7 +23,7 @@ class EmailTemplateSeeder extends Seeder
                 'id' => '1',
                 'title'=>'user_register',
                 'subject'=>'User Registraion',
-                'content'=>'<p>Hi {User name},</p><br/><br/><p>You are successfully registered with us.</p>\n\n<p>Your login credentials are :</p>\n\n<p>Email : {email}</p>\n\n<p>Password : {password}.</p>\n\n<p>Thank You.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>\n\n<p>Regards,</p>\n\n<p>Ecommerce Shopping Cart</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>',
+                'content'=>'<p>Hi {User name},</p><p>You are successfully registered with us.</p><p>Your login credentials are :</p><p>Email : {email}</p><p>Password : {password}.</p><p>Thank You.</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><p>Regards,</p><p>Ecommerce Shopping Cart</p><p>&nbsp;</p><p>&nbsp;</p>',
                 'created_at' => Carbon::now(),
             ],
             [

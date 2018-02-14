@@ -27,7 +27,7 @@
                             </tr>
                             <tr>
                                 <th> Content </th>
-                                <td> {!! $template->content  !!}  </td>
+                                <td> {!! $template->content   !!}</td>
                             </tr>
                             </tbody>
                         </table>

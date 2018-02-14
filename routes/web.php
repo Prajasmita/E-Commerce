@@ -173,6 +173,9 @@ Route::get('/cms/{page_name}',['as'=> 'cms.page','uses'=>'HomeController@getPage
 
 /*Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);*/
 
+Route::post('/sendCampaigns', ['as' => 'send.campaigns','uses' => 'MailChimpController@sendCampaigns']);
+
+
 
 Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 
@@ -180,6 +183,8 @@ Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 //Route::post('/contact',['as' => 'contactUs', 'uses'=>'HomeController@saveContactDetails']);
 /*Route::get('/paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));*/
 
+
+Route::get('sendmail', 'TestController@sendMail');
 
 
 
