@@ -148,18 +148,6 @@
                         {!! Form::close() !!}
                     </div>
                 </div>
-
-                @if ( session()->has('campaigns') )
-                    <div class="alert alert-success">{{ session()->get('campaigns') }}</div>
-                @endif
-                @if ( session()->has('campaign') )
-                    <div class="alert alert-danger">{{ session()->get('campaign') }}</div>
-                @endif
-                {!! Form::open(['route'=>'send.campaigns','class'=>'searchform']) !!}
-                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i>
-                </button>
-                {!! Form::close() !!}
-
             </div>
         </div>
     </div>
@@ -167,9 +155,9 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
+                <p class="pull-left">Copyright © 2018 E-COMMERCE Shopping Cart. All rights reserved.</p>
                 <p class="pull-right">Designed by <span><a target="_blank"
-                                                           href="http://www.themeum.com">Themeum</a></span></p>
+                                                           href="javascript:void(0)">Prajakta Sisale</a></span></p>
             </div>
         </div>
     </div>

@@ -5,8 +5,8 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> (+91) 989 858 4545 </a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> prajakta.sisale@neosofttech.com</a></li>
+                            <li><a ><i class="fa fa-phone"></i> (+91) 989 858 4545 </a></li>
+                            <li><a ><i class="fa fa-envelope"></i> prajakta.sisale@neosofttech.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,16 +52,16 @@
                                     </ul>
                                 </li>
                             @endif
-                            <li><a href="{{route('my.wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}" href="{{route('my.wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li>
-                                <a href="{{ Auth::user() ? route('checkout'): route('register') }}"><i
+                                <a class="{{ ((url()->current()) == route('checkout')) ? 'active' : '' }}" href="{{ Auth::user() ? route('checkout'): route('register') }}"><i
                                             class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a class="cart-count" data-count="{{Cart::count()}}" href="{{route('cart')}}"><i
+                            <li><a class="cart-count {{ ((url()->current()) == route('cart')) ? 'active' : '' }} " data-count="{{Cart::count()}}" href="{{route('cart')}}"><i
                                             class="fa fa-shopping-cart "></i> Cart({{Cart::count()}})</a></li>
                             @if( Auth::user())
-                                <li><a href="{{route('user_logout')}}"><i class="fa fa-unlock"></i> Logout</a></li>
+                                <li><a class="{{ ((url()->current()) == route('user_logout')) ? 'active' : '' }}" href="{{route('user_logout')}}"><i class="fa fa-unlock"></i> Logout</a></li>
                             @else
-                                <li><a href="{{url('register')}}"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a class="{{ ((url()->current()) == url('register')) ? 'active' : '' }}" href="{{url('register')}}"><i class="fa fa-lock"></i> Login</a></li>
                             @endif
                         </ul>
                     </div>
@@ -85,10 +85,10 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="{{url('/')}}" class="active">Home</a></li>
-                            <li><a href="{{config('constants.base_url')}}cms/about_us">About Us</a></li>
-                            <li><a href="{{config('constants.base_url')}}cms/help">Help</a></li>
-                            <li><a href="{{route('contact_us')}}">Contact</a></li>
+                            <li><a class="{{ ((url()->current()) == url('/')) ? 'active' : '' }}" href="{{url('/')}}">Home</a></li>
+                            <li><a class="{{ ((url()->current()) == config('constants.base_url').'cms/about_us') ? 'active' : '' }}" href="{{config('constants.base_url')}}cms/about_us">About Us</a></li>
+                            <li><a class="{{ ((url()->current()) == config('constants.base_url').'cms/help') ? 'active' : '' }}" href="{{config('constants.base_url')}}cms/help">Help</a></li>
+                            <li><a class="{{ ((url()->current()) == route('contact_us') ? 'active' : '' )}}" href="{{route('contact_us')}}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
