@@ -26,60 +26,71 @@ $(document).ready(function() {
 
                 var html = "";
                 var hidden = "hidden_field";
-                if(authUser){
+                if (authUser) {
                     hidden = "";
                 }
                 var products = output[0];
                 var my_wishlist = output[1];
-                var cart_product = output[2] ;
+                var cart_product = output[2];
 
-                $.each(products ,function (index,data) {
+                if (!(products.length === 0)) {
+                    $.each(products, function (index, data) {
 
+                        //console.log(data);exit;
+                        var value = data.products.id;
 
-                    //console.log(data);exit;
-                    var value = data.products.id;
+                        var image = data.products.image;
+                        if (image == null) {
+                            image = 'defaultimage.jpeg';
+                        }
+                        else {
+                            image = data.products.image.product_image_name;
+                        }
 
-                    var image = data.products.image ;
-                    if(image == null){
-                        image = 'defaultimage.jpeg' ;
-                    }
-                    else{
-                        image = data.products.image.product_image_name;
-                    }
-
-                    html += "                                <div class=\"col-sm-3\">\n" +
+                        html += "                                <div class=\"col-sm-3\">\n" +
                             "                                    <div class=\"product-image-wrapper\">\n" +
                             "                                        <div class=\"single-products\">\n" +
                             "                                            <div class=\"productinfo text-center\">\n" +
-                            "                                                <img class=\"show_img\" src="+base_url+"img/product/"+image+"\>\n" +
-                            "                                                <h2>$"+data.products.price+"</h2>\n" +
-                            "                                                <p><a href=\""+base_url+'product_details/'+data.products.id+"\" >"+data.products.product_name+"</a></p>\n" ;
-                                                                            if($.inArray(value, cart_product) != -1) {
+                            "                                                <img class=\"show_img\" src=" + base_url + "img/product/" + image + "\>\n" +
+                            "                                                <h2>$" + data.products.price + "</h2>\n" +
+                            "                                                <p><a href=\"" + base_url + 'product_details/' + data.products.id + "\" >" + data.products.product_name + "</a></p>\n";
+                        if ($.inArray(value, cart_product) != -1) {
 
-                                                                                html += "<a href=\"javascript:void(0)\" class=\" btn btn-default product-added \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
-                                                                            }else {
-                                                                                html += "<a href=\"javascript:void(0)\" class=\"product_id_cart"+data.products.id+" cart-data btn btn-default add-to-cart\"  data-id="+data.products.id+" ><i class=\"fa fa-shopping-cart\"></i>Add to cart</a>\n";
-                                                                            }
-                            html += "                                       <div  class=\" choose nav nav-pills nav-justified "+hidden+"\">\n" ;
-                                                                            if($.inArray(value, my_wishlist) != -1) {
+                            html += "<a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color product-added \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
+                        } else {
+                            html += "<a href=\"javascript:void(0)\" class=\"product_id_cart" + data.products.id + " cart-data btn btn-default add-to-cart\"  data-id=" + data.products.id + " ><i class=\"fa fa-shopping-cart\"></i>Add to cart</a>\n";
+                        }
+                        html += "                                       <div  class=\" choose nav nav-pills nav-justified " + hidden + "\">\n";
+                        if ($.inArray(value, my_wishlist) != -1) {
 
-                                                                                html += "<li><a class=\"link_text_color added\"><i class=\" fa fa-heart \"></i></a></li>\n";
-                                                                            }else {
-                                                                                html += "<li class=\"product_id_"+data.products.id+" choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id="+data.products.id+"><i class=\"fa fa-plus-square \"></i> Add to Wishlist</a></li>\n";
-                                                                            }
+                            html += "<li><a class=\"link_text_color added\"><i class=\" fa fa-heart \"></i></a></li>\n";
+                        } else {
+                            html += "<li class=\"product_id_" + data.products.id + " choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id=" + data.products.id + "><i class=\"fa fa-plus-square \"></i> Add to Wishlist</a></li>\n";
+                        }
                         html += "                                            </div>\n" +
                             "                                            </div>\n" +
                             "                                        </div>\n" +
                             "                                        </div>\n" +
-                            "                                   </div>\n" ;
+                            "                                   </div>\n";
 
 
-                });
+                    });
 
 
-              $('#category_product').html(html);
-                addToWishlist();
-                addToCart();
+                    $('#category_product').html(html);
+                    addToWishlist();
+                    addToCart();
+                } else {
+
+                    var html = "";
+                    html += "<div class=\"productinfo text-center\">\n" +
+                        "                    <br/>\n" +
+                        "                        <p class=\"text-center\"><strong>Sorry, No item available.</strong></p>\n" +
+                        "                    <br/>\n" +
+                        "                    </div>";
+                    $('.productinfo').html(html);
+
+                }
             }
         });
     });
@@ -141,9 +152,9 @@ $(document).ready(function() {
                     if (data == "true") {
 
                        $('.cart-count').attr("data-count",changedCartCount);
-                        
+
                         var html = "";
-                        html = "<a class=\"link_text_color product-added\"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart</a>";
+                        html = "<a  class=\"link_text_color \"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart</a>";
                         $('.product_id_cart' + id).html(html);
 
                         var html1 = "";
