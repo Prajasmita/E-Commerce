@@ -93,7 +93,7 @@ class CartController extends Controller
 
             $products['image'] = empty($products['image']) ? Custom::imageExistence('') : Custom::imageExistence($products['image']['product_image_name']);
 
-            Cart::add(array('id' => $id, 'name' => $products['product_name'], 'qty' => 1, 'price' => $products['price'], 'options' => ['image' => $products['image']]));
+            Cart::add(array('id' => $id, 'name' => $products['product_name'], 'qty' => $request->qty , 'price' => $products['price'], 'options' => ['image' => $products['image']]));
 
             return json_encode('true');
 
