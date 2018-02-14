@@ -169,19 +169,9 @@ class HomeController extends Controller
         //Custom::showAll($data->name);die;
         $template_content = Email_template::where('title', '=', 'contact_us_submission_for_admin')->select('content')->first();
 
-        $string = array();
-        $string[0] = '{{name}}';
-        $string[1] = '{{email}}';
-        $string[2] = '{{contact_no}}';
-        $string[3] = '{{subject}}';
-        $string[4] = '{{message}}';
+        $string = array('{{name}}','{{email}}','{{contact_no}}','{{subject}}','{{message}}');
 
-        $replace = array();
-        $replace[0] = $data->name;
-        $replace[1] = $data->email;
-        $replace[2] = $data->contact_no;
-        $replace[3] = $data->subject;
-        $replace[4] = $data->message;
+        $replace = array($data->name, $data->email,$data->contact_no,$data->subject,$data->message);
 
         $new_template_content = str_replace($string, $replace, $template_content->content);
 
@@ -193,7 +183,7 @@ class HomeController extends Controller
         Mail::send([], [], function ($message) use ($new_template_content, $admin_mail) {
             $message->to($admin_mail)
                 ->subject('Customer Message')
-                ->setBody(html_entity_decode(strip_tags($new_template_content)));
+                ->setBody($new_template_content,'text/html');
 
         });
     }
@@ -395,10 +385,10 @@ class HomeController extends Controller
 
             if (Hash::check($old_password, $user->password)) {
 
-                Mail::send([], [], function ($message) {
+                Mail::send([], [], function ($message) use ($new_password) {
                     $message->to(Auth::user()->email)
-                        ->subject('laravel test mail sending')
-                        ->setBody('Hi, welcome user!');
+                        ->subject('Password Changed')
+                        ->setBody('Hello user Your Password Changed Successully. Your New Password is '.$new_password);
                 });
 
                 User::where('id', '=', $user->id)->update(array('password' => $hash_new_password));

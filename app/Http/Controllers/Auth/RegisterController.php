@@ -83,15 +83,9 @@ class RegisterController extends Controller
         $template_content = Email_template::where('title','=','user_register')->select('content')->first();
 
         $email = $data['email'];
-        $string = array();
-        $string[0] = '{User name}';
-        $string[1] = '{email}';
-        $string[2] = '{password}';
+        $string = array('{User name}','{email}','{password}');
 
-        $replace=array();
-        $replace[0] = $data['first_name'];
-        $replace[1] = $data['email'];
-        $replace[2] = $data['password'];
+        $replace=array($data['first_name'],$data['email'],$data['password']);
 
         $new_template_content = str_replace($string,$replace, $template_content->content);
 
@@ -107,16 +101,15 @@ class RegisterController extends Controller
          {
              $message->to($email)
                  ->subject('Successful Registration')
-                 ->setBody(html_entity_decode(strip_tags($new_template_content)));
+                 ->setBody($new_template_content,'text/html');
 
          });
 
         Mail::send([], [], function ($message) use ($admin_content,$admin_mail)
         {
-
             $message->to($admin_mail)
                 ->subject('Successful Registration of customer')
-                ->setBody(html_entity_decode(strip_tags($admin_content)));
+                ->setBody($admin_content,'text/html');
         });
         return redirect('register')->with('flash_message', 'You are register successfully !!!');
 
