@@ -33,7 +33,7 @@ $(document).ready(function() {
                 var my_wishlist = output[1];
                 var cart_product = output[2];
 
-                if (!(products.length === 0)) {
+                if (!(products.length === 0) ) {
                     $.each(products, function (index, data) {
 
                         //console.log(data);exit;
@@ -47,10 +47,10 @@ $(document).ready(function() {
                             image = data.products.image.product_image_name;
                         }
 
-                        html += "                                <div class=\"col-sm-3\">\n" +
+                        html += "                                <div class=\"col-sm-3 proinfo\">\n" +
                             "                                    <div class=\"product-image-wrapper\">\n" +
                             "                                        <div class=\"single-products\">\n" +
-                            "                                            <div class=\"productinfo text-center\">\n" +
+                            "                                            <div  class=\"productinfo text-center\">\n" +
                             "                                                <img class=\"show_img\" src=" + base_url + "img/product/" + image + "\>\n" +
                             "                                                <h2>$" + data.products.price + "</h2>\n" +
                             "                                                <p><a href=\"" + base_url + 'product_details/' + data.products.id + "\" >" + data.products.product_name + "</a></p>\n";
@@ -78,19 +78,20 @@ $(document).ready(function() {
 
 
                     $('#category_product').html(html);
-                    addToWishlist();
-                    addToCart();
-                } else {
 
+                } else {
                     var html = "";
                     html += "<div class=\"productinfo text-center\">\n" +
                         "                    <br/>\n" +
                         "                        <p class=\"text-center\"><strong>Sorry, No item available.</strong></p>\n" +
                         "                    <br/>\n" +
                         "                    </div>";
-                    $('.productinfo').html(html);
+                    $('.proinfo').html(html);
 
                 }
+                    addToWishlist();
+                    addToCart();
+
             }
         });
     });

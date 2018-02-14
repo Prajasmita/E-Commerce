@@ -166,13 +166,13 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="tab-content">
+                    <div class="tab-content " >
                         <div class="tab-pane fade active in" id="category_product">
                             @foreach($products as $cat)
-                                <div class="col-sm-3">
+                                <div  class="col-sm-3 proinfo">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
-                                            <div class="productinfo text-center">
+                                            <div class="productinfo  text-center">
                                                 <img class="show_img"
                                                      src="{{asset('img/product/'.$cat['products']['image'])}}"/>
                                                 <h2>${{ $cat['products']['price'] }}</h2>
