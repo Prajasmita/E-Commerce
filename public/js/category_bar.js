@@ -128,7 +128,7 @@ $(document).ready(function() {
                 }
             });
             var id = ($(this).attr("data-id"));
-            var presentCartCount = ($('.cart-count').attr("data-count"));
+            var presentCartCount = $('.cart-count').attr("data-count");
             var changedCartCount = parseInt(presentCartCount) + parseInt(1);
 
             $.ajax({
@@ -140,8 +140,8 @@ $(document).ready(function() {
 
                     if (data == "true") {
 
-                        $('.cart-data').attr("data-count",changedCartCount);
-
+                       $('.cart-count').attr("data-count",changedCartCount);
+                        
                         var html = "";
                         html = "<a class=\"link_text_color product-added\"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart</a>";
                         $('.product_id_cart' + id).html(html);
