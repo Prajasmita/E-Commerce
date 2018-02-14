@@ -146,23 +146,11 @@ class ContactUsContoller extends Controller
         //Custom::showAll($data['email']);die;
         $template_content = Email_template::where('title','=','admin_note')->select('content')->first();
 
-        $email = $data['email'];
-        $string = array();
-        $string[0] = '{{name}}';
-        $string[1] = '{{email}}';
-        $string[2] = '{{contact_no}}';
-        $string[3] = '{{subject}}';
-        $string[4] = '{{message}}';
-        $string[5] = '{{admin_note}}';
+        //$email = $data['email'];
+        $email = 'prajakta.neosoft@gmail.com';
+        $string = array('{{name}}','{{email}}','{{contact_no}}','{{subject}}','{{message}}','{{admin_note}}');
 
-
-        $replace=array();
-        $replace[0] = $data['name'];
-        $replace[1] = $data['email'];
-        $replace[2] = $data['contact_no'];
-        $replace[3] = $data['subject'];
-        $replace[4] = $data['message'];
-        $replace[5] = $data['note_admin'];
+        $replace=array($data['name'], $data['email'],$data['contact_no'],$data['subject'],$data['message'], $data['note_admin']);
 
         $new_template_content = str_replace($string,$replace, $template_content->content);
 
@@ -170,7 +158,7 @@ class ContactUsContoller extends Controller
         {
             $message->to($email)
                 ->subject('Admin Reply')
-                ->setBody(html_entity_decode(strip_tags($new_template_content)));
+                ->setBody($new_template_content,'text/html');
 
         });
     }
