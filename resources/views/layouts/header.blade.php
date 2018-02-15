@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="contactinfo">
-                        <ul class="nav nav-pills">
+                        <ul class="cur nav nav-pills">
                             <li><a><i class="fa fa-phone"></i> (+91) 989 858 4545 </a></li>
                             <li><a><i class="fa fa-envelope"></i> prajakta.sisale@neosofttech.com</a></li>
                         </ul>
@@ -12,13 +12,12 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
-                        {{-- <ul class="nav navbar-nav">
-                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                             <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                         </ul>--}}
+                         <ul class="nav navbar-nav">
+                             <li><a href="https://www.facebook.com/login/"><i class="fa fa-facebook"></i></a></li>
+                             <li><a href="https://twitter.com/login"><i class="fa fa-twitter"></i></a></li>
+                             <li><a href="https://in.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                             <li><a href="https://plus.google.com/people"><i class="fa fa-google-plus"></i></a></li>
+                         </ul>
                     </div>
                 </div>
             </div>

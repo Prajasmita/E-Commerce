@@ -34,7 +34,7 @@
                                     <h4><a href="">{{$cartItem->rowId}}</a></h4>
                                 </td>
                                 <td class="cart_description">
-                                    <h4><a href="">{{$cartItem->name}}</a></h4>
+                                    <h4><a href="{{Auth::user() ? route('products.details',$cartItem->id) : route('register')}}">{{$cartItem->name}}</a></h4>
                                 </td>
                                 <td class="cart_price">
                                     <p>${{$cartItem->price}}</p>

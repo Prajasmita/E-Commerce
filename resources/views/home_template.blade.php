@@ -97,7 +97,6 @@
 <!-- XZOOM JQUERY PLUGIN  -->
 <script src="{{asset('js/xzoom.js')}}"></script>
 <script src="{{asset('js/image_gallery.js')}}"></script>
-<script src="{{asset('js/inc_dec_qty.js')}}"></script>
 <script src="{{asset('js/script.js')}}"></script>
 <script src="{{asset('js/cart.js')}}"></script>
 <script src="{{asset('js/apply_coupon_code.js')}}"></script>

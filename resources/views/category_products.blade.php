@@ -118,7 +118,7 @@
                                             <div class="overlay-content">
                                                 <h2>${{$product['products']['price']}}</h2>
                                                 <p><a class=""
-                                                      href="{{route('products.details',$product['products']['id'])}}">{{$product['products']['product_name']}}</a>
+                                                      href="{{Auth::user() ? route('products.details',$product['products']['id']) : route('register')}}">{{$product['products']['product_name']}}</a>
                                                 </p>
                                                 @if(in_array($product['products']['id'],$cart_product))
                                                     <a href="javascript:void(0)"

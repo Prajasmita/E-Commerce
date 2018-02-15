@@ -52,8 +52,13 @@ $(document).ready(function() {
                             "                                        <div class=\"single-products\">\n" +
                             "                                            <div  class=\"productinfo text-center\">\n" +
                             "                                                <img class=\"show_img\" src=" + base_url + "img/product/" + image + "\>\n" +
-                            "                                                <h2>$" + data.products.price + "</h2>\n" +
-                            "                                                <p><a href=\"" + base_url + 'product_details/' + data.products.id + "\" >" + data.products.product_name + "</a></p>\n";
+                            "                                                <h2>$" + data.products.price + "</h2>\n" ;
+
+                        if(authUser){
+                            html +="<p><a href=\"" + base_url + 'product_details/' + data.products.id + "\" >" + data.products.product_name + "</a></p>\n";
+                        }else{
+                            html +="<p><a href=\"" + base_url + 'register'+"\" >" + data.products.product_name + "</a></p>\n";
+                        }
                         if ($.inArray(value, cart_product) != -1) {
 
                             html += "<a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color product-added \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
@@ -147,7 +152,7 @@ $(document).ready(function() {
                 var changedCartCount = parseInt(presentCartCount) + parseInt(1);
 
             var count = $('.qty').attr("data-value");
-            if(count >= 0)
+            if(count > 0)
                 var changedCartCount = parseInt(count) + parseInt(presentCartCount);
 
             var quantity =  count ? count : 1 ;
@@ -164,11 +169,12 @@ $(document).ready(function() {
                        $('.cart-count').attr("data-count",changedCartCount);
 
                         var html = "";
-                        html = "<a  class=\"link_text_color \"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart</a>";
+                        html = "<a href=\"javascript:void(0)\" class=\"link_text_color added-to-cart \"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart</a>";
                         $('.product_id_cart' + id).html(html);
 
                         var html1 = "";
                         html1 = "<li><a href="+base_url+"cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")</a></li>\n";
+
                         $('.cart-count').html(html1);
                     }
 

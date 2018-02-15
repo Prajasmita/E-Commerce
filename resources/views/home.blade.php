@@ -121,7 +121,7 @@
                                         <div class="overlay-content">
                                             <h2>${{$featured_product['price']}}</h2>
                                             <p><a class=""
-                                                  href="{{route('products.details',$featured_product['id'])}}">{{$featured_product['product_name']}}</a>
+                                                  href="{{Auth::user() ? route('products.details',$featured_product['id']) : route('register')}}">{{$featured_product['product_name']}}</a>
                                             </p>
                                             @if(in_array($featured_product['id'],$cart_product))
                                                 <span><a href="javascript:void(0)"
@@ -177,7 +177,7 @@
                                                      src="{{asset('img/product/'.$cat['products']['image'])}}"/>
                                                 <h2>${{ $cat['products']['price'] }}</h2>
                                                 <p><a class="text-dark"
-                                                      href="{{route('products.details',$cat['products']['id'])}}">{{ $cat['products']['product_name'] }}</a>
+                                                      href="{{Auth::user() ? route('products.details',$cat['products']['id']) : route('register')}}">{{ $cat['products']['product_name'] }}</a>
                                                 </p>
                                                 @if(in_array($cat['products']['id'],$cart_product))
                                                     <span><a href="javascript:void(0)"
