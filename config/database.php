@@ -41,11 +41,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST', 'sql12.freemysqlhosting.net'),
+            'port' => env('DB_PORT', '3360'),
+            'database' => env('DB_DATABASE', 'sql12221452'),
+            'username' => env('DB_USERNAME', 'sql12221452'),
+            'password' => env('DB_PASSWORD', 'GLqx8fyKHb'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
