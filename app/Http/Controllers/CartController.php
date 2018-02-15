@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+Use App\Product;
 Use App\Configuration;
 use App\Countries;
 Use Illuminate\Support\Facades\URL;
 use App\Coupon;
 use App\Helper\Custom;
 use App\Order_details;
-use App\Product;
 use App\States;
 use App\User_address;
 use App\User_order;
@@ -442,6 +442,7 @@ class CartController extends Controller
     {
 
         $cart = Cart::content();
+
         foreach ($cart as $item => $cartitem) {
             $cart_item = array();
             $order_details = array();
@@ -451,9 +452,16 @@ class CartController extends Controller
             $order_details['amount'] = $cartitem->price;
             $order_details['product_id'] = $cartitem->id;
             $order_details['quantity'] = $cartitem->qty;
+
+            $product = Product::select('quantity')->where('id','=',$order_details['product_id'])->first();
+
+            $updated_product_qty = intval($product->quantity ) - intval( $order_details['quantity']);
+
+            Product::where('id','=',$order_details['product_id'])->update(array('quantity' => $updated_product_qty));
+
             $order_details['order_id'] = $id;
 
-            //Order_details::create($order_details);
+            Order_details::create($order_details);
 
         }
     }
