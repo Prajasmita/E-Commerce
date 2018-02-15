@@ -227,9 +227,7 @@ class ProductsController extends Controller
         $product_image = Image_product::get()->first;
 
         $product = Product::findOrFail($id);
-
-        $product['price'] = number_format($product->price,2,'.', ',');
-
+        
         return view('admin.products.edit', compact('product','authUser','categories','product_image'));
     }
 
@@ -247,7 +245,7 @@ class ProductsController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'sku' => 'required|alpha_num',
-            'price' => 'required|numeric',
+            'price' => 'required',
             'quantity' => 'required',
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
 
@@ -295,17 +293,21 @@ class ProductsController extends Controller
 
         }
 
-        /*foreach($request->category as $selected_id) {
 
-            $requestData2['category_id'] = $selected_id;
 
-            $requestData2['product_id']=$product_data['id'];
+        if($request->category){
+            Category_product::where('product_id','=',$id)->delete();
 
-            $product_data2 = Category_product::where('product_id','=',$id);
-            //Custom::showAll($product_data2->category_id);die;
-            $product_data2->update($requestData2);
+            foreach($request->category as $selected_id) {
 
-        }*/
+                $requestData2['category_id'] = $selected_id;
+
+                $requestData2['product_id']=$product_data['id'];
+
+                Category_product::create($requestData2);
+            }
+        }
+
 
         return redirect('admin/products')->with('flash_message', 'Product updated!');
     }
