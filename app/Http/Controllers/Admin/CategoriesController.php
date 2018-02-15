@@ -10,6 +10,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Log;
+
 /**
  * Class CategoriesController for CRUD operation of categories.
  *
@@ -26,20 +27,19 @@ class CategoriesController extends Controller
     {
 
         $categories = array();
-        $result=array();
+        $result = array();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
-            //echo "hii";die;
-            $totalRecords=Category::count();
-            $limit=$request->input('length');
-            if($limit == -1){
+            $totalRecords = Category::count();
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
 
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = trim($search['value']);
             $draw = $request->input('draw');
             $column = $request->input('columns');
             $order = $request->input('order');
@@ -47,49 +47,49 @@ class CategoriesController extends Controller
             $sortOf = $order[0]['dir'];
             $name = $column[$sortBy]['data'];
 
-            $categories = Category::leftJoin('categories as cat','categories.parent_id','=','cat.id')
-                ->select('categories.id','categories.name','cat.name as pname');
-            if ($search_word != '' ) {
+            $categories = Category::leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
+                ->select('categories.id', 'categories.name', 'cat.name as pname');
+            if ($search_word != '') {
                 $recordsFiltered = $categories->count();
                 $recordsTotal = $categories->count();
 
-            }else{
+            } else {
                 $recordsFiltered = Category::count();
                 $recordsTotal = Category::count();
             }
-            if ($search_word != '' ) {
+            if ($search_word != '') {
 
                 $categories->where('categories.name', 'LIKE', "%$search_word%")
                     ->orWhere('categories.parent_id', 'LIKE', "%$search_word%");
 
-                }
-                $categories =  $categories->skip($offset)
-                        ->take($limit)
-                        ->orderBy($name , $sortOf)
-                        ->get();
+            }
+            $categories = $categories->skip($offset)
+                ->take($limit)
+                ->orderBy($name, $sortOf)
+                ->get();
 
 
-                $final = array();
-                foreach($categories as $key => $val){
+            $final = array();
+            foreach ($categories as $key => $val) {
 
-                    $res_data = array();
-                    $res_data['id'] = $val['id'];
-                    $res_data['name'] = $val['name'];
-                    $val['pname'] == null ? $res_data['category'] = 'Parent Category' : $res_data['category'] = $val['pname'];
-                    $final[] = $res_data;
-                }
+                $res_data = array();
+                $res_data['id'] = $val['id'];
+                $res_data['name'] = $val['name'];
+                $val['pname'] == null ? $res_data['category'] = 'Parent Category' : $res_data['category'] = $val['pname'];
+                $final[] = $res_data;
+            }
 
-                $result['draw'] = $draw;
-                $result['recordsFiltered'] = $recordsFiltered;
-                $result['recordsTotal'] = $recordsTotal;
-                $result['data'] =   $final;
+            $result['draw'] = $draw;
+            $result['recordsFiltered'] = $recordsFiltered;
+            $result['recordsTotal'] = $recordsTotal;
+            $result['data'] = $final;
 
             return $result;
         }
 
         $authUser = Auth::user();
 
-        return view('admin.categories.index', array('authUser'=>$authUser,'categories'=>$categories,'js'=>'categories_listing'));
+        return view('admin.categories.index', array('authUser' => $authUser, 'categories' => $categories, 'js' => 'categories_listing'));
 
     }
 
@@ -101,12 +101,12 @@ class CategoriesController extends Controller
     public function create()
     {
 
-        $category = Category::where('parent_id','=','0')
+        $category = Category::where('parent_id', '=', '0')
             ->get();
 
         $authUser = Auth::user();
 
-        return view('admin.categories.create',array('authUser'=>$authUser ,'category' =>$category));
+        return view('admin.categories.create', array('authUser' => $authUser, 'category' => $category));
 
     }
 
@@ -135,21 +135,20 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
     public function show($id)
     {
-        $category = Category::leftJoin('categories as cat','categories.parent_id','=','cat.id')
-            ->select('categories.id','categories.name','cat.name as pname')
-            ->where('categories.id','LIKE',"%$id%")
+        $category = Category::leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
+            ->select('categories.id', 'categories.name', 'cat.name as pname')
+            ->where('categories.id', 'LIKE', "%$id%")
             ->get()->first();
-        //Custom::showAll($category);die;
 
         $authUser = Auth::user();
 
-        return view('admin.categories.show', array('authUser'=>$authUser,'category'=>$category ));
+        return view('admin.categories.show', array('authUser' => $authUser, 'category' => $category));
 
 
     }
@@ -157,7 +156,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -166,11 +165,11 @@ class CategoriesController extends Controller
 
         $selected_category = Category::findOrFail($id);
 
-        $category = Category::where('parent_id','=','0')->get();
+        $category = Category::where('parent_id', '=', '0')->get();
 
         $authUser = Auth::user();
 
-        return view('admin.categories.edit', array('authUser'=>$authUser,'category'=>$category,'selected_category'=>$selected_category));
+        return view('admin.categories.edit', array('authUser' => $authUser, 'category' => $category, 'selected_category' => $selected_category));
 
     }
 
@@ -178,7 +177,7 @@ class CategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -199,7 +198,7 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

@@ -5,8 +5,8 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a ><i class="fa fa-phone"></i> (+91) 989 858 4545 </a></li>
-                            <li><a ><i class="fa fa-envelope"></i> prajakta.sisale@neosofttech.com</a></li>
+                            <li><a><i class="fa fa-phone"></i> (+91) 989 858 4545 </a></li>
+                            <li><a><i class="fa fa-envelope"></i> prajakta.sisale@neosofttech.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,30 +38,45 @@
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             @if( Auth::user())
                                 <li class="dropdown user user-menu">
-                                    <a href="" class="dropdown-toggle {{ (url()->current() == route('address.book')) || (url()->current() == route('change.password')) || (url()->current() == route('my.orders')) || (url()->current() == route('track.order')) ? 'active' : '' }}"  data-toggle="dropdown">
+                                    <a href=""
+                                       class="dropdown-toggle {{ (url()->current() == route('address.book')) || (url()->current() == route('change.password')) || (url()->current() == route('my.orders')) || (url()->current() == route('track.order')) ? 'active' : '' }}"
+                                       data-toggle="dropdown">
                                         <span class="hidden-xs"><img id="user_id" data-user_id="{{Auth::user()->id}}"><i
                                                     class="fa fa-user"></i>{{Auth::user()->first_name}}  {{Auth::user()->last_name}}
                                             <i class="fa fa-angle-down"></i></span>
                                     </a>
                                     <ul class="sub-menu dropdown-menu ">
-                                        <li><a class="{{ ((url()->current()) == route('address.book')) ? 'active' : '' }}" href="{{route('address.book')}}">Address Book</a></li>
-                                        <li><a class="{{ ((url()->current()) == route('change.password')) ? 'active' : '' }}" href="{{route('change.password')}}">Change Password</a></li>
-                                        <li><a class="{{ ((url()->current()) == route('my.orders')) ? 'active' : '' }}" href="{{route('my.orders')}}">My Orders</a></li>
+                                        <li>
+                                            <a class="{{ ((url()->current()) == route('address.book')) ? 'active' : '' }}"
+                                               href="{{route('address.book')}}">Address Book</a></li>
+                                        <li>
+                                            <a class="{{ ((url()->current()) == route('change.password')) ? 'active' : '' }}"
+                                               href="{{route('change.password')}}">Change Password</a></li>
+                                        <li><a class="{{ ((url()->current()) == route('my.orders')) ? 'active' : '' }}"
+                                               href="{{route('my.orders')}}">My Orders</a></li>
                                         <br/>
-                                        <li><a class="{{ ((url()->current()) == route('track.order')) ? 'active' : '' }}" href="{{route('track.order')}}">Track Order</a></li>
+                                        <li>
+                                            <a class="{{ ((url()->current()) == route('track.order')) ? 'active' : '' }}"
+                                               href="{{route('track.order')}}">Track Order</a></li>
                                     </ul>
                                 </li>
                             @endif
-                            <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}" href="{{Auth::user() ? route('my.wishlist') : route('register')}}"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}"
+                                   href="{{Auth::user() ? route('my.wishlist') : route('register')}}"><i
+                                            class="fa fa-star"></i> Wishlist</a></li>
                             <li>
-                                <a class="{{ ((url()->current()) == route('checkout')) ? 'active' : '' }}" href="{{ Auth::user() ? route('checkout'): route('register') }}"><i
+                                <a class="{{ ((url()->current()) == route('checkout')) ? 'active' : '' }}"
+                                   href="{{ Auth::user() ? route('checkout'): route('register') }}"><i
                                             class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a class="cart-count {{ ((url()->current()) == route('cart')) ? 'active' : '' }} " data-count="{{Cart::count()}}" href="{{route('cart')}}"><i
+                            <li><a class="cart-count {{ ((url()->current()) == route('cart')) ? 'active' : '' }} "
+                                   data-count="{{Cart::count()}}" href="{{route('cart')}}"><i
                                             class="fa fa-shopping-cart "></i> Cart({{Cart::count()}})</a></li>
                             @if( Auth::user())
-                                <li><a class="{{ ((url()->current()) == route('user_logout')) ? 'active' : '' }}" href="{{route('user_logout')}}"><i class="fa fa-unlock"></i> Logout</a></li>
+                                <li><a class="{{ ((url()->current()) == route('user_logout')) ? 'active' : '' }}"
+                                       href="{{route('user_logout')}}"><i class="fa fa-unlock"></i> Logout</a></li>
                             @else
-                                <li><a class="{{ ((url()->current()) == url('register')) ? 'active' : '' }}" href="{{url('register')}}"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a class="{{ ((url()->current()) == url('register')) ? 'active' : '' }}"
+                                       href="{{url('register')}}"><i class="fa fa-lock"></i> Login</a></li>
                             @endif
                         </ul>
                     </div>
@@ -85,10 +100,16 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a class="{{ ((url()->current()) == url('/')) ? 'active' : '' }}" href="{{url('/')}}">Home</a></li>
-                            <li><a class="{{ ((url()->current()) == config('constants.base_url').'cms/about_us') ? 'active' : '' }}" href="{{config('constants.base_url')}}cms/about_us">About Us</a></li>
-                            <li><a class="{{ ((url()->current()) == config('constants.base_url').'cms/help') ? 'active' : '' }}" href="{{config('constants.base_url')}}cms/help">Help</a></li>
-                            <li><a class="{{ ((url()->current()) == route('contact_us') ? 'active' : '' )}}" href="{{Auth::User() ? route('contact_us') : route('register')}}">Contact</a></li>
+                            <li><a class="{{ ((url()->current()) == url('/')) ? 'active' : '' }}" href="{{url('/')}}">Home</a>
+                            </li>
+                            <li>
+                                <a class="{{ ((url()->current()) == config('constants.base_url').'cms/about_us') ? 'active' : '' }}"
+                                   href="{{config('constants.base_url')}}cms/about_us">About Us</a></li>
+                            <li>
+                                <a class="{{ ((url()->current()) == config('constants.base_url').'cms/help') ? 'active' : '' }}"
+                                   href="{{config('constants.base_url')}}cms/help">Help</a></li>
+                            <li><a class="{{ ((url()->current()) == route('contact_us') ? 'active' : '' )}}"
+                                   href="{{Auth::User() ? route('contact_us') : route('register')}}">Contact</a></li>
                         </ul>
                     </div>
                 </div>

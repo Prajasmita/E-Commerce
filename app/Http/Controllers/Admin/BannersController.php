@@ -9,6 +9,7 @@ use App\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 Use Illuminate\Support\Carbon;
+
 /**
  * Class BannersController for CRUD operation of banner images.
  *
@@ -26,16 +27,16 @@ class BannersController extends Controller
         $banners = array();
         $result = array();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
-            $totalRecords=Banner::count();
-            $limit=$request->input('length');
-            if($limit == -1){
+            $totalRecords = Banner::count();
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = trim($search['value']);
             $draw = $request->input('draw');
             $column = $request->input('columns');
             $order = $request->input('order');
@@ -43,9 +44,9 @@ class BannersController extends Controller
             $sortOf = $order[0]['dir'];
             $banner_name = $column[$sortBy]['data'];
 
-            $banners = Banner::select('id','banner_name','banner_image');
+            $banners = Banner::select('id', 'banner_name', 'banner_image');
 
-            if ($search_word != '' ) {
+            if ($search_word != '') {
                 $banners = Banner::where('banner_name', 'LIKE', "%$search_word%")
                     ->orWhere('banner_image', 'LIKE', "%$search_word%");
             }
@@ -56,16 +57,16 @@ class BannersController extends Controller
                 ->get();
 
 
-            if ($search_word != '' ) {
+            if ($search_word != '') {
 
                 $recordsFiltered = $banners->count();
                 $recordsTotal = $banners->count();
-            }else{
+            } else {
                 $recordsFiltered = Banner::count();
                 $recordsTotal = Banner::count();
             }
             $final = array();
-            foreach($banners as $key => $val){
+            foreach ($banners as $key => $val) {
                 $res_data = array();
                 $res_data['id'] = $val['id'];
                 $res_data['banner_name'] = $val['banner_name'];
@@ -76,14 +77,14 @@ class BannersController extends Controller
             $result['draw'] = $draw;
             $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
-            $result['data'] =   $final;
+            $result['data'] = $final;
 
             return $result;
         }
 
         $authUser = Auth::user();
 
-        return view('admin.banners.index', array('authUser'=>$authUser,'banners'=>$banners,'js'=>'banner_listing'));
+        return view('admin.banners.index', array('authUser' => $authUser, 'banners' => $banners, 'js' => 'banner_listing'));
     }
 
     /**
@@ -94,9 +95,8 @@ class BannersController extends Controller
     public function create()
     {
         $authUser = Auth::user();
-        //  Custom::showAll($authUser);
 
-        return view('admin.banners.create', array('authUser'=>$authUser));
+        return view('admin.banners.create', array('authUser' => $authUser));
     }
 
     /**
@@ -110,9 +110,8 @@ class BannersController extends Controller
     {
 
         $requestData = array();
-        //$current_time = Carbon::now()->timestamp();
+
         $current_time = time();
-        //Custom::showAll($current_time);die;
 
         $this->validate($request, [
             'banner_name' => 'required',
@@ -123,7 +122,7 @@ class BannersController extends Controller
 
         $image = $request->file('banner_image');
         $img_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-        $input['imagename'] = $img_name.'_'.$current_time.'.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $img_name . '_' . $current_time . '.' . $image->getClientOriginalExtension();
         $destinationPath = 'img/banner';
 
         $image->move($destinationPath, $input['imagename']);
@@ -139,7 +138,7 @@ class BannersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -147,16 +146,16 @@ class BannersController extends Controller
     {
 
         $banner = Banner::findOrFail($id);
-//Custom::showAll($banner);die;
+
         $authUser = Auth::user();
 
-        return view('admin.banners.show', array('authUser'=>$authUser,'banner'=>$banner));
+        return view('admin.banners.show', array('authUser' => $authUser, 'banner' => $banner));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -166,14 +165,14 @@ class BannersController extends Controller
 
         $authUser = Auth::user();
 
-        return view('admin.banners.edit', array('authUser'=>$authUser,'banner'=>$banner));
+        return view('admin.banners.edit', array('authUser' => $authUser, 'banner' => $banner));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -186,12 +185,12 @@ class BannersController extends Controller
             'status' => 'required'
 
         ]);
-        if($request->banner_image){
+        if ($request->banner_image) {
             $current_time = Carbon::now()->toDateTimeString();
 
             $image = $request->file('banner_image');
             $img_name = $image->getClientOriginalName();
-            $input['imagename'] = $img_name.'_'.$current_time.'.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $img_name . '_' . $current_time . '.' . $image->getClientOriginalExtension();
 
             $destinationPath = 'img/banner';
 
@@ -200,9 +199,6 @@ class BannersController extends Controller
         }
 
         $requestData['banner_name'] = $request->banner_name;
-
-        //Custom::showAll($request->status);die;
-       // Custom::showAll(gettype($request->status));die;
 
         $requestData['status'] = $request->status;
 
@@ -215,7 +211,7 @@ class BannersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

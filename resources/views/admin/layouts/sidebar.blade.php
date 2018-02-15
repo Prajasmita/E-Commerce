@@ -27,7 +27,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
 
-            <li >
+            <li>
                 <a href="{{ route('admin') }}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     <span class="pull-right-container"></span>
@@ -83,19 +83,19 @@
                     </li>
                 </ul>
             </li>
-            <li >
+            <li>
                 <a href="{{ route('contact.admin') }}">
                     <i class="glyphicon glyphicon-phone-alt"></i> <span>Contact Us</span>
                     <span class="pull-right-container"></span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="{{route('email.template')}}">
                     <i class="glyphicon glyphicon-envelope"></i> <span>Email Template</span>
                     <span class="pull-right-container"></span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="{{route('user.orders')}}">
                     <i class="glyphicon glyphicon-list"></i> <span>User Orders</span>
                     <span class="pull-right-container"></span>

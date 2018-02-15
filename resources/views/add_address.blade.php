@@ -1,14 +1,12 @@
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#add_Modal').modal();
 
         /*Function For Saving New Address*/
 
-        $( ".save_address" ).click(function(e) {
+        $(".save_address").click(function (e) {
             e.preventDefault();
-            //console.log('hello');
 
-            //console.log($(that).serialize());
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -20,18 +18,17 @@
                 type: "POST",
                 url: addressStoreUrl,
                 data: $("#add_address").serialize(),
-                success: function(data) {
-                   //  console.log(data.message);exit;
-                    if(data.message){
-                        if(confirm(data.message)) {
-                            window.location = base_url+data.redirecturl;
+                success: function (data) {
+                    if (data.message) {
+                        if (confirm(data.message)) {
+                            window.location = base_url + data.redirecturl;
                         }
                     }
 
-                    if(data.errors){
+                    if (data.errors) {
                         var error = data.errors;
-                        $.each(error, function(key, value) {
-                            $("#errors").append("<span class=\"require \">"+value+"</span><br/>");
+                        $.each(error, function (key, value) {
+                            $("#errors").append("<span class=\"require \">" + value + "</span><br/>");
                         });
                     }
                 }
@@ -61,19 +58,26 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="col-sm-6">
-                                <input type="text" name="user_id" value="{{Auth::user()->id}}" id="user_id" class="hidden_field">
-                                <input type="text" name="company_name" id="company_name" placeholder="Company Name" class="checkout-form-input">
+                                <input type="text" name="user_id" value="{{Auth::user()->id}}" id="user_id"
+                                       class="hidden_field">
+                                <input type="text" name="company_name" id="company_name" placeholder="Company Name"
+                                       class="checkout-form-input">
                                 <input type="text" name="email" placeholder="Email*" class="checkout-form-input">
                                 <input type="text" name="title" placeholder="Title" class="checkout-form-input">
-                                <input type="text" name="first_name" placeholder="First Name *" class="checkout-form-input">
-                                <input type="text" name="middle_name" placeholder="Middle Name" class="checkout-form-input">
-                                <input type="text" name="last_name" placeholder="Last Name *" class="checkout-form-input">
-                                </div>
+                                <input type="text" name="first_name" placeholder="First Name *"
+                                       class="checkout-form-input">
+                                <input type="text" name="middle_name" placeholder="Middle Name"
+                                       class="checkout-form-input">
+                                <input type="text" name="last_name" placeholder="Last Name *"
+                                       class="checkout-form-input">
+                            </div>
                             <div class="col-sm-6">
-                                <input type="text" name="address1" placeholder="Address 1 *" class="checkout-form-input">
+                                <input type="text" name="address1" placeholder="Address 1 *"
+                                       class="checkout-form-input">
                                 <input type="text" name="address2" placeholder="Address 2" class="checkout-form-input">
                                 <input type="text" name="city" placeholder="City" class="checkout-form-input">
-                                <input type="text" name="zip_code" placeholder="Zip / Postal Code *" class="checkout-form-input">
+                                <input type="text" name="zip_code" placeholder="Zip / Postal Code *"
+                                       class="checkout-form-input">
                                 <select name="country" class="checkout-form-input select-country">
                                     @foreach($countries as $country)
                                         <option value="{{ $country->id}}">{{ $country->name }}</option>
@@ -85,7 +89,8 @@
                                         <option value="{{ $state->id}}">{{ $state->name }}</option>
                                     @endforeach
                                 </select>
-                                <input type="text" name="contact_no" placeholder="Mobile Phone" class="checkout-form-input">
+                                <input type="text" name="contact_no" placeholder="Mobile Phone"
+                                       class="checkout-form-input">
                             </div>
                         </div>
                     </div>

@@ -20,7 +20,6 @@ $(function () {
             {"orderable": true , "orderSequence": ["asc" ,"desc"], "targets": [1]},
             {"orderable":false,"targets": [2] , "data": "product_image_name",
                 "render" : function ( url, type, full) {
-                    console.log(url);
                     return '<img class="index_img" src="'+baseUrl+productPath+url+'"   />';
                 }},
             {"orderable":false,"targets": [3]},

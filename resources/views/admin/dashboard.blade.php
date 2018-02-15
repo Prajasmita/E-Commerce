@@ -4,15 +4,17 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BAR CHART -->
-           <div class="col-md-6">
+            <div class="col-md-6">
                 <div class="box box-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Register Users</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -22,7 +24,7 @@
                     </div>
                     <!-- /.box-body -->
                 </div>
-           </div>
+            </div>
             <div class="col-md-6">
 
                 <div class="box box-success">
@@ -30,9 +32,11 @@
                         <h3 class="box-title">Orders</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -50,9 +54,11 @@
                         <h3 class="box-title">Number of Coupons Used</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -100,7 +106,6 @@
             }
 
             var areaChartData2 = {
-                //labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 labels: [
                     @foreach($orders as $row)
                         '{{date("M", mktime(0, 0, 0, $row->month, 1)).','.$row->year}}',

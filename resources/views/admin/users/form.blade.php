@@ -67,7 +67,6 @@
     <label for="role_id" class="col-md-4 control-label">{{ 'Role' }}<span class="require">*</span></label>
     <div class="col-md-6">
         <select name="role_id" class="form-control" id="role_id" >
-
             @foreach ($roles as $role)
                 <option value="{{ $role->id }}" {{ (isset($user->role_id) && $user->role_id == $role->id) ? 'selected' : ''}}>{{ $role->name }}</option>
             @endforeach
@@ -79,8 +78,6 @@
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
         <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Create' }}">
-
         <a href="{{ url('/admin/users') }}" class="btn btn-danger">Cancel</a>
-
     </div>
 </div>

@@ -27,16 +27,16 @@ class emailTemplateController extends Controller
     {
         $templates = array();
         $result = array();
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
-            $totalRecords=Email_template::count();
-            $limit=$request->input('length');
-            if($limit == -1){
+            $totalRecords = Email_template::count();
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = trim($search['value']);
             $draw = $request->input('draw');
             $column = $request->input('columns');
             $order = $request->input('order');
@@ -44,8 +44,8 @@ class emailTemplateController extends Controller
             $sortOf = $order[0]['dir'];
             $title = $column[$sortBy]['data'];
             $subject = $column[$sortBy]['data'];
-            $templates = Email_template::select('id','title','subject','content');
-            if ($search_word != '' ) {
+            $templates = Email_template::select('id', 'title', 'subject', 'content');
+            if ($search_word != '') {
 
                 $templates = Email_template::where('title', 'LIKE', "%$search_word%")
                     ->orWhere('subject', 'LIKE', "%$search_word%");
@@ -53,20 +53,20 @@ class emailTemplateController extends Controller
             $templates = $templates
                 ->skip($offset)
                 ->take($limit)
-                ->orderBy($title , $sortOf)
-                ->orderBy($subject ,$sortOf)
+                ->orderBy($title, $sortOf)
+                ->orderBy($subject, $sortOf)
                 ->get();
 
-            if ($search_word != '' ) {
+            if ($search_word != '') {
                 $recordsFiltered = $templates->count();
                 $recordsTotal = $templates->count();
 
-            }else{
+            } else {
                 $recordsFiltered = Email_template::count();
                 $recordsTotal = Email_template::count();
             }
             $final = array();
-            foreach($templates as $key => $val){
+            foreach ($templates as $key => $val) {
                 $res_data = array();
                 $res_data['id'] = $val['id'];
                 $res_data['title'] = $val['title'];
@@ -75,15 +75,15 @@ class emailTemplateController extends Controller
                 $final[] = $res_data;
             }
             $result['draw'] = $draw;
-            $result['recordsFiltered'] =$recordsFiltered;
+            $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
-            $result['data'] =   $final;
+            $result['data'] = $final;
 
             return $result;
         }
 
         $authUser = Auth::user();
-        return view('admin.email_template.index', compact('templates','authUser'),array('js'=>'template_listing'));
+        return view('admin.email_template.index', compact('templates', 'authUser'), array('js' => 'template_listing'));
 
     }
 
@@ -119,6 +119,7 @@ class emailTemplateController extends Controller
         return redirect('admin/email_template')->with('template_message', 'Email Template Added !!!');
 
     }
+
     /**
      * Display the specified Template.
      *
@@ -127,12 +128,9 @@ class emailTemplateController extends Controller
     {
         $template = Email_template::findOrFail($id);
 
-        //$template['content'] = strip_tags($template->content);
-
-        //Custom::showAll($template);die;
         $authUser = Auth::user();
 
-        return view('admin.email_template.show', compact('template','authUser'));
+        return view('admin.email_template.show', compact('template', 'authUser'));
     }
 
     /**
@@ -145,7 +143,7 @@ class emailTemplateController extends Controller
 
         $authUser = Auth::user();
 
-        return view('admin.email_template.edit', compact('template','authUser'));
+        return view('admin.email_template.edit', compact('template', 'authUser'));
     }
 
     /**
@@ -165,12 +163,6 @@ class emailTemplateController extends Controller
 
         return redirect('admin/email_template')->with('template_message', 'Email Template updated!');
     }
-
-
-
-
-
-
 }
 
 

@@ -17,50 +17,51 @@ use Cart;
 class ProductController extends Controller
 {
 
-    public function product_details($id )
+    public function product_details($id)
     {
 
-        $categories = Category::with('sub_category')->where('parent_id','=',0)->get();
+        $categories = Category::with('sub_category')->where('parent_id', '=', 0)->get();
 
-        $products = Product::with('image_products','image')->select('id','product_name','price','quantity','short_discription','is_feature')->where('id','=',$id)->first()->toArray();
+        $products = Product::with('image_products', 'image')->select('id', 'product_name', 'price', 'quantity', 'short_discription', 'is_feature')->where('id', '=', $id)->first()->toArray();
 
-        if(empty($products['image_products'])){
-                $products['image']['product_image_name'] = Custom::imageExistence('');
+        if (empty($products['image_products'])) {
+            $products['image']['product_image_name'] = Custom::imageExistence('');
         }
 
-        $my_wishlist =array();
-        if(Auth::user() && $my_wishlist !== ''){
+        $my_wishlist = array();
+        if (Auth::user() && $my_wishlist !== '') {
 
             $userId = Auth::user()->id;
-            $wishlist_products = User::with(['user_wishlist'=>function($query){
-                $query->select('id','user_id','product_id');
-            }])->where('id','=',$userId)->first();
+            $wishlist_products = User::with(['user_wishlist' => function ($query) {
+                $query->select('id', 'user_id', 'product_id');
+            }])->where('id', '=', $userId)->first();
 
-            foreach ( $wishlist_products->user_wishlist as $key => $wlist ) {
-                array_push($my_wishlist,$wlist->product_id);
+            foreach ($wishlist_products->user_wishlist as $key => $wlist) {
+                array_push($my_wishlist, $wlist->product_id);
             }
         }
 
         $cart_product = array();
-        if(Cart::count()){
-            foreach ( Cart::content() as $item => $cart_list ) {
-                array_push( $cart_product,$cart_list->id);
+        if (Cart::count()) {
+            foreach (Cart::content() as $item => $cart_list) {
+                array_push($cart_product, $cart_list->id);
             }
         }
 
-        return view('product_details',array('categories'=>$categories,'products'=>$products,'my_wishlist'=>$my_wishlist,'cart_product'=>$cart_product));
+        return view('product_details', array('categories' => $categories, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
     }
 
-    public function ajaxAddProductToWishlist(Request $request){
+    public function ajaxAddProductToWishlist(Request $request)
+    {
 
         $id = $request->id;
-        $data=array();
+        $data = array();
 
-        $product = Product::select('id')->where('id','=',$id)->first();
+        $product = Product::select('id')->where('id', '=', $id)->first();
         $user = Auth::user()->id;
 
-        $data['product_id']=$product->id;
-        $data['user_id']=$user;
+        $data['product_id'] = $product->id;
+        $data['user_id'] = $user;
 
         User_wishlist::create($data);
 
@@ -68,6 +69,7 @@ class ProductController extends Controller
 
 
     }
+
     /*
     * Function for delete product from wish list
     *
@@ -76,7 +78,7 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
 
-            User_wishlist::where('product_id','=',$request->id)->delete();
+            User_wishlist::where('product_id', '=', $request->id)->delete();
 
             return json_encode("true");
         }

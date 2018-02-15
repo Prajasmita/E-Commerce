@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +25,8 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page">
 
@@ -42,9 +41,7 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
-
-        <form action="{{ route('login') }}" method="post" >
-
+        <form action="{{ route('login') }}" method="post">
             <div class="form-group has-feedback">
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     @if ($errors->has('email'))
@@ -54,17 +51,10 @@
                     @endif
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                    <input id="email" type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" autofocus>
-
-
-                    {{--
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
---}}
-
-
+                    <input id="email" type="email" class="form-control" placeholder="Email" name="email"
+                           value="{{ old('email') }}" autofocus>
                 </div>
             </div>
-
             <div class="form-group has-feedback">
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                     @if ($errors->has('password'))
@@ -72,35 +62,17 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                     @endif
-                    <input id="password" type="password" class="form-control" placeholder="Password" name="password" value="{{ old('password') }}" autofocus>
-{{--
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
---}}
-
-
+                    <input id="password" type="password" class="form-control" placeholder="Password" name="password"
+                           value="{{ old('password') }}" autofocus>
                 </div>
             </div>
-
-
-        <div class="login-box">
-
-            {{--<div class="form-group">
-
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                    </label>
+            <div class="login-box">
+                <div class="form-group form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Login
+                    </button>
                 </div>
-            </div>--}}
-
-            <div class="form-group form-actions">
-                <button type="submit" class="btn btn-primary">
-                    Login
-                </button>
-
             </div>
-        </div>
         </form>
     </div>
 </div>

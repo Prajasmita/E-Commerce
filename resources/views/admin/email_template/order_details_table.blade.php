@@ -4,7 +4,7 @@
     @if(count($order_review_page['order_products']))
         <table border="1">
             <thead>
-            <tr >
+            <tr>
                 <td colspan="2">Item</td>
                 <td>Price</td>
                 <td>Quantity</td>
@@ -13,11 +13,12 @@
             </thead>
             <tbody>
             @foreach($order_review_page['order_products'] as $order_product)
-                <tr id=""  >
+                <tr id="">
                     <td colspan="2">
                         @php $image_name = $order_product['image_name'] @endphp
 
-                        <a href="#"><img class="index_img" height="25px" width="25px" src="{{asset('img/product/'.$image_name)}}" alt=""></a>
+                        <a href="#"><img class="index_img" height="25px" width="25px"
+                                         src="{{asset('img/product/'.$image_name)}}" alt=""></a>
                         <h4>{{$order_product['name']}}</h4>
                     </td>
                     <td>
@@ -25,7 +26,8 @@
                     </td>
                     <td>
                         <div>
-                            <input type="text" class="qty cart_quantity_input"  name="quantity" value="{{$order_product['quantity']}}" min="1"  size="2" id="number" readonly/>
+                            <input type="text" class="qty cart_quantity_input" name="quantity"
+                                   value="{{$order_product['quantity']}}" min="1" size="2" id="number" readonly/>
                         </div>
                     </td>
                     <td>
@@ -37,7 +39,7 @@
             <tr>
                 <td colspan="4">&nbsp;</td>
                 <td colspan="2">
-                    <table  border="1">
+                    <table border="1">
                         <tr>
                             <td>Cart Sub Total</td>
                             <td>{{"$".$total}}</td>

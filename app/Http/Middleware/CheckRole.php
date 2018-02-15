@@ -11,20 +11,18 @@ class CheckRole
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
 
-       $authUser = Auth::user();
-       if($authUser->role_id == 5)
-       {
-           return redirect('/');
-       }
-       else {
-           return $next($request);
-       }
+        $authUser = Auth::user();
+        if ($authUser->role_id == 5) {
+            return redirect('/');
+        } else {
+            return $next($request);
+        }
     }
 }

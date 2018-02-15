@@ -6,8 +6,6 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h2 class="title text-center">Contact <strong>Us</strong></h2>
-                   {{-- <div id="gmap" class="contact-map">
-                    </div>--}}
                 </div>
             </div>
             @if ( session()->has('query_message') )
@@ -21,29 +19,30 @@
                         {!! Form::open(['route' => ['contact'],'class'=>'contact-form row']) !!}
 
                         {{ csrf_field() }}
-                            <div class="form-group col-md-6 {{ $errors->has('name') ? 'has-error' : ''}}">
-                                {!! Form::text('name','', array('class' => 'form-control','placeholder' => 'Name'));  !!}
-                                {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="form-group col-md-6 {{ $errors->has('email') ? 'has-error' : ''}}">
-                                {!! Form::text('email','', array('class' => 'form-control','placeholder' => 'Email'));  !!}
-                                {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="form-group col-md-12 {{ $errors->has('contact_no') ? 'has-error' : ''}}">
-                                {!! Form::text('contact_no','', array('class' => 'form-control','placeholder' => 'Contact Number'));  !!}
-                                {!! $errors->first('contact_no', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="form-group col-md-12 {{ $errors->has('subject') ? 'has-error' : ''}}">
-                                {!! Form::text('subject','', array('class' => 'form-control','placeholder' => 'Subject'));  !!}
-                                {!! $errors->first('subject', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="form-group col-md-12 {{ $errors->has('message') ? 'has-error' : ''}}">
-                                <textarea name="message" id="message"  class="form-control" rows="8" placeholder="Your Message Here"></textarea>
-                                {!! $errors->first('message', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="form-group col-md-12">
-                                {!! Form::submit('Submit', ['class' => 'btn btn-warning pull-right']) !!}
-                            </div>
+                        <div class="form-group col-md-6 {{ $errors->has('name') ? 'has-error' : ''}}">
+                            {!! Form::text('name','', array('class' => 'form-control','placeholder' => 'Name'));  !!}
+                            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="form-group col-md-6 {{ $errors->has('email') ? 'has-error' : ''}}">
+                            {!! Form::text('email','', array('class' => 'form-control','placeholder' => 'Email'));  !!}
+                            {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="form-group col-md-12 {{ $errors->has('contact_no') ? 'has-error' : ''}}">
+                            {!! Form::text('contact_no','', array('class' => 'form-control','placeholder' => 'Contact Number'));  !!}
+                            {!! $errors->first('contact_no', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="form-group col-md-12 {{ $errors->has('subject') ? 'has-error' : ''}}">
+                            {!! Form::text('subject','', array('class' => 'form-control','placeholder' => 'Subject'));  !!}
+                            {!! $errors->first('subject', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="form-group col-md-12 {{ $errors->has('message') ? 'has-error' : ''}}">
+                            <textarea name="message" id="message" class="form-control" rows="8"
+                                      placeholder="Your Message Here"></textarea>
+                            {!! $errors->first('message', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="form-group col-md-12">
+                            {!! Form::submit('Submit', ['class' => 'btn btn-warning pull-right']) !!}
+                        </div>
                         {!! Form::close() !!}
                     </div>
                 </div>

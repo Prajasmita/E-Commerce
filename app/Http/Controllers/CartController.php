@@ -58,7 +58,6 @@ class CartController extends Controller
         /** setup PayPal api context **/
         $paypal_conf = \Config::get('paypal');
 
-        //Custom::showAll($paypal_conf);die;
         $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
@@ -93,7 +92,7 @@ class CartController extends Controller
 
             $products['image'] = empty($products['image']) ? Custom::imageExistence('') : Custom::imageExistence($products['image']['product_image_name']);
 
-            Cart::add(array('id' => $id, 'name' => $products['product_name'], 'qty' => $request->qty , 'price' => $products['price'], 'options' => ['image' => $products['image']]));
+            Cart::add(array('id' => $id, 'name' => $products['product_name'], 'qty' => $request->qty, 'price' => $products['price'], 'options' => ['image' => $products['image']]));
 
             return json_encode('true');
 
@@ -139,8 +138,6 @@ class CartController extends Controller
         if ($request->ajax()) {
 
             $rowId = $request->rowId;
-
-            //Custom::showAll($rowId);
 
             Cart::remove($rowId);
             return json_encode("true");
@@ -236,13 +233,11 @@ class CartController extends Controller
     {
 
         $user_address = array();
-        //Custom::showAll($request->toArray());die;
 
         $address = User_address::where('user_id', '=', $request->user_id)->get()->toArray();
-        //Custom::showAll($address);die;
+
         if (!empty($address)) {
 
-            //echo "updated";die;
             $user_id = $request->user_id;
             $user_address['company_name'] = $request->company_name;
             $user_address['email'] = $request->email;
@@ -453,11 +448,11 @@ class CartController extends Controller
             $order_details['product_id'] = $cartitem->id;
             $order_details['quantity'] = $cartitem->qty;
 
-            $product = Product::select('quantity')->where('id','=',$order_details['product_id'])->first();
+            $product = Product::select('quantity')->where('id', '=', $order_details['product_id'])->first();
 
-            $updated_product_qty = intval($product->quantity ) - intval( $order_details['quantity']);
+            $updated_product_qty = intval($product->quantity) - intval($order_details['quantity']);
 
-            Product::where('id','=',$order_details['product_id'])->update(array('quantity' => $updated_product_qty));
+            Product::where('id', '=', $order_details['product_id'])->update(array('quantity' => $updated_product_qty));
 
             $order_details['order_id'] = $id;
 
@@ -606,7 +601,7 @@ class CartController extends Controller
 
         $user_order = User_order::where('id', '=', $order_review_page['payment_details']['id'])->first();
 
-        $view = View::make('admin.email_template.order_details_table',['order_review_page'=>$order_review_page]);
+        $view = View::make('admin.email_template.order_details_table', ['order_review_page' => $order_review_page]);
         $html = $view->render();
 
         $template_content = Email_template::where('title', '=', 'order_details')->select('content')->first();
@@ -614,9 +609,9 @@ class CartController extends Controller
 
         $email = 'prajakta.sisale@neosofttech.com';
 
-        $string = array('{{first_name}}','{{email}}','{{contact_no}}','{{address1}}','{{city}}','{{state}}','{{payment status}}','{{last_name}}','{{address2}}','{{zip_code}}', '{{country}}','{{order_id}}', '{{created date}}','{{product table}}');
+        $string = array('{{first_name}}', '{{email}}', '{{contact_no}}', '{{address1}}', '{{city}}', '{{state}}', '{{payment status}}', '{{last_name}}', '{{address2}}', '{{zip_code}}', '{{country}}', '{{order_id}}', '{{created date}}', '{{product table}}');
 
-        $replace = array( $order_review_page['user_info']['first_name'],$email,$order_review_page['user_info']['contact_no'],$order_review_page['user_info']['address1'],$order_review_page['user_info']['city'],$order_review_page['user_info']['state'],($order_review_page['payment_details']['status'] == 'O' ? 'Processing' : 'Pending'),$order_review_page['user_info']['last_name'],$order_review_page['user_info']['address2'],$order_review_page['user_info']['zip_code'], $order_review_page['user_info']['country'],('ORD' . str_pad($order_review_page['payment_details']['id'], 4, '0', STR_PAD_LEFT)),($user_order->created_at->format('j F, Y')), $html);
+        $replace = array($order_review_page['user_info']['first_name'], $email, $order_review_page['user_info']['contact_no'], $order_review_page['user_info']['address1'], $order_review_page['user_info']['city'], $order_review_page['user_info']['state'], ($order_review_page['payment_details']['status'] == 'O' ? 'Processing' : 'Pending'), $order_review_page['user_info']['last_name'], $order_review_page['user_info']['address2'], $order_review_page['user_info']['zip_code'], $order_review_page['user_info']['country'], ('ORD' . str_pad($order_review_page['payment_details']['id'], 4, '0', STR_PAD_LEFT)), ($user_order->created_at->format('j F, Y')), $html);
 
 
         $new_template_content = str_replace($string, $replace, $template_content->content);
@@ -632,13 +627,13 @@ class CartController extends Controller
         Mail::send([], [], function ($message) use ($new_template_content, $email) {
             $message->to($email)
                 ->subject('Placed Order Details')
-                ->setBody($new_template_content,'text/html');
+                ->setBody($new_template_content, 'text/html');
         });
 
         Mail::send([], [], function ($message) use ($admin_content, $admin_mail) {
             $message->to($admin_mail)
                 ->subject('Order Details of customer')
-                ->setBody($admin_content,'text/html');
+                ->setBody($admin_content, 'text/html');
         });
     }
 
