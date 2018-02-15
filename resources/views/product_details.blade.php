@@ -73,7 +73,7 @@
                                                 <div class="quantity" >
                                                     <label><b>Quantity:</b></label>
                                                     <input type="button" class="qty_minus" value="-" />
-                                                    <input type="text" class="qty" id="quantity" name="quantity" data-value="1" value="1" min="1" max="{{$products['quantity']}}" size="1" id="number" readonly/>
+                                                    <input type="text" class="qty" id="quantity" name="quantity" data-value="{{Cart::count()}}" value="1" min="1" max="{{$products['quantity']}}" size="1" id="number" readonly/>
                                                     <input type="button" class="qty_plus"  value="+" />
                                                 </div>
                                                 {{--<div class="quantity">

@@ -147,8 +147,8 @@ $(document).ready(function() {
                 var changedCartCount = parseInt(presentCartCount) + parseInt(1);
 
             var count = $('.qty').attr("data-value");
-            if(count > 1)
-                var changedCartCount = parseInt(count) + parseInt(1);
+            if(count >= 0)
+                var changedCartCount = parseInt(count) + parseInt(presentCartCount);
 
             var quantity =  count ? count : 1 ;
 
