@@ -31,7 +31,6 @@ class UserOrderController extends Controller
     public function index(Request $request)
     {
 
-        $user_orders = array();
         $result = array();
         if ($request->ajax()) {
 
@@ -46,24 +45,13 @@ class UserOrderController extends Controller
             $search = $request->input('search');
             $search_word = ltrim($search['value'], '0');
 
-            //Custom::showAll($search_word);die;
             $draw = $request->input('draw');
-            $column = $request->input('columns');
-            $order = $request->input('order');
-            $sortBy = $order[0]['column'];
-            $sortOf = $order[0]['dir'];
-            //$date = $column[$sortBy]['data'];
-            //Custom::showAll($date);die;
-            $orderId = $column[$sortBy]['data'];
 
             $user_orders = User_order::select('id', 'grand_total', 'user_id', 'status', 'payment_gateway_id', 'created_at');
 
-            //Custom::showAll($user_orders);die;
             $user_orders = $user_orders
                 ->skip($offset)
                 ->take($limit)
-                //->orderBy($date , $sortOf)
-                //->orderBy($orderId ,$sortOf)
                 ->get();
 
             if ($search_word != '') {
@@ -79,8 +67,6 @@ class UserOrderController extends Controller
                 $recordsFiltered = User_order::count();
                 $recordsTotal = User_order::count();
             }
-            /*$recordsFiltered = User_order::count();
-            $recordsTotal = User_order::count();*/
 
             $final = array();
             foreach ($user_orders as $key => $val) {
@@ -94,8 +80,6 @@ class UserOrderController extends Controller
                 $res_data['payment'] = $val['payment_gateway_id'] == 1 ? 'COD' : 'Paypal';
                 $final[] = $res_data;
             }
-
-            //Custom::showAll($final);die;
 
             $result['draw'] = $draw;
             $result['recordsFiltered'] = $recordsFiltered;
@@ -166,6 +150,5 @@ class UserOrderController extends Controller
         return array('user_info' => $user_info, 'order_products' => $order_products, 'payment_details' => $payment_details);
 
     }
-
 
 }

@@ -36,6 +36,5 @@
 <script>
     var dataTableEmailTemplateUrl = "{{route('email.template')}}";
     var dataTableEmailTemplateViewUrl = "{{route('email_template.show',['id'])}}";
-
     var dataTableEmailTemplateEditUrl = "{{route('email_template.edit',['id'])}}";
 </script>

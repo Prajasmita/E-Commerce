@@ -4,36 +4,36 @@
     @if ( session()->has('flash_message') )
         <div class="alert alert-success">{{ session()->get('flash_message') }}</div>
     @endif
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Products</strong></div>
-                    <div class="panel-body">
-                        <a href="{{ url('/admin/products/create') }}" class="btn btn-success btn-sm" title="Add New Product">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add New Product
-                        </a>
-
-                        <br/>
-                        <br/>
-
-
-                        <div class="table-responsive">
-                            <table id="product" class="table table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th>#</th><th>Product Name</th><th>Image</th><th>Price</th><th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Products</strong></div>
+                <div class="panel-body">
+                    <a href="{{ url('/admin/products/create') }}" class="btn btn-success btn-sm"
+                       title="Add New Product">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Product
+                    </a>
+                    <br/>
+                    <br/>
+                    <div class="table-responsive">
+                        <table id="product" class="table table-borderless">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 <script>

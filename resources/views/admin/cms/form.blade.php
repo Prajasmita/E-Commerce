@@ -1,7 +1,7 @@
 <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
     <label for="title" class="col-md-4 control-label ">{{ 'Title' }}<span class="require">*</span></label>
     <div class="col-md-6">
-        <input class="form-control " name="title" type="text" id="title" value="{{ $cms->title or ''}}" >
+        <input class="form-control " name="title" type="text" id="title" value="{{ $cms->title or ''}}">
         {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

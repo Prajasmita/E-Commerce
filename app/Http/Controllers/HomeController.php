@@ -75,8 +75,6 @@ class HomeController extends Controller
             }
         }
 
-        // Custom::showAll($userAddress->toArray());die;
-
         $products = Category_product::select('category_id', 'product_id')->with((['products' => function ($query) {
             $query->select('id', 'product_name', 'price');
             $query->with(['image' => function ($query1) {
@@ -89,8 +87,6 @@ class HomeController extends Controller
             $products[$key]['products']['image'] = empty($value['products']['image']) ? Custom::imageExistence('') : Custom::imageExistence($value['products']['image']['product_image_name']);
 
         }
-
-        //Custom::showAll($products);die;
 
         $cart_product = array();
         if (Cart::count()) {
@@ -148,8 +144,6 @@ class HomeController extends Controller
             $request_data['message'] = $request->message;
             $request_data['subject'] = $request->subject;
 
-            // Custom::showAll($request_data);die;
-
             Contact_us::create($request_data);
 
             $this->sendMail($request);
@@ -166,16 +160,14 @@ class HomeController extends Controller
     public function sendMail($data)
     {
 
-        //Custom::showAll($data->name);die;
         $template_content = Email_template::where('title', '=', 'contact_us_submission_for_admin')->select('content')->first();
 
-        $string = array('{{name}}','{{email}}','{{contact_no}}','{{subject}}','{{message}}');
+        $string = array('{{name}}', '{{email}}', '{{contact_no}}', '{{subject}}', '{{message}}');
 
-        $replace = array($data->name, $data->email,$data->contact_no,$data->subject,$data->message);
+        $replace = array($data->name, $data->email, $data->contact_no, $data->subject, $data->message);
 
         $new_template_content = str_replace($string, $replace, $template_content->content);
 
-        //Custom::showAll($new_template_content);die;
         $admin_email = Configuration::where('conf_key', '=', 'Admin_email')->select('conf_value')->first();
 
         $admin_mail = $admin_email->conf_value;
@@ -183,7 +175,7 @@ class HomeController extends Controller
         Mail::send([], [], function ($message) use ($new_template_content, $admin_mail) {
             $message->to($admin_mail)
                 ->subject('Customer Message')
-                ->setBody($new_template_content,'text/html');
+                ->setBody($new_template_content, 'text/html');
 
         });
     }
@@ -211,7 +203,7 @@ class HomeController extends Controller
      */
     public function addAddress()
     {
-        //echo "hello";
+
         $userAddress = User_address::orderBy('primary', 'desc')->get();
         $countries = Countries::get();
         $states = States::get();
@@ -388,7 +380,7 @@ class HomeController extends Controller
                 Mail::send([], [], function ($message) use ($new_password) {
                     $message->to(Auth::user()->email)
                         ->subject('Password Changed')
-                        ->setBody('Hello user Your Password Changed Successully. Your New Password is '.$new_password);
+                        ->setBody('Hello user Your Password Changed Successully. Your New Password is ' . $new_password);
                 });
 
                 User::where('id', '=', $user->id)->update(array('password' => $hash_new_password));
@@ -464,9 +456,9 @@ class HomeController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        $wishlists = User_wishlist::with(['product'=>function($query){
-            $query->with(['image' => function($query1){
-                $query1->select('product_image_name','product_id');
+        $wishlists = User_wishlist::with(['product' => function ($query) {
+            $query->with(['image' => function ($query1) {
+                $query1->select('product_image_name', 'product_id');
             }]);
         }])->where("user_id", "=", $user_id)->get()->toArray();
 
@@ -483,7 +475,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('wishlist',array('wishlists' => $wishlists,'cart_product'=>$cart_product));
+        return view('wishlist', array('wishlists' => $wishlists, 'cart_product' => $cart_product));
     }
 
 }

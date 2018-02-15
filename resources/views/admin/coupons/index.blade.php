@@ -5,7 +5,6 @@
         <div class="alert alert-success">{{ session()->get('flash_message') }}</div>
     @endif
     <div class="row">
-
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading"><strong>Coupons</strong></div>
@@ -13,7 +12,6 @@
                     <a href="{{ url('/admin/coupons/create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New Coupon
                     </a>
-
                     <br/>
                     <br/>
                     <div class="table-responsive">
@@ -27,16 +25,14 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-            @endsection
+@endsection
 
 <script>
     var dataTableCouUrl = "{{route('coupons.index')}}";
@@ -46,6 +42,5 @@
     var dataTableCouEditUrl = "{{route('coupons.edit',['id'])}}";
 
     var dataTableCouDeleteUrl = "{{route('coupons.destroy',['id'])}}";
-
 
 </script>

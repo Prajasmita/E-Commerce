@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Illuminate\Support\Facades\Auth;
 use App\Helper\Custom;
+
 /**
  * Class UsersController for CRUD operation of users.
  *
@@ -30,16 +31,16 @@ class UsersController extends Controller
         $usersData = array();
         $result = array();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
-            $totalRecords=User::count();
-            $limit=$request->input('length');
-            if($limit == -1){
+            $totalRecords = User::count();
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = trim($search['value']);
             $draw = $request->input('draw');
             $column = $request->input('columns');
             $order = $request->input('order');
@@ -51,32 +52,32 @@ class UsersController extends Controller
 
             $usersData = User::with('role');
 
-            if ($search_word != '' ) {
+            if ($search_word != '') {
 
-                $usersData ->where('first_name', 'LIKE', "%$search_word%")
+                $usersData->where('first_name', 'LIKE', "%$search_word%")
                     ->orWhere('last_name', 'LIKE', "%$search_word%")
                     ->orWhere('email', 'LIKE', "%$search_word%")
                     ->orWhere('role_id', 'LIKE', "%$search_word%");
 
             }
 
-            $usersData=$usersData->skip($offset)
-                   ->take($limit)
-                   ->orderBy($name , $sortOf)
-                   ->orderBy($email, $sortOf)
-                   ->orderBy($role, $sortOf)
-                   ->get();
-            if ($search_word != '' ) {
+            $usersData = $usersData->skip($offset)
+                ->take($limit)
+                ->orderBy($name, $sortOf)
+                ->orderBy($email, $sortOf)
+                ->orderBy($role, $sortOf)
+                ->get();
+            if ($search_word != '') {
                 $recordsFiltered = $usersData->count();
                 $recordsTotal = $usersData->count();
 
-            }else{
+            } else {
                 $recordsFiltered = User::count();
                 $recordsTotal = User::count();
             }
 
             $final = array();
-            foreach($usersData as $key => $val){
+            foreach ($usersData as $key => $val) {
                 $res_data = array();
                 $res_data['id'] = $val['id'];
                 $res_data['first_name'] = $val['first_name'];
@@ -89,13 +90,13 @@ class UsersController extends Controller
             $result['draw'] = $draw;
             $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
-            $result['data'] =   $final;
+            $result['data'] = $final;
 
 
-          return $result;
+            return $result;
         }
         $authUser = Auth::user();
-        return view('admin.users.index', array('authUser'=>$authUser,'usersData'=>$usersData,'js'=>'admin_listing'));
+        return view('admin.users.index', array('authUser' => $authUser, 'usersData' => $usersData, 'js' => 'admin_listing'));
     }
 
     /**
@@ -110,7 +111,7 @@ class UsersController extends Controller
 
         $authUser = Auth::user();
 
-        return view('admin.users.create',array('authUser'=>$authUser,'roles'=> $roles));
+        return view('admin.users.create', array('authUser' => $authUser, 'roles' => $roles));
     }
 
     /**
@@ -142,23 +143,23 @@ class UsersController extends Controller
     /**
      * Display the specified user.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
     public function show($id)
     {
-        $user = User::with('role')->where('id','=',$id)->first();
+        $user = User::with('role')->where('id', '=', $id)->first();
 
         $authUser = Auth::user();
 
-        return view('admin.users.show', compact('user','authUser'));
+        return view('admin.users.show', compact('user', 'authUser'));
     }
 
     /**
      * Show the form for editing the specified user.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -171,14 +172,14 @@ class UsersController extends Controller
         Hash::make($user['Password']);
         $roles = Role::get();
 
-        return view('admin.users.edit',array('authUser'=>$authUser,'roles'=> $roles,'user'=>$user));
+        return view('admin.users.edit', array('authUser' => $authUser, 'roles' => $roles, 'user' => $user));
     }
 
     /**
      * Update the specified user in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -193,7 +194,7 @@ class UsersController extends Controller
             'role_id' => 'required'
         ]);
 
-        if($request->password == ''){
+        if ($request->password == '') {
             $request->offsetUnset('password');
         }
 
@@ -208,7 +209,7 @@ class UsersController extends Controller
     /**
      * Remove the specified user from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

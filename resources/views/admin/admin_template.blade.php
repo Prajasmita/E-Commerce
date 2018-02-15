@@ -37,7 +37,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     {{--DATEPICKER--}}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+          rel="stylesheet">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -50,16 +51,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 
 
-
     <script>
         var saveAdminNote = "{{route('admin_note.save')}}";
         var base_url = "{{config('constants.base_url')}}"
     </script>
 
 
-
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="skin-blue">
 <div class="wrapper">
@@ -72,9 +72,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-       <!-- Main content -->
+        <!-- Main content -->
         <section class="content">
-                    <!-- Your Page Content Here -->
+            <!-- Your Page Content Here -->
 
             @yield('content')
 
@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         })
     </script>
     <script>
-        CKEDITOR.replace( 'ckeditor-note' );
+        CKEDITOR.replace('ckeditor-note');
     </script>
     <!--Multiple Image Upolad -->
 
@@ -124,9 +124,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
         });
     </script>
-
-
-
 </div><!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->

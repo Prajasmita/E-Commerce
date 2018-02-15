@@ -1,4 +1,3 @@
-
 @extends('home_template')
 @section('content')
     <div class="container">
@@ -23,24 +22,24 @@
                     <div class="panel-heading">Paywith Paypal</div>
                     <div class="panel-body">
                         {!! Form::open([/*'route'=>'',*/ 'class' => 'form-horizontal','id'=>'payment-form'] ) !!}
-                            {{ csrf_field() }}
-                            <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                {!!  Form::label('amount', 'Amount', array('class' => 'col-md-4 control-label required'));!!}
-                                <div class="col-md-6">
-                                    {!! Form::text('code','', array('class' => 'form-control','id'=>'amount'));  !!}
-                                    @if ($errors->has('amount'))
-                                        <span class="help-block">
+                        {{ csrf_field() }}
+                        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                            {!!  Form::label('amount', 'Amount', array('class' => 'col-md-4 control-label required'));!!}
+                            <div class="col-md-6">
+                                {!! Form::text('code','', array('class' => 'form-control','id'=>'amount'));  !!}
+                                @if ($errors->has('amount'))
+                                    <span class="help-block">
                                         <strong>{{ $errors->first('amount') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
+                                @endif
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    {!! Form::submit('Paywith Paypal',array('class'=>'btn btn-primary')); !!}
-                                </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                {!! Form::submit('Paywith Paypal',array('class'=>'btn btn-primary')); !!}
                             </div>
+                        </div>
                         {!! Form::close() !!}
                     </div>
                 </div>

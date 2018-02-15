@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 Use Validator;
 Use App\Helper\Custom;
@@ -31,7 +32,8 @@ class MailChimpController extends Controller
      * Function for newsletters subscription
      *
      */
-    public function addSubscriber(Request $request){
+    public function addSubscriber(Request $request)
+    {
 
         $this->validate($request, [
             'email' => 'required|email'
@@ -39,23 +41,21 @@ class MailChimpController extends Controller
 
         try {
 
-            if($this->mailchimp
+            if ($this->mailchimp
                 ->lists
                 ->subscribe(
                     $this->listId,
                     ['email' => $request->input('email')]
-                )){
+                )) {
 
-                return redirect('/')->with('subscriber','Email Subscribed successfully');
+                return redirect('/')->with('subscriber', 'Email Subscribed successfully');
 
             }
-        }
-        catch (\Mailchimp_List_AlreadySubscribed $e) {
-            return redirect('/')->with('subscribers','Email is Already Subscribed');
-        }
-        catch (\Mailchimp_Error $e) {
+        } catch (\Mailchimp_List_AlreadySubscribed $e) {
+            return redirect('/')->with('subscribers', 'Email is Already Subscribed');
+        } catch (\Mailchimp_Error $e) {
 
-            return redirect('/')->with('subscribers','Error from MailChimp');
+            return redirect('/')->with('subscribers', 'Error from MailChimp');
         }
 
     }

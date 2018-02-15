@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Contact_us;
@@ -12,11 +13,10 @@ Use App\Email_template;
 Use Mail;
 
 /**
-* Class Contact us Controller for check message and reply.
-*
-* Author : Prajakta Sisale.
-*/
-
+ * Class Contact us Controller for check message and reply.
+ *
+ * Author : Prajakta Sisale.
+ */
 class ContactUsContoller extends Controller
 {
 
@@ -30,18 +30,16 @@ class ContactUsContoller extends Controller
         $queries = array();
         $result = array();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
-            //echo "hello";die;
-
-            $totalRecords=Contact_us::count();
-            $limit=$request->input('length');
-            if($limit == -1){
+            $totalRecords = Contact_us::count();
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = trim($search['value']);
             $draw = $request->input('draw');
             $column = $request->input('columns');
             $order = $request->input('order');
@@ -51,9 +49,9 @@ class ContactUsContoller extends Controller
             $email = $column[$sortBy]['data'];
             $id = $column[$sortBy]['data'];
 
-            $queries = Contact_us::select('id','name','email','contact_no','message','note_admin','subject');
+            $queries = Contact_us::select('id', 'name', 'email', 'contact_no', 'message', 'note_admin', 'subject');
 
-            if ($search_word != '' ) {
+            if ($search_word != '') {
                 $queries = Contact_us::where('name', 'LIKE', "%$search_word%")
                     ->orWhere('email', 'LIKE', "%$search_word%");
             }
@@ -64,16 +62,16 @@ class ContactUsContoller extends Controller
                 ->orderBy($name, $sortOf)
                 ->orderBy($email, $sortOf)
                 ->get();
-            if ($search_word != '' ) {
+            if ($search_word != '') {
 
                 $recordsFiltered = $queries->count();
                 $recordsTotal = $queries->count();
-            }else{
+            } else {
                 $recordsFiltered = Contact_us::count();
                 $recordsTotal = Contact_us::count();
             }
             $final = array();
-            foreach($queries as $key => $val){
+            foreach ($queries as $key => $val) {
                 $res_data = array();
                 $res_data['id'] = $val['id'];
                 $res_data['name'] = $val['name'];
@@ -87,14 +85,14 @@ class ContactUsContoller extends Controller
             $result['draw'] = $draw;
             $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
-            $result['data'] =   $final;
+            $result['data'] = $final;
 
             return $result;
         }
 
         $authUser = Auth::user();
 
-        Return view('admin.contactus.contact_admin',array('authUser' => $authUser ,'queries'=>$queries,'js'=>'user_queries_listing'));
+        Return view('admin.contactus.contact_admin', array('authUser' => $authUser, 'queries' => $queries, 'js' => 'user_queries_listing'));
 
     }
 
@@ -103,31 +101,31 @@ class ContactUsContoller extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function adminNote($id){
+    public function adminNote($id)
+    {
 
         $authUser = Auth::user();
 
-        $query_data = Contact_us::where('id','=',$id)->first();
+        $query_data = Contact_us::where('id', '=', $id)->first();
 
-        //Custom::showAll($query_data->id);die;
-        return view('admin.contactus.admin_note',array('authUser'=>$authUser,'query_data'=>$query_data));
+        return view('admin.contactus.admin_note', array('authUser' => $authUser, 'query_data' => $query_data));
     }
 
     /**
      * Function for storing admin reply as admin note.
      *
      */
-    public function saveAdminNote(Request $request){
+    public function saveAdminNote(Request $request)
+    {
 
-        if($this->validate($request, [
-            'note_admin'=> 'required',
+        if ($this->validate($request, [
+            'note_admin' => 'required',
         ])) {
 
             Contact_us::where('id', '=', $request->id)->update(array('note_admin' => $request->note_admin));
 
-            $Contact_us_details = Contact_us::where('id','=',$request->id)->first()->toArray();
+            $Contact_us_details = Contact_us::where('id', '=', $request->id)->first()->toArray();
 
-            //Custom::showAll($Contact_us_details);die;
             $this->sendMail($Contact_us_details);
 
             return redirect('admin/contactus')->with('admin_note', 'Successfully replied to the query !!!!');
@@ -141,24 +139,23 @@ class ContactUsContoller extends Controller
      * about query through contact us form.
      *
      */
-    public function sendMail($data){
+    public function sendMail($data)
+    {
 
-        //Custom::showAll($data['email']);die;
-        $template_content = Email_template::where('title','=','admin_note')->select('content')->first();
+        $template_content = Email_template::where('title', '=', 'admin_note')->select('content')->first();
 
-        //$email = $data['email'];
-        $email = 'prajakta.neosoft@gmail.com';
-        $string = array('{{name}}','{{email}}','{{contact_no}}','{{subject}}','{{message}}','{{admin_note}}');
+        $email = $data['email'];
 
-        $replace=array($data['name'], $data['email'],$data['contact_no'],$data['subject'],$data['message'], $data['note_admin']);
+        $string = array('{{name}}', '{{email}}', '{{contact_no}}', '{{subject}}', '{{message}}', '{{admin_note}}');
 
-        $new_template_content = str_replace($string,$replace, $template_content->content);
+        $replace = array($data['name'], $data['email'], $data['contact_no'], $data['subject'], $data['message'], $data['note_admin']);
 
-        Mail::send([], [], function ($message) use ($new_template_content,$email)
-        {
+        $new_template_content = str_replace($string, $replace, $template_content->content);
+
+        Mail::send([], [], function ($message) use ($new_template_content, $email) {
             $message->to($email)
                 ->subject('Admin Reply')
-                ->setBody($new_template_content,'text/html');
+                ->setBody($new_template_content, 'text/html');
 
         });
     }

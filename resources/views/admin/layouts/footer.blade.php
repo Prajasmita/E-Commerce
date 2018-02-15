@@ -1,11 +1,11 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+        <b>Version</b> 2.4.0
     </div>
     <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
     reserved.
-  </footer>
-  <!-- jQuery 3 -->
+</footer>
+<!-- jQuery 3 -->
 <!-- jQuery 3 -->
 {{--<script src="{{asset('js/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -37,13 +37,11 @@
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/dataTables.bootstrap.min.js')}}"></script>
 @if(isset($js))
-<script src="{{asset('js/'.$js.'.js')}}"></script>
+    <script src="{{asset('js/'.$js.'.js')}}"></script>
 @endif
 {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
-
 
 </body>
 </html>

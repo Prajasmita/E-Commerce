@@ -1,7 +1,5 @@
 <div class="form-group {{ $errors->has('code') ? 'has-error' : ''}}">
     {!!  Form::label('code', 'Code', array('class' => 'col-md-4 control-label required'));!!}
-
-
     <div class="col-md-6">
         {!! Form::text('code', isset($coupon) ? $coupon->code :'', array('class' => 'form-control'));  !!}
         {!! $errors->first('code', '<p class="help-block">:message</p>') !!}
@@ -18,11 +16,12 @@
     </div>
 </div>
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
-
     <label for="status" class="col-md-4 control-label">{{ 'status' }}<span class="require">*</span></label>
     <div class="col-md-6">
-        <input   name="status" value="1" type="radio" id="status" {{ isset( $coupon->status) ? $coupon->status == 1 ? 'checked' :'' : '' }}>Active
-        <input  name="status" value="0" type="radio" id="status" {{ isset( $coupon->status) ? $coupon->status == 0 ? 'checked' :'' : '' }}>Inactive
+        <input name="status" value="1" type="radio"
+               id="status" {{ isset( $coupon->status) ? $coupon->status == 1 ? 'checked' :'' : '' }}>Active
+        <input name="status" value="0" type="radio"
+               id="status" {{ isset( $coupon->status) ? $coupon->status == 0 ? 'checked' :'' : '' }}>Inactive
         {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

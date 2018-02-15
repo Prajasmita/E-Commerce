@@ -131,7 +131,3 @@
 
 </body>
 </html>
-
-{{--/*
-        var AddressEditUrl = "{{route('address.edit',['id'])}}";
-*/--}}

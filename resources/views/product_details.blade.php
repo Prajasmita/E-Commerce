@@ -45,17 +45,19 @@
                     </div>
                 </div>
             </div>
-        <!--/category-products-->
+            <!--/category-products-->
             <div class="col-sm-9 padding-right">
                 <div class="product-details col-sm-5">
                     <img class="xzoom show_img"
                          src="{{asset('img/product/'.$products['image']['product_image_name'])}}"
-                         xoriginal="{{asset('img/product/'.$products['image']['product_image_name'])}}" />
+                         xoriginal="{{asset('img/product/'.$products['image']['product_image_name'])}}"/>
                     <div class="xzoom-thumbs">
                         @foreach($products['image_products'] as $product)
-                        <a href="{{--{{asset('img/product/'.$product['product_image_name'])}}--}}">
-                            <img class="xzoom-gallery" width="80" src="{{asset('img/product/'.$product['product_image_name'])}}"  xpreview="{{asset('img/product/'.$product['product_image_name'])}}">
-                        </a>
+                            <a href="{{--{{asset('img/product/'.$product['product_image_name'])}}--}}">
+                                <img class="xzoom-gallery" width="80"
+                                     src="{{asset('img/product/'.$product['product_image_name'])}}"
+                                     xpreview="{{asset('img/product/'.$product['product_image_name'])}}">
+                            </a>
                         @endforeach
                     </div>
                 </div>
@@ -64,56 +66,53 @@
                     <div class="product-information"><!--/product-information-->
 
                         @if($products['is_feature'] == 1)
-                        <img src="{{asset('img/images/product-details/featured_tag.png')}}" class="newarrival" alt="" />
+                            <img src="{{asset('img/images/product-details/featured_tag.png')}}" class="newarrival"
+                                 alt=""/>
                         @endif
-                            <h1>{{$products['product_name']}}</h1>
-                                    <span>
+                        <h1>{{$products['product_name']}}</h1>
+                        <span>
                                         <span>${{ $products['price'] }}</span>
                                             <div class="container">
-                                                <div class="quantity" >
+                                                <div class="quantity">
                                                     <label><b>Quantity:</b></label>
-                                                    <input type="button" class="qty_minus" value="-" />
-                                                    <input type="text" class="qty" id="quantity" name="quantity" data-value="{{Cart::count()}}" value="1" min="1" max="{{$products['quantity']}}" size="1" id="number" readonly/>
-                                                    <input type="button" class="qty_plus"  value="+" />
+                                                    <input type="button" class="qty_minus" value="-"/>
+                                                    <input type="text" class="qty" id="quantity" name="quantity"
+                                                           data-value="{{Cart::count()}}" value="1" min="1"
+                                                           max="{{$products['quantity']}}" size="1" id="number"
+                                                           readonly/>
+                                                    <input type="button" class="qty_plus" value="+"/>
                                                 </div>
-                                                {{--<div class="quantity">
-                                                    <label><b>Quantity:</b></label>
-                                                    <input type="button" class="qty_minus" value="-" />
-                                                    <input type="text" class="qty" id="quantity" name="quantity" value="1" min="1" max="{{$products['quantity']}}" size="1" id="number" readonly/>
-                                                    <input type="button" class="qty_plus" value="+" />
-                                                </div>--}}
-                                                {{--<p class="cart_quantity">
-                                                    <div class="cart_quantity_button" id="{{"qty_".$products['id']}}" data-quantity="{{$products['quantity']}}" data-id="{{$products['id']}}" --}}{{--data-rowid="{{$cartItem->rowId}}"--}}{{-- data-price={{$products['price']}}>
-                                                    <a class="minus cart_quantity_down qty" > - </a>
-                                                    <input type="text" class="qty cart_quantity_input"  name="quantity" value="1" min="1" max="{{$products['quantity']}}" size="2" id="number" readonly/>
-                                                    <a class="plus cart_quantity_up qty"> + </a>
-                                                    </div>
-                                                </p>--}}
-
                                             </div>
 
-                                        @if(in_array($products['id'],$cart_product))
-                                           <a href="javascript:void(0)" class=" btn btn-default link_text_color product-added"><i class="glyphicon glyphicon-ok"></i>Added to cart</a>
-                                        @else
-                                            <a href="javascript:void(0)" data-id="{{$products['id']}}" data-price="{{$products['price']}}" data-count="{{Cart::count()}}" class="cart-data btn btn-default add-to-cart {{"product_id_cart".$products['id']}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                        @endif
+                            @if(in_array($products['id'],$cart_product))
+                                <a href="javascript:void(0)" class=" btn btn-default link_text_color product-added"><i
+                                            class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                            @else
+                                <a href="javascript:void(0)" data-id="{{$products['id']}}"
+                                   data-price="{{$products['price']}}" data-count="{{Cart::count()}}"
+                                   class="cart-data btn btn-default add-to-cart {{"product_id_cart".$products['id']}}"><i
+                                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                            @endif
 
-                                        <span><div  class="choose {{ Auth::user() ?'':'hidden_field' }}">
-                                            @if(in_array($products['id'],$my_wishlist))
-                                                    <button type="button" class="btn btn-lg wishlist_color added ">
-                                                      <a class=" added "><i class="fa fa-heart"  ></i></a>
-                                                    </button>
-                                                @else
-                                                    <button type="button" class="btn btn-lg wishlist_color">
-                                                    <a  href="javascript:void(0)" class="{{"product_id_".$products['id']}} wishlist " data-id="{{$products['id']}}"><i class="fa fa-heart-o"></i></a></li>
-                                                </button>
-                                                @endif
-                                        </div> </span>
-
-
+                            <span>
+                                <div class="choose {{ Auth::user() ?'':'hidden_field' }}">
+                                    @if(in_array($products['id'],$my_wishlist))
+                                        <button type="button" class="btn btn-lg wishlist_color added ">
+                                                      <a class=" added "><i class="fa fa-heart"></i></a>
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-lg wishlist_color">
+                                                    <a href="javascript:void(0)"
+                                                       class="{{"product_id_".$products['id']}} wishlist "
+                                                       data-id="{{$products['id']}}"><i
+                                                                class="fa fa-heart-o"></i></a></li>
+                                        </button>
+                                    @endif
+                                </div>
+                            </span>
                                         <p><b>Availability:</b> {{($products['quantity'])? "In Stock" : "Not In Stock" }}</p>
                                         <p><b>Description:</b> {{$products['short_discription']}}</p>
-                                    </span>
+                        </span>
                     </div><!--/product-information-->
                 </div>
             </div><!--/product-details-->

@@ -104,17 +104,12 @@ Route::get('/category_products/{id}',['as'=>'category_product','uses'=>'Category
 
 Route::post('/category_data/{id}',['as'=>'category_data','uses'=>'CategoryController@ajaxByCategoryId']);
 
-
-
-
 Route::post('/user_login','Auth\UserLoginController@login')->name('user_login');
 
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::post('/cart_data/{id}', ['as' => 'cart_data', 'uses' => 'CartController@store']);
 Route::post('/cart/{id}/update',['as'=> 'cart.update','uses'=>'CartController@update']);
 Route::delete('/cart/{id}/delete',['as'=> 'cart.delete','uses'=>'CartController@delete']);
-
-
 
 
 Route::group(['middleware'=>['auth']],function() {
@@ -154,8 +149,6 @@ Route::group(['middleware'=>['auth']],function() {
     Route::post('/subscription',['as'=> 'subscriber.add','uses'=>'MailChimpController@addSubscriber']);
 
 
-
-
 });
 
 Route::get('/track_order', ['as' => 'track.order','uses' => 'CartController@trackOrder']);
@@ -167,22 +160,13 @@ Route::post('forget_password',['as' => 'retrieve.password','uses' => 'HomeContro
 
 Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@selectStates']);
 
-//Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);
 
 Route::get('/cms/{page_name}',['as'=> 'cms.page','uses'=>'HomeController@getPages']);
 
-/*Route::get('about_us',['as'=> 'about.us','uses'=>'HomeController@aboutUs']);*/
 
 Route::post('/sendCampaigns', ['as' => 'send.campaigns','uses' => 'MailChimpController@sendCampaigns']);
 
-
-
 Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
-
-
-//Route::post('/contact',['as' => 'contactUs', 'uses'=>'HomeController@saveContactDetails']);
-/*Route::get('/paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));*/
-
 
 Route::get('sendmail', 'TestController@sendMail');
 

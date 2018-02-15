@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Coupon;
 use App\Http\Middleware\CheckRole;
 use App\User;
@@ -13,6 +14,7 @@ Use DB;
 Use \Khill\Lavacharts\Lavacharts;
 Use Carbon\Carbon;
 use Lava;
+
 $lava = new \Khill\Lavacharts\Lavacharts;
 
 /**
@@ -31,7 +33,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('checkrole');
+
     }
 
     /**
@@ -40,37 +42,22 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request){
-
+    public function index()
+    {
 
         $authUser = Auth::user();
 
         $register_users = User::selectRaw('count(id) as data,YEAR(created_at) year,MONTH(created_at) month')
-            ->groupby('year','month')
+            ->groupby('year', 'month')
             ->get();
 
         $orders = User_order::selectRaw('count(id) as data,YEAR(created_at) year,MONTH(created_at) month')
-            ->groupby('year','month')
+            ->groupby('year', 'month')
             ->get();
 
-        $coupon_data = Coupon::select('code','no_of_uses')->get();
-        //Custom::showAll($coupon_data->toArray());die;
+        $coupon_data = Coupon::select('code', 'no_of_uses')->get();
 
-        /*$coupons_data = array();
-
-
-        $i = 0;
-        foreach ( $coupons as $coupon ) {
-            $coupons_data = array();
-            array_push($coupons_data,$coupon->code);
-            array_push($coupons_data,$coupon->no_of_uses);
-            $arr_fin[$i] = $coupons_data;
-            $i++;
-        }
-        $coupon_data = json_encode($arr_fin);*/
-
-
-        return view('admin.dashboard', array('authUser' => $authUser,'register_users'=>$register_users,'orders'=>$orders,'coupon_data'=>$coupon_data));
+        return view('admin.dashboard', array('authUser' => $authUser, 'register_users' => $register_users, 'orders' => $orders, 'coupon_data' => $coupon_data));
 
     }
 

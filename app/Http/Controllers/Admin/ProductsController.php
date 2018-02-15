@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+
 /**
  * Class ProductsController for CRUD operation of Products.
  *
@@ -30,16 +31,16 @@ class ProductsController extends Controller
 
         $products = array();
         $result = array();
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
-            $totalRecords=Product::count();
-            $limit=$request->input('length');
-            if($limit == -1){
+            $totalRecords = Product::count();
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = trim($search['value']);
             $draw = $request->input('draw');
 
             $column = $request->input('columns');
@@ -53,47 +54,46 @@ class ProductsController extends Controller
             $name = $column[$sortBy]['data'];
 
             $products = Product::with('image');
-            if ($search_word != '' ) {
+            if ($search_word != '') {
 
-                    $products->where('product_name', 'LIKE', "%$search_word%")
+                $products->where('product_name', 'LIKE', "%$search_word%")
                     ->orWhere('price', 'LIKE', "%$search_word%");
             }
             $products = $products->skip($offset)
-                    ->take($limit)
-                    ->orderBy($name , $sortOf)
-                    ->get();
+                ->take($limit)
+                ->orderBy($name, $sortOf)
+                ->get();
 
 
-
-            if ($search_word != '' ) {
-               $recordsFiltered = $products->count();
+            if ($search_word != '') {
+                $recordsFiltered = $products->count();
                 $recordsTotal = $products->count();
 
-            }else{
+            } else {
                 $recordsFiltered = Product::count();
                 $recordsTotal = Product::count();
             }
             $final = array();
-            foreach($products as $key => $val){
+            foreach ($products as $key => $val) {
 
                 $res_data = array();
                 $res_data['id'] = $val['id'];
                 $res_data['product_name'] = $val['product_name'];
-                $res_data['image_name'] = empty($val['image']['product_image_name']) ? Custom::imageExistence(''):Custom::imageExistence($val['image']['product_image_name']);
+                $res_data['image_name'] = empty($val['image']['product_image_name']) ? Custom::imageExistence('') : Custom::imageExistence($val['image']['product_image_name']);
                 $res_data['price'] = $val['price'];
                 $final[] = $res_data;
             }
             $result['draw'] = $draw;
             $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
-            $result['data'] =   $final;
+            $result['data'] = $final;
 
             return $result;
         }
 
         $authUser = Auth::user();
 
-        return view('admin.products.index', compact('products','authUser'),array('js'=>'product_listing'));
+        return view('admin.products.index', compact('products', 'authUser'), array('js' => 'product_listing'));
     }
 
     /**
@@ -104,11 +104,11 @@ class ProductsController extends Controller
     public function create()
     {
         $categories = Category::with('products')
-           ->get();
+            ->get();
 
         $authUser = Auth::user();
 
-        return view('admin.products.create',array('authUser'=> $authUser,'categories'=>$categories));
+        return view('admin.products.create', array('authUser' => $authUser, 'categories' => $categories));
     }
 
     /**
@@ -120,9 +120,6 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-
-        //Custom::showAll($request->category);die;
-        //Custom::showAll($request->has('is_feature')?1:0);die;
         $this->validate($request, [
             'product_name' => 'required',
             'sku' => 'required|alpha_num|unique:products',
@@ -131,58 +128,58 @@ class ProductsController extends Controller
             'image_name' => 'required',
             'image_name.*' => 'mimes:jpg,jpeg,png|image|max:2048',
             'short_discription' => 'required',
-            'long_discription' =>'required',
-            'category' =>'required',
+            'long_discription' => 'required',
+            'category' => 'required',
             'status' => 'required'
 
         ]);
 
-        $requestData['product_name']=$request->product_name;
-        $requestData['sku']=$request->sku;
-        $requestData['short_discription']=$request->short_discription;
-        $requestData['long_discription']=$request->long_discription;
-        $requestData['price']=$request->price;
-        $requestData['special_price']=$request->special_price;
-        $requestData['special_price_from_date']=$request->special_price_from_date;
-        $requestData['special_price_to_date']=$request->special_price_to_date;
-        $requestData['quantity']=$request->quantity;
-        $requestData['status']=$request->status;
-        $requestData['is_feature']=$request->has('is_feature') ? '1' : '0';
-        $requestData['meta_title']=$request->meta_title;
-        $requestData['meta_discription']=$request->meta_discription;
-        $requestData['meta_keyword']=$request->meta_keyword;
+        $requestData['product_name'] = $request->product_name;
+        $requestData['sku'] = $request->sku;
+        $requestData['short_discription'] = $request->short_discription;
+        $requestData['long_discription'] = $request->long_discription;
+        $requestData['price'] = $request->price;
+        $requestData['special_price'] = $request->special_price;
+        $requestData['special_price_from_date'] = $request->special_price_from_date;
+        $requestData['special_price_to_date'] = $request->special_price_to_date;
+        $requestData['quantity'] = $request->quantity;
+        $requestData['status'] = $request->status;
+        $requestData['is_feature'] = $request->has('is_feature') ? '1' : '0';
+        $requestData['meta_title'] = $request->meta_title;
+        $requestData['meta_discription'] = $request->meta_discription;
+        $requestData['meta_keyword'] = $request->meta_keyword;
 
-        $product_data= Product::create($requestData);
+        $product_data = Product::create($requestData);
 
-            If (Input::hasFile('image_name')) {
+        If (Input::hasFile('image_name')) {
 
-                $current_time = time();
+            $current_time = time();
 
-                $images = Input::file('image_name');
+            $images = Input::file('image_name');
 
-                $destinationPath = 'img/product';
+            $destinationPath = 'img/product';
 
-                foreach($images as $image){
+            foreach ($images as $image) {
 
-                    $filename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $unique_image_name = $filename.'_'.$current_time.'.'.$image->getClientOriginalExtension();
-                    $image->move($destinationPath, $unique_image_name);
+                $filename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $unique_image_name = $filename . '_' . $current_time . '.' . $image->getClientOriginalExtension();
+                $image->move($destinationPath, $unique_image_name);
 
-                    $requestData1['product_image_name'] = $unique_image_name;
-                    $requestData1['product_id'] = $product_data['id'];
-                    $requestData1['status']=$request->status;
+                $requestData1['product_image_name'] = $unique_image_name;
+                $requestData1['product_id'] = $product_data['id'];
+                $requestData1['status'] = $request->status;
 
-                    Image_product::create($requestData1);
-                }
+                Image_product::create($requestData1);
+            }
 
 
         }
 
-        foreach($request->category as $selected_id) {
+        foreach ($request->category as $selected_id) {
 
             $requestData2['category_id'] = $selected_id;
 
-            $requestData2['product_id']=$product_data['id'];
+            $requestData2['product_id'] = $product_data['id'];
 
             Category_product::create($requestData2);
         }
@@ -193,28 +190,27 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
     public function show($id)
     {
-       $product_data = Product::with(['image','category_product' => function($query){
-           $query->with('category');
-       }])->findOrFail($id);
+        $product_data = Product::with(['image', 'category_product' => function ($query) {
+            $query->with('category');
+        }])->findOrFail($id);
 
-       //Custom::showAll($product_data->toArray());die;
-        $product_data['image_products'] = empty($product_data['image']['product_image_name']) ? Custom::imageExistence(''):Custom::imageExistence($product_data['image']['product_image_name']);
+        $product_data['image_products'] = empty($product_data['image']['product_image_name']) ? Custom::imageExistence('') : Custom::imageExistence($product_data['image']['product_image_name']);
 
         $authUser = Auth::user();
 
-        return view('admin.products.show', compact('product_data','authUser'));
+        return view('admin.products.show', compact('product_data', 'authUser'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -224,18 +220,26 @@ class ProductsController extends Controller
 
         $categories = Category::with('products')->get();
 
+        $category_product = Category_product::where('product_id','=',$id)->get();
+
+        $cat = array();
+
+        foreach ($category_product as $list) {
+            array_push($cat, $list->category_id);
+        }
+
         $product_image = Image_product::get()->first;
 
         $product = Product::findOrFail($id);
-        
-        return view('admin.products.edit', compact('product','authUser','categories','product_image'));
+
+        return view('admin.products.edit', compact('product', 'authUser', 'categories', 'product_image','cat'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -251,25 +255,24 @@ class ProductsController extends Controller
 
         ]);
 
-        $requestData['product_name']=$request->product_name;
-        $requestData['sku']=$request->sku;
-        $requestData['short_discription']=$request->short_discription;
-        $requestData['long_discription']=$request->long_discription;
-        $requestData['price']=$request->price;
-        $requestData['special_price']=$request->special_price;
-        $requestData['special_price_from_date']=$request->special_price_from_date;
-        $requestData['special_price_to_date']=$request->special_price_to_date;
-        $requestData['quantity']=$request->quantity;
-        $requestData['status']=$request->status;
-        $requestData['is_feature']=$request->has('is_feature') ? '1' : '0';
+        $requestData['product_name'] = $request->product_name;
+        $requestData['sku'] = $request->sku;
+        $requestData['short_discription'] = $request->short_discription;
+        $requestData['long_discription'] = $request->long_discription;
+        $requestData['price'] = $request->price;
+        $requestData['special_price'] = $request->special_price;
+        $requestData['special_price_from_date'] = $request->special_price_from_date;
+        $requestData['special_price_to_date'] = $request->special_price_to_date;
+        $requestData['quantity'] = $request->quantity;
+        $requestData['status'] = $request->status;
+        $requestData['is_feature'] = $request->has('is_feature') ? '1' : '0';
 
-        $requestData['meta_title']=$request->meta_title;
-        $requestData['meta_discription']=$request->meta_discription;
-        $requestData['meta_keyword']=$request->meta_keyword;
-        $requestData1['status']=$request->status;
+        $requestData['meta_title'] = $request->meta_title;
+        $requestData['meta_discription'] = $request->meta_discription;
+        $requestData['meta_keyword'] = $request->meta_keyword;
+        $requestData1['status'] = $request->status;
 
-        Image_product::where('product_id','=',$id)->update(array('status'=> $requestData1['status'] ));
-        //Custom::showAll($request->all());die;
+        Image_product::where('product_id', '=', $id)->update(array('status' => $requestData1['status']));
 
         $product_data = Product::findOrFail($id);
         $product_data->update($requestData);
@@ -280,29 +283,27 @@ class ProductsController extends Controller
 
             $destinationPath = 'img/product';
 
-            foreach($images as $image){
+            foreach ($images as $image) {
 
                 $filename = $image->getClientOriginalName();
                 $image->move($destinationPath, $filename);
                 $requestData1['product_image_name'] = $filename;
                 $requestData1['product_id'] = $product_data['id'];
 
-                $product_data1 = Image_product::where('product_id','=',$id);
+                $product_data1 = Image_product::where('product_id', '=', $id);
                 $product_data1->update($requestData1);
             }
 
         }
 
+        if ($request->category) {
+            Category_product::where('product_id', '=', $id)->delete();
 
-
-        if($request->category){
-            Category_product::where('product_id','=',$id)->delete();
-
-            foreach($request->category as $selected_id) {
+            foreach ($request->category as $selected_id) {
 
                 $requestData2['category_id'] = $selected_id;
 
-                $requestData2['product_id']=$product_data['id'];
+                $requestData2['product_id'] = $product_data['id'];
 
                 Category_product::create($requestData2);
             }
@@ -315,7 +316,7 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

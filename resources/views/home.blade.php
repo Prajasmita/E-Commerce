@@ -166,10 +166,10 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="tab-content " >
+                    <div class="tab-content ">
                         <div class="tab-pane fade active in" id="category_product">
                             @foreach($products as $cat)
-                                <div  class="col-sm-3 proinfo">
+                                <div class="col-sm-3 proinfo">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo  text-center">
@@ -198,7 +198,8 @@
                                                                         class="fa fa-heart "></i></a></li>
                                                     @else
                                                         <li class="{{"product_id_".$cat['products']['id']}}"><a
-                                                                    class="wishlist link_text_color " href="javascript:void(0)"
+                                                                    class="wishlist link_text_color "
+                                                                    href="javascript:void(0)"
                                                                     data-id="{{$cat['products']['id']}}"><i
                                                                         class="fa fa-plus-square"></i> Add to
                                                                 Wishlist</a></li>

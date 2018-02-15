@@ -10,14 +10,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-
 /**
  * Class CmsController for CRUD operation for cms management.
  *
  * Author : Prajakta Sisale.
  */
-
-class CmsController extends Controller{
+class CmsController extends Controller
+{
     /**
      * Function for displaying cms data list.
      *
@@ -27,16 +26,16 @@ class CmsController extends Controller{
 
         $result = array();
         $cms = array();
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
             $totalRecords = Cms::count();
-            $limit=$request->input('length');
-            if($limit == -1){
+            $limit = $request->input('length');
+            if ($limit == -1) {
                 $limit = $totalRecords;
             }
-            $offset=$request->input('start');
-            $search=$request->input('search');
-            $search_word=trim($search['value']);
+            $offset = $request->input('start');
+            $search = $request->input('search');
+            $search_word = trim($search['value']);
             $draw = $request->input('draw');
             $column = $request->input('columns');
             $order = $request->input('order');
@@ -44,29 +43,27 @@ class CmsController extends Controller{
             $sortOf = $order[0]['dir'];
             $title = $column[$sortBy]['data'];
 
-            $cms = Cms::select('id','title','content');
-            if ($search_word != '' ) {
+            $cms = Cms::select('id', 'title', 'content');
+            if ($search_word != '') {
 
                 $cms = Cms::where('title', 'LIKE', "%$search_word%");
             }
             $cms = $cms
                 ->skip($offset)
                 ->take($limit)
-                ->orderBy($title , $sortOf)
+                ->orderBy($title, $sortOf)
                 ->get();
 
-            //Custom::runQuery();die;
-
-            if ($search_word != '' ) {
+            if ($search_word != '') {
                 $recordsFiltered = $cms->count();
                 $recordsTotal = $cms->count();
 
-            }else{
+            } else {
                 $recordsFiltered = Cms::count();
                 $recordsTotal = Cms::count();
             }
             $final = array();
-            foreach($cms as $key => $val){
+            foreach ($cms as $key => $val) {
                 $res_data = array();
                 $res_data['id'] = $val['id'];
                 $res_data['title'] = $val['title'];
@@ -74,16 +71,16 @@ class CmsController extends Controller{
                 $final[] = $res_data;
             }
             $result['draw'] = $draw;
-            $result['recordsFiltered'] =$recordsFiltered;
+            $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
-            $result['data'] =   $final;
+            $result['data'] = $final;
 
             return $result;
         }
 
         $authUser = Auth::user();
 
-        return view('admin.cms.index', compact('cms','authUser'),array('js'=>'cms_listing'));
+        return view('admin.cms.index', compact('cms', 'authUser'), array('js' => 'cms_listing'));
     }
 
     /**
@@ -96,7 +93,7 @@ class CmsController extends Controller{
 
         $authUser = Auth::user();
 
-        return view('admin.cms.create',array('authUser'=>$authUser));
+        return view('admin.cms.create', array('authUser' => $authUser));
     }
 
     /**
@@ -108,8 +105,6 @@ class CmsController extends Controller{
      */
     public function store(Request $request)
     {
-        //Custom::showAll($request->toArray());die;
-
         request()->validate([
             'title' => 'required',
             'content' => 'required'
@@ -125,7 +120,7 @@ class CmsController extends Controller{
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -135,13 +130,13 @@ class CmsController extends Controller{
 
         $authUser = Auth::user();
 
-        return view('admin.cms.show', compact('cms','authUser'));
+        return view('admin.cms.show', compact('cms', 'authUser'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -151,14 +146,14 @@ class CmsController extends Controller{
 
         $authUser = Auth::user();
 
-        return view('admin.cms.edit', compact('cms','authUser'));
+        return view('admin.cms.edit', compact('cms', 'authUser'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -179,7 +174,7 @@ class CmsController extends Controller{
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

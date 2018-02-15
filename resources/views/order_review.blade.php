@@ -17,7 +17,9 @@
             <div class="user_info">
                 <table class="pull-right">
                     <tr>
-                        <td><strong><h4>{{$order_review_page['user_info']['first_name']}} {{$order_review_page['user_info']['middle_name']}} {{$order_review_page['user_info']['last_name']}}<h4><strong></td>
+                        <td><strong>
+                                <h4>{{$order_review_page['user_info']['first_name']}} {{$order_review_page['user_info']['middle_name']}} {{$order_review_page['user_info']['last_name']}}</h4>
+                            </strong></td>
                     </tr>
                     <tr>
                         <td> {{$order_review_page['user_info']['email']}}</td>
@@ -26,20 +28,23 @@
                         <td>{{$order_review_page['user_info']['contact_no']}} </td>
                     </tr>
                     <tr>
-                        <td> {{$order_review_page['user_info']['address1']}},{{ $order_review_page['user_info']['address2'] ? $order_review_page['user_info']['address2'] :'' }}</td>
+                        <td> {{$order_review_page['user_info']['address1']}}
+                            ,{{ $order_review_page['user_info']['address2'] ? $order_review_page['user_info']['address2'] :'' }}</td>
                     </tr>
                     <tr>
-                        <td> {{$order_review_page['user_info']['city']}},{{$order_review_page['user_info']['zip_code']}}</td>
+                        <td> {{$order_review_page['user_info']['city']}}
+                            ,{{$order_review_page['user_info']['zip_code']}}</td>
                     </tr>
                     <tr>
-                        <td> {{$order_review_page['user_info']['state']}},{{$order_review_page['user_info']['country']}}</td>
+                        <td> {{$order_review_page['user_info']['state']}}
+                            ,{{$order_review_page['user_info']['country']}}</td>
                     </tr>
                     <tr>
-                        <td>Payment Status : {{$order_review_page['payment_details']['status'] == 'O' ? 'Processing' : 'Pending'}}</td>
+                        <td>Payment Status
+                            : {{$order_review_page['payment_details']['status'] == 'O' ? 'Processing' : 'Pending'}}</td>
                     </tr>
                 </table>
             </div>
-
 
 
             <div class="table-responsive cart_info">
@@ -59,16 +64,18 @@
                         </thead>
                         <tbody>
 
-{{--
-                        @php echo "<pre>"; print_r($order_review_page);exit; @endphp
---}}
+                        {{--
+                                                @php echo "<pre>"; print_r($order_review_page);exit; @endphp
+                        --}}
 
 
                         @foreach($order_review_page['order_products'] as $order_product)
 
-                            <tr id=""  >
+                            <tr id="">
                                 <td class="cart_product">
-                                    <a href="#"><img class="index_img" src="{{asset('img/product/'.$order_product['image_name'])}}" alt=""></a>
+                                    <a href="#"><img class="index_img"
+                                                     src="{{asset('img/product/'.$order_product['image_name'])}}"
+                                                     alt=""></a>
                                 </td>
                                 <td class="cart_description">
                                     <h4><a href="">{{$order_product['name']}}</a></h4>
@@ -77,8 +84,10 @@
                                     <p>${{$order_product['price']}}</p>
                                 </td>
                                 <td class="cart_quantity">
-                                    <div class="cart_quantity_button" >
-                                        <input type="text" class="qty cart_quantity_input"  name="quantity" value="{{$order_product['quantity']}}" min="1"  size="2" id="number" readonly/>
+                                    <div class="cart_quantity_button">
+                                        <input type="text" class="qty cart_quantity_input" name="quantity"
+                                               value="{{$order_product['quantity']}}" min="1" size="2" id="number"
+                                               readonly/>
                                     </div>
                                 </td>
                                 <td class="cart_total">
@@ -108,7 +117,8 @@
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td><span>{{"$".$order_review_page['payment_details']['grand_total'] }}</span></td>
+                                        <td><span>{{"$".$order_review_page['payment_details']['grand_total'] }}</span>
+                                        </td>
                                     </tr>
                                 </table>
                             </td>
@@ -117,9 +127,6 @@
                     </table>
                 @endif
             </div>
-
-
-
 
 
         </div>
