@@ -87,6 +87,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $(function () {
             //Initialize Select2 Elements
             $('.select2').select2();
+            var category = $('#selected').data('cat');
+            //on edit
+            $('#selected').val(category).change();
         })
     </script>
     <script>
