@@ -52,7 +52,7 @@
                                     </ul>
                                 </li>
                             @endif
-                            <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}" href="{{route('my.wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}" href="{{Auth::user() ? route('my.wishlist') : route('register')}}"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li>
                                 <a class="{{ ((url()->current()) == route('checkout')) ? 'active' : '' }}" href="{{ Auth::user() ? route('checkout'): route('register') }}"><i
                                             class="fa fa-crosshairs"></i> Checkout</a></li>
@@ -88,7 +88,7 @@
                             <li><a class="{{ ((url()->current()) == url('/')) ? 'active' : '' }}" href="{{url('/')}}">Home</a></li>
                             <li><a class="{{ ((url()->current()) == config('constants.base_url').'cms/about_us') ? 'active' : '' }}" href="{{config('constants.base_url')}}cms/about_us">About Us</a></li>
                             <li><a class="{{ ((url()->current()) == config('constants.base_url').'cms/help') ? 'active' : '' }}" href="{{config('constants.base_url')}}cms/help">Help</a></li>
-                            <li><a class="{{ ((url()->current()) == route('contact_us') ? 'active' : '' )}}" href="{{route('contact_us')}}">Contact</a></li>
+                            <li><a class="{{ ((url()->current()) == route('contact_us') ? 'active' : '' )}}" href="{{Auth::User() ? route('contact_us') : route('register')}}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
