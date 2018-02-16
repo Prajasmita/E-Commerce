@@ -163,7 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Illuminate\Html\HtmlServiceProvider :: class,
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         'Kodeine\Acl\AclServiceProvider',
@@ -238,7 +238,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
-
+        'Form'      => Illuminate\Html\FormFacade :: class,
+        'Html'      => Illuminate\Html\HtmlFacade :: class
     ],
 
 ];
