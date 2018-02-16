@@ -22,10 +22,10 @@ class UserTableSeeder extends Seeder
 
         User::truncate();
         $usersData = [
-            ['first_name'=>'admin', 'last_name'=>'admin','email'=>'admin@gmail.com'  ,'password' => Hash::make('admin123'),'contact_no' => '9821258699',
+            ['first_name'=>'Prajakta', 'last_name'=>'Sisale','email'=>'prajakta.neosoft@gmail.com'  ,'password' => Hash::make('prajakta123'),'contact_no' => '9821258699',
                 'role_id'=>'2'
             ],
-            ['first_name'=>'Asmita', 'last_name'=>'Sisale','email'=>'asmita.sisale@gmail.com'  ,'password' => Hash::make('aaaaaaaaa'),'contact_no' => '9821258677',
+            ['first_name'=>'Praju', 'last_name'=>'Sisale','email'=>'prajakta.sisale@neosofttech.com'  ,'password' => Hash::make('praju123'),'contact_no' => '9821258677',
                 'role_id'=>'5'
             ]
 
