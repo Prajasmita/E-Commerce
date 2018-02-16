@@ -54,58 +54,58 @@
                 <div class="col-sm-4">
                     <div class="signup-form"><!--sign up form-->
                         <h2>New User Signup!</h2>
-                        <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                        <form name='form_register' class="form-horizontal" method="POST" action="{{ route('register') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->form_register->has('first_name') ? ' has-error' : '' }}">
                                 <div class="col-md-12">
                                     <input id="first_name" type="text" class="form-control" name="first_name"
                                            placeholder="First Name" value="{{ old('first_name') }}">
 
-                                    @if ($errors->has('first_name'))
+                                    @if ($errors->form_register->has('first_name'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                        <strong>{{ $errors->form_register->first('first_name') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->form_register->has('last_name') ? ' has-error' : '' }}">
                                 <div class="col-md-12">
                                     <input id="last_name" type="text" class="form-control" name="last_name"
                                            placeholder="Last Name" value="{{ old('last_name') }}">
 
-                                    @if ($errors->has('last_name'))
+                                    @if ($errors->form_register->has('last_name'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                        <strong>{{ $errors->form_register->first('last_name') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->form_register->has('email') ? ' has-error' : '' }}">
 
                                 <div class="col-md-12">
                                     <input id="email" type="email" class="form-control" name="email"
                                            placeholder="Email Address" value="{{ old('email') }}">
 
-                                    @if ($errors->has('email'))
+                                    @if ($errors->form_register->has('email'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->form_register->first('email') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->form_register->has('password') ? ' has-error' : '' }}">
 
                                 <div class="col-md-12">
                                     <input id="password" type="password" class="form-control" placeholder="Password"
                                            name="password">
 
-                                    @if ($errors->has('password'))
+                                    @if ($errors->form_register->has('password'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->form_register->first('password') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -119,15 +119,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('contact_no') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->form_register->has('contact_no') ? ' has-error' : '' }}">
 
                                 <div class="col-md-12">
                                     <input id="contact_no" type="text" class="form-control" placeholder="Contact No."
                                            name="contact_no">
 
-                                    @if ($errors->has('contact_no'))
+                                    @if ($errors->form_register->has('contact_no'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('contact_no') }}</strong>
+                                        <strong>{{ $errors->form_register->first('contact_no') }}</strong>
                                     </span>
                                     @endif
                                 </div>

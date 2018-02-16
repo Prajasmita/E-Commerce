@@ -123,8 +123,10 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
 
-        $this->validator($request->all())->validate();
-
+        $validator =  $this->validator($request->all());
+        if ($validator->fails()){
+            return redirect('register')->withErrors($validator, 'form_register');
+        }
         return $this->create($request->all());
 
     }

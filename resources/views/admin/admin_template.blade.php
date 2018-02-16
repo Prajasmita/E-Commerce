@@ -51,12 +51,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 
 
-    <script>
-        var saveAdminNote = "{{route('admin_note.save')}}";
-        var base_url = "{{config('constants.base_url')}}"
-    </script>
-
-
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">

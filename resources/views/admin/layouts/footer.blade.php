@@ -29,8 +29,10 @@
 <script src="{{asset('js/script.js')}}"></script>
 
 <script>
-    var baseUrl = '{{url('/')}}';
+    var base_url = '{{url('/')}}';
     var productPath = "{{config('constants.product_path')}}";
+    var saveAdminNote = "{{route('admin_note.save')}}";
+
 </script>
 
 <!-- DataTables -->
