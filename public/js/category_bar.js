@@ -34,6 +34,7 @@ $(document).ready(function() {
                 var cart_product = output[2];
 
                 if (!(products.length === 0) ) {
+
                     $.each(products, function (index, data) {
 
                         //console.log(index);
@@ -61,14 +62,14 @@ $(document).ready(function() {
                         }
                         if ($.inArray(value, cart_product) != -1) {
 
-                            html += "<a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color product-added \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
+                            html += "<a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color add-to-cart \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
                         } else {
                             html += "<a href=\"javascript:void(0)\" class=\"product_id_cart" + data.products.id + " cart-data btn btn-default add-to-cart\"  data-id=" + data.products.id + " ><i class=\"fa fa-shopping-cart\"></i>Add to cart</a>\n";
                         }
                         html += "                                       <div  class=\" choose nav nav-pills nav-justified " + hidden + "\">\n";
                         if ($.inArray(value, my_wishlist) != -1) {
 
-                            html += "<li><a class=\"link_text_color added\"><i class=\" fa fa-heart \"></i></a></li>\n";
+                            html += "<li><a class=\"link_text_color\"><i class=\" glyphicon glyphicon-ok  \"></i>Added to Wishlist</a></li>\n";
                         } else {
                             html += "<li class=\"product_id_" + data.products.id + " choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id=" + data.products.id + "><i class=\"fa fa-plus-square \"></i> Add to Wishlist</a></li>\n";
                         }
@@ -84,7 +85,8 @@ $(document).ready(function() {
 
                     $('#category_product').html(html);
 
-                } else {
+                }
+                else {
                     var html = "";
                     html += "<div class=\"productinfo text-center\">\n" +
                         "                    <br/>\n" +
@@ -126,7 +128,7 @@ $(document).ready(function() {
                         var html = "";
 
 
-                        html = "<a class=\"link_text_color added \"><i class=\" fa fa-heart\"  ></i></a>";
+                        html = "<a class=\"link_text_color \"><i class=\" glyphicon glyphicon-ok\" ></i>Added to Wishlist</a>";
 
                         $('.product_id_' + product_id).html(html);
                     }
@@ -146,6 +148,7 @@ $(document).ready(function() {
                 }
             });
             var id = ($(this).attr("data-id"));
+            var _this = $(this);
 
             var presentCartCount = $('.cart-count').attr("data-count");
             if(presentCartCount)
@@ -168,9 +171,20 @@ $(document).ready(function() {
 
                        $('.cart-count').attr("data-count",changedCartCount);
 
+                       /*$( '.product_id_cart' + id ).removeClass( "cart-data" );
+                       $( '.product_id_cart' + id ).attr( "disabled" );*/
+
+                        _this.removeClass( "cart-data add-to-cart");
+                        _this.attr("disabled", true);
+                        _this.addClass( "added-to-cart" );
+/*
+                        $( '.product_id_cart' + id ).html( '<i class=\" glyphicon glyphicon-ok\\"  ></i>Added to Cart' );
+*/
+
                         var html = "";
-                        html = "<a href=\"javascript:void(0)\" class=\"link_text_color added-to-cart \"><i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart</a>";
-                        $('.product_id_cart' + id).html(html);
+                        html = "<i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart";
+                        // $('.product_id_cart' + id).html(html);
+                        _this.html(html);
 
                         var html1 = "";
                         html1 = "<li><a href="+base_url+"cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")</a></li>\n";

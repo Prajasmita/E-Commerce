@@ -6,75 +6,90 @@
     height: 200px!important;
     width:200px!important;
 }
-/*.show_img{
-    height: 250px!important;
-    width:300px!important;
-}*/
 .require{
     color: red;
 }
+
  .required:after{
      content:'*';
      color:red;
      padding-left:5px;
  }
 
- .hidden_field{
-     display: none!important;
- }
-
-.link_text_color {
-    color: darkgreen!important;
-}
-.wishlist_color{
-    color:white!important;
-}
 .div_color{
     color:yellow;
 }
 
+.hidden_field{
+     display: none!important;
+ }
 
-.product-added{
+/*css for cart buttons*/
+.product-overlay added-to-cart{
 
-    background-color: #f5f5ed;
-    background: #F5F5ED;
     cursor: text !important; ;
+    border: 0 none;
+    border-radius: 0;
+    color: darkgreen;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    margin-bottom: 25px;
+    background: transparent;
+
+}
+
+.added-to-cart {
+    cursor: text !important; ;
+    border: 0 none;
+    border-radius: 0;
+    color: darkgreen!important;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    margin-bottom: 25px;
+    background: lightgrey;
+
+}
+
+.detail-add-to-cart{
+    background:#F5F5ED;
     border: 0 none;
     border-radius: 0;
     color: #696763;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    margin-bottom: 25px;
-
-
+    margin-bottom: 0px;
+}
+.detail-added-to-cart{
+    cursor: text !important; ;
+    border: 0 none;
+    background: #e1ddd7;
+    border-radius: 0;
+    color: darkgreen!important;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+.detail-added-to-cart:hover{
+    background: #e1ddd7;
+    color: #ffffff;
 }
 
-.product-added-towishlist{
-
-    background-color: #f5f5ed;
+.detail-add-to-cart:hover {
     background: #fe980f;
-    cursor: text!important; ;
-    border: 0 none;
-    border-radius: 0;
-    color: #696763;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    margin-bottom: 25px;
+    color: #ffffff;
 }
-.added-to-cart{
+/*a :hover{
+    color: darkgray;
+}*/
 
-    background-color: #f5f5ed;
-    cursor: text !important; ;
-    border: 0 none;
-    border-radius: 0;
-    color: #696763;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    margin-bottom: 25px;
 
+/*css for wishlist buttons*/
+.link_text_color {
+    color: darkgreen!important;
 }
-a{
-    cursor: pointer;
+
+.wishlist_color{
+    background-color: transparent!important;
 }
 
 .added{
@@ -82,10 +97,11 @@ a{
     color:red!important;
 
 }
+.wishlist{
+    color:darkgray;
 
-.wishlist_color{
-    background-color: transparent!important;
 }
+
 
 /*css for checkout form*/
 .checkout-form-input{
@@ -100,6 +116,8 @@ a{
 a{
     text-decoration: none!important;
 }
+
+/*css for product details span*/
 
 
 

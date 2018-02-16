@@ -70,45 +70,40 @@
                                  alt=""/>
                         @endif
                         <h1>{{$products['product_name']}}</h1>
+                        <span >
+                            <span>${{ $products['price'] }}</span>
+                            <div class="quantity">
+                                <label><b>Qty:</b></label>
+                                <input type="button" class="qty_minus" value="-"/>
+                                <input type="text" class="qty" id="quantity" name="quantity"
+                                       data-value="{{Cart::count()}}" value="1" min="1"
+                                       max="{{$products['quantity']}}" size="1" id="number"
+                                       readonly/>
+                                <input type="button" class="qty_plus" value="+"/>
+                            </div>
+                            <br/>
                         <span>
-                                        <span>${{ $products['price'] }}</span>
-                                            <div class="container">
-                                                <div class="quantity">
-                                                    <label><b>Quantity:</b></label>
-                                                    <input type="button" class="qty_minus" value="-"/>
-                                                    <input type="text" class="qty" id="quantity" name="quantity"
-                                                           data-value="{{Cart::count()}}" value="1" min="1"
-                                                           max="{{$products['quantity']}}" size="1" id="number"
-                                                           readonly/>
-                                                    <input type="button" class="qty_plus" value="+"/>
-                                                </div>
-                                            </div>
-
                             @if(in_array($products['id'],$cart_product))
-                                <a href="javascript:void(0)" class=" btn btn-default link_text_color product-added"><i
+                                <a href="javascript:void(0)" class=" btn btn-default link_text_color detail-added-to-cart"><i
                                             class="glyphicon glyphicon-ok"></i>Added to cart</a>
                             @else
                                 <a href="javascript:void(0)" data-id="{{$products['id']}}"
                                    data-price="{{$products['price']}}" data-count="{{Cart::count()}}"
-                                   class="cart-data btn btn-default add-to-cart {{"product_id_cart".$products['id']}}"><i
+                                   class="cart-data btn btn-default detail-add-to-cart"><i
                                             class="fa fa-shopping-cart"></i>Add to cart</a>
                             @endif
-
-                            <span>
-                                <div class="choose {{ Auth::user() ?'':'hidden_field' }}">
                                     @if(in_array($products['id'],$my_wishlist))
-                                        <button type="button" class="btn btn-lg wishlist_color added ">
-                                                      <a class=" added "><i class="fa fa-heart"></i></a>
+                                        <button type="button" class="btn btn-lg wishlist_color added " >
+                                                      <a class=" added " disabled="disabled"><i class="fa fa-heart"></i></a>
                                         </button>
                                     @else
                                         <button type="button" class="btn btn-lg wishlist_color">
                                                     <a href="javascript:void(0)"
                                                        class="{{"product_id_".$products['id']}} wishlist "
                                                        data-id="{{$products['id']}}"><i
-                                                                class="fa fa-heart-o"></i></a></li>
+                                                                class="fa fa-heart"></i></a></li>
                                         </button>
                                     @endif
-                                </div>
                             </span>
                                         <p><b>Availability:</b> {{($products['quantity'])? "In Stock" : "Not In Stock" }}</p>
                                         <p><b>Description:</b> {{$products['short_discription']}}</p>

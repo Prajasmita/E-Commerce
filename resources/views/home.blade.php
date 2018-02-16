@@ -106,16 +106,6 @@
                                              alt=""/>
                                         <h2>${{$featured_product['price']}}</h2>
                                         <p>{{$featured_product['product_name']}}</p>
-                                        @if(in_array($featured_product['id'],$cart_product))
-                                            <a href="javascript:void(0)"
-                                               class=" btn btn-default link_text_color product-added "><i
-                                                        class="glyphicon glyphicon-ok"></i>Added to cart</a>
-                                        @else
-                                            <a href="javascript:void(0)" data-id="{{$featured_product['id']}}"
-                                               data-count="{{count($cart_product)}}"
-                                               class="cart-data btn btn-default add-to-cart {{"product_id_cart".$featured_product['id']}}"><i
-                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
-                                        @endif
                                     </div>
                                     <div class=" product-overlay">
                                         <div class="overlay-content">
@@ -125,12 +115,12 @@
                                             </p>
                                             @if(in_array($featured_product['id'],$cart_product))
                                                 <span><a href="javascript:void(0)"
-                                                         class="btn btn-default link_text_color product-added "><i
+                                                         class="btn btn-default link_text_color added-to-cart "><i
                                                                 class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
                                             @else
                                                 <a href="javascript:void(0)" data-id="{{$featured_product['id']}}"
                                                    data-count="{{count($cart_product)}}"
-                                                   class="cart-data btn btn-default add-to-cart {{"product_id_cart".$featured_product['id']}}"><i
+                                                   class="cart-data btn btn-default add-to-cart"><i
                                                             class="fa fa-shopping-cart"></i>Add to cart</a>
                                             @endif
                                         </div>
@@ -140,7 +130,7 @@
                                 <div class="choose {{ Auth::user() ?'':'hidden_field' }}">
                                     <ul class="nav nav-pills nav-justified">
                                         @if(in_array($featured_product['id'],$my_wishlist))
-                                            <li><a class=" added"><i class="fa fa-heart"></i></a></li>
+                                            <li><a class="link_text_color" disabled="disabled"><i class=" glyphicon glyphicon-ok" ></i>Added to Wishlist</a></li>
                                         @else
                                             <li class="{{"product_id_".$featured_product['id']}}"><a
                                                         class="wishlist link_text_color" href="javascript:void(0)"
@@ -169,7 +159,7 @@
                     <div class="tab-content ">
                         <div class="tab-pane fade active in" id="category_product">
                             @foreach($products as $cat)
-                                <div class="col-sm-3 proinfo">
+                                <div class="col-sm-3 proinfo0">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo  text-center">
@@ -181,7 +171,7 @@
                                                 </p>
                                                 @if(in_array($cat['products']['id'],$cart_product))
                                                     <span><a href="javascript:void(0)"
-                                                             class="link_text_color btn btn-default product-added "><i
+                                                             class="link_text_color btn btn-default added-to-cart "><i
                                                                     class="glyphicon glyphicon-ok"></i>Added to cart</a></span>
                                                 @else
                                                     <a href="javascript:void(0)" data-id="{{$cat['products']['id']}}"
@@ -193,9 +183,9 @@
 
                                                     @if(in_array($cat['products']['id'],$my_wishlist))
                                                         <li class="{{"product_id_".$cat['products']['id']}}"><a
-                                                                    class="added" href="javascript:void(0)"
+                                                                    class="link_text_color" href="javascript:void(0)"
                                                                     data-id="{{$cat['products']['id']}}"><i
-                                                                        class="fa fa-heart "></i></a></li>
+                                                                        class="glyphicon glyphicon-ok "></i>Added to Wishlist</a></li>
                                                     @else
                                                         <li class="{{"product_id_".$cat['products']['id']}}"><a
                                                                     class="wishlist link_text_color "

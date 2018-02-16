@@ -38,12 +38,12 @@
                                 <td>
                                     @if(in_array($list['product']['id'],$cart_product))
                                         <a href="javascript:void(0)"
-                                           class=" btn btn-default link_text_color product-added"><i
+                                           class=" btn btn-default link_text_color detail-added-to-cart"><i
                                                     class="glyphicon glyphicon-ok"></i>Added to cart</a>
                                     @else
                                         <a href="javascript:void(0)" data-id="{{$list['product']['id']}}"
                                            data-count="{{Cart::count()}}"
-                                           class="cart-data btn btn-default add-to-cart {{"product_id_cart".$list['product']['id']}}"><i
+                                           class="cart-data btn btn-default detail-add-to-cart }}"><i
                                                     class="fa fa-shopping-cart"></i>Add to cart</a>
                                     @endif
                                 </td>
@@ -57,7 +57,7 @@
                         @else
                             <div>
                                 <br/>
-                                <p class="text-center"><strong>You have no items in the Wish List</strong></p>
+                                <p class="text-center"><strong>You have no items in the Wish List.</strong></p>
                                 <br/>
                             </div>
                         @endif
