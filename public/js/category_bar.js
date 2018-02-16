@@ -52,13 +52,13 @@ $(document).ready(function() {
                             "                                    <div class=\"product-image-wrapper\">\n" +
                             "                                        <div class=\"single-products\">\n" +
                             "                                            <div  class=\"productinfo text-center\">\n" +
-                            "                                                <img class=\"show_img\" src=" + base_url + "img/product/" + image + "\>\n" +
+                            "                                                <img class=\"show_img\" src=" + base_url + "/img/product/" + image + "\>\n" +
                             "                                                <h2>$" + data.products.price + "</h2>\n" ;
 
                         if(authUser){
-                            html +="<p><a href=\"" + base_url + 'product_details/' + data.products.id + "\" >" + data.products.product_name + "</a></p>\n";
+                            html +="<p><a href=\"" + base_url + '/product_details/' + data.products.id + "\" >" + data.products.product_name + "</a></p>\n";
                         }else{
-                            html +="<p><a href=\"" + base_url + 'register'+"\" >" + data.products.product_name + "</a></p>\n";
+                            html +="<p><a href=\"" + base_url + '/register'+"\" >" + data.products.product_name + "</a></p>\n";
                         }
                         if ($.inArray(value, cart_product) != -1) {
 
@@ -187,7 +187,7 @@ $(document).ready(function() {
                         _this.html(html);
 
                         var html1 = "";
-                        html1 = "<li><a href="+base_url+"cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")</a></li>\n";
+                        html1 = "<li><a href="+base_url+"/cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")</a></li>\n";
 
                         $('.cart-count').html(html1);
                     }

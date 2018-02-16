@@ -103,11 +103,11 @@
                             <li><a class="<?php echo e(((url()->current()) == url('/')) ? 'active' : ''); ?>" href="<?php echo e(url('/')); ?>">Home</a>
                             </li>
                             <li>
-                                <a class="<?php echo e(((url()->current()) == config('constants.base_url').'cms/about_us') ? 'active' : ''); ?>"
-                                   href="<?php echo e(config('constants.base_url')); ?>cms/about_us">About Us</a></li>
+                                <a class="<?php echo e(((url()->current()) == url('cms/about_us')) ? 'active' : ''); ?>"
+                                   href="<?php echo e(url('cms/about_us')); ?>">About Us</a></li>
                             <li>
-                                <a class="<?php echo e(((url()->current()) == config('constants.base_url').'cms/help') ? 'active' : ''); ?>"
-                                   href="<?php echo e(config('constants.base_url')); ?>cms/help">Help</a></li>
+                                <a class="<?php echo e(url()->current() == url('cms/help') ? 'active' : ''); ?>"
+                                   href="<?php echo e(url('cms/help')); ?>">Help</a></li>
                             <li><a class="<?php echo e(((url()->current()) == route('contact_us') ? 'active' : '' )); ?>"
                                    href="<?php echo e(Auth::User() ? route('contact_us') : route('register')); ?>">Contact</a></li>
                         </ul>

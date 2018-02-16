@@ -102,11 +102,11 @@
                             <li><a class="{{ ((url()->current()) == url('/')) ? 'active' : '' }}" href="{{url('/')}}">Home</a>
                             </li>
                             <li>
-                                <a class="{{ ((url()->current()) == config('constants.base_url').'cms/about_us') ? 'active' : '' }}"
-                                   href="{{config('constants.base_url')}}cms/about_us">About Us</a></li>
+                                <a class="{{ ((url()->current()) == url('cms/about_us')) ? 'active' : '' }}"
+                                   href="{{url('cms/about_us')}}">About Us</a></li>
                             <li>
-                                <a class="{{ ((url()->current()) == config('constants.base_url').'cms/help') ? 'active' : '' }}"
-                                   href="{{config('constants.base_url')}}cms/help">Help</a></li>
+                                <a class="{{ url()->current() == url('cms/help') ? 'active' : '' }}"
+                                   href="{{url('cms/help')}}">Help</a></li>
                             <li><a class="{{ ((url()->current()) == route('contact_us') ? 'active' : '' )}}"
                                    href="{{Auth::User() ? route('contact_us') : route('register')}}">Contact</a></li>
                         </ul>

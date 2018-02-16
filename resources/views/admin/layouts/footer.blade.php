@@ -29,7 +29,7 @@
 <script src="{{asset('js/script.js')}}"></script>
 
 <script>
-    var baseUrl = '{{url('')}}';
+    var baseUrl = '{{url('/')}}';
     var productPath = "{{config('constants.product_path')}}";
 </script>
 

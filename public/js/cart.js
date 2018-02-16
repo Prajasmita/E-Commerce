@@ -44,7 +44,7 @@ $(document).ready(function() {
                     $('#subtotal_' + id).text("$" + subtotal);
 
                     var html = "";
-                    html = "<li><a href=" + base_url + "cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart(" + data + ")</a></li>\n";
+                    html = "<li><a href=" + base_url + "/cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart(" + data + ")</a></li>\n";
                     $('.cart-count').html(html);
 
                 }
@@ -86,7 +86,7 @@ $(document).ready(function() {
                         .animate({opacity: "hide"}, "slow");
 
                     var html2 = "";
-                    html2 = "<li><a href=" + base_url + "cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart(" + changedCartCount + ")</a></li>\n";
+                    html2 = "<li><a href=" + base_url + "/cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart(" + changedCartCount + ")</a></li>\n";
                     $('.cart-count').html(html2);
 
                     if (changedCartCount == 0) {

@@ -48,7 +48,7 @@ $(function () {
                 );
             }else{
                 $('td:eq(4)', row).html(
-                    '<a href="'+base_url+'admin/admin_note/'+data.id+'"><button type="button" id="reply" class="btn btn-info btn-xs"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>'
+                    '<a href="'+base_url+'/admin/admin_note/'+data.id+'"><button type="button" id="reply" class="btn btn-info btn-xs"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>'
                 );
             }
 
