@@ -104,7 +104,7 @@ class UserOrderController extends Controller
         $authUser = Auth::user();
 
         $order_review_page = $this->orderReview($order_id);
-
+        
         return view('admin.user_orders.show', array('authUser' => $authUser, 'order_review_page' => $order_review_page));
 
 
@@ -116,7 +116,7 @@ class UserOrderController extends Controller
     public function orderReview($order_id)
     {
 
-        $payment_details = User_order::select('id', 'user_id', 'grand_total', 'shipping_charges', 'discount', 'status')->where('id', '=', $order_id)->first();
+        $payment_details = User_order::select('id', 'user_id', 'grand_total', 'payment_gateway_id','shipping_charges', 'discount', 'status')->where('id', '=', $order_id)->first();
 
         $user_info = User_address::where('user_id', "=", $payment_details->user_id)->first();
 

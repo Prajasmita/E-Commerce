@@ -7,6 +7,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading col-md-11"><strong>Order Details
                             : {{'ORD'.str_pad($order_review_page['payment_details']['id'],'4','0',STR_PAD_LEFT)}}</strong>
+                        <strong>
+                            | Pay Via : {{ $order_review_page['payment_details']['payment_gateway_id'] == 1 ? 'COD' : 'Paypal' }}
+                        </strong>
+
                     </div>
                     <div class="panel-heading col-md-1">
                         <a href="{{route('user.orders')}}" class="btn-sm btn-primary">Back</a>
