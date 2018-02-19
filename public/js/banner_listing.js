@@ -21,7 +21,7 @@ $(function () {
             {"orderable":false,"targets": [2] , "data": "banner_image",
                 "render" : function ( url, type, full) {
                 console.log(url);
-                    return '<img class="index_img" src="'+baseUrl+'/img/banner/'+url+'"   />';
+                    return '<img class="index_img" src="'+base_url+'/img/banner/'+url+'"   />';
                 }},
             {"orderable":false,"targets": [3]},
 
