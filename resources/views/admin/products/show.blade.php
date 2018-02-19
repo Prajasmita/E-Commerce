@@ -31,21 +31,17 @@
                             </tr>
                             <tr>
                                 <th> Price &nbsp;</th>
-                                <td> {{ $product_data->price }} </td>
+                                <td> ${{ $product_data->price }} </td>
                             </tr>
                             <tr>
                                 <th> Category &nbsp;</th>
                                 <td>
-                                    {{-- @if ($product_data->category_product != "")
-                                         @foreach(explode(',', $product_data->category_product) as $cat)
-                                             {{ $cat->category->name }}
-                                         @endforeach
-                                     @endif--}}
-                                    {{--@foreach($product_data->category_product as $cat)
-                                        {{ implode("|",$cat->category->name) }}
-                                    @endforeach--}}
-                                    @foreach($product_data->category_product as $cat)
+                                    @foreach($product_data->category_product as $key=>$cat)
+                                        @if($key > 0)
+                                            {{'>>'}}
+                                        @endif
                                         {{ $cat->category->name }}
+
                                     @endforeach
                                 </td>
                             </tr>
