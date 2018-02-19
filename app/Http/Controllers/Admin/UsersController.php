@@ -129,7 +129,7 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'min:8|max:12|alpha_num|required|confirmed',
             'status' => 'required',
-            'contact_no' => 'required',
+            'contact_no' => 'max:10|required|regex:/[0-9]{10}/',
             'role_id' => 'required'
         ]);
 
@@ -191,7 +191,10 @@ class UsersController extends Controller
             'email' => 'required|email',
             'status' => 'required',
             'password' => 'sometimes|confirmed',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'contact_no' => 'max:10|required|regex:/[0-9]{10}/',
+
+
         ]);
 
         if ($request->password == '') {

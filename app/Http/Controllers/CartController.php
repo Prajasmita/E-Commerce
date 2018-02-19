@@ -609,7 +609,7 @@ class CartController extends Controller
         $template_content = Email_template::where('title', '=', 'order_details')->select('content')->first();
 
 
-        $email = 'prajakta.sisale@neosofttech.com';
+        $email = Auth::user()->email;
 
         $string = array('{{first_name}}', '{{email}}', '{{contact_no}}', '{{address1}}', '{{city}}', '{{state}}', '{{payment status}}', '{{last_name}}', '{{address2}}', '{{zip_code}}', '{{country}}', '{{order_id}}', '{{created date}}', '{{product table}}');
 
