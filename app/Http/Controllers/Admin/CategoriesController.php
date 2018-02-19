@@ -76,8 +76,7 @@ class CategoriesController extends Controller
                 array_push($cat, $list->category_id);
             }
             $category = array_unique($cat);
-
-
+            
             $final = array();
             foreach ($categories as $key => $val) {
 
@@ -96,14 +95,10 @@ class CategoriesController extends Controller
                 $final[] = $res_data;
             }
 
-            //Custom::showAll($category);die;
-
             $result['draw'] = $draw;
             $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
             $result['data'] = $final;
-
-            //Custom::showAll($result['data']);die;
 
             return $result;
         }
