@@ -4,9 +4,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class=" panel panel-default">
-                <div class="col-md-11 panel-heading"><strong>Name : {{ $product_data->product_name }}</strong></div>
-                <div class="col-md-1 panel-heading">
-                    <a href="{{ url('/admin/products') }}" class="btn-sm btn-primary">Back</a>
+                <div class="col-md-10 panel-heading"><strong>Name : {{ $product_data->product_name }}</strong></div>
+                <div class="col-md-2 panel-heading">
+                    <a href="{{ route('products.edit',$product_data->id) }}" class="btn-sm btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <a href="{{ url('/admin/products') }}" class="btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <div class="panel-body">
                     <br/>

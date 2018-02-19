@@ -3,10 +3,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading col-md-11"><strong>User
+                <div class="panel-heading col-md-10"><strong>User
                         Name: {{ $user->first_name }} {{ $user->last_name }}</strong></div>
-                <div class="panel-heading col-md-1">
-                    <a href="{{ url('/admin/users') }}" class="btn-sm btn-primary">Back</a>
+                <div class="panel-heading col-md-2">
+                    <a href="{{ route('users.edit',$user->id) }}" class="btn-sm btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <a href="{{ url('/admin/users') }}" class="btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <div class="panel-body">
                     <br/>

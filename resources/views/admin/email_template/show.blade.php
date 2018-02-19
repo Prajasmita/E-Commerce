@@ -4,9 +4,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading col-md-11"><strong>Email Template : {{ $template->title }}</strong></div>
-                <div class="panel-heading col-md-1">
-                    <a href="{{route('email.template')}}" class="btn-sm btn-primary">Back</a>
+                <div class="panel-heading col-md-10"><strong>Email Template : {{ $template->title }}</strong></div>
+                <div class="panel-heading col-md-2">
+                    <a href="{{ route('email_template.edit',$template->id) }}" class="btn-sm btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <a href="{{route('email.template')}}" class="btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <div class="panel-body">
                     <br/>
