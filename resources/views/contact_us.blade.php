@@ -57,7 +57,7 @@
                             <p>Fax: 1-714-252-0026</p>
                             <p>Email: prajakta.neosoft@gmail.com</p>
                         </address>
-                        <div class="social-networks">
+                        {{--<div class="social-networks">
                             <h2 class="title text-center">Social Networking</h2>
                             <ul>
                                 <li>
@@ -73,7 +73,7 @@
                                     <a href="https://www.youtube.com/"><i class="fa fa-youtube"></i></a>
                                 </li>
                             </ul>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>
