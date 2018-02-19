@@ -58,7 +58,7 @@ class CategoryController extends Controller
             }
         }
 
-        return view('category_products', array('products' => $products, 'categories' => $categories,
+        return view('category_products', array('conf'=> $this->conf,'products' => $products, 'categories' => $categories,
             'banner_images' => $banner_images, 'categoryName' => $categoryName,
             'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
     }

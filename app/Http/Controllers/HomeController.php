@@ -110,7 +110,7 @@ class HomeController extends Controller
      */
     public function userLogin()
     {
-        return view('user_login');
+        return view('user_login',array('conf'=> $this->conf));
     }
 
     /**
@@ -196,7 +196,7 @@ class HomeController extends Controller
 
         $userAddress = User_address::with('countries', 'states')->where('user_id', '=', $user_id)->orderBy('primary', 'desc')->get();
 
-        return view('address_book', array('userAddress' => $userAddress));
+        return view('address_book', array('conf'=> $this->conf,'userAddress' => $userAddress));
 
     }
 
@@ -358,7 +358,7 @@ class HomeController extends Controller
     public function changePassword()
     {
 
-        return view('change_password');
+        return view('change_password',array('conf'=> $this->conf));
     }
 
     /**
@@ -405,7 +405,7 @@ class HomeController extends Controller
     public function forgetPassword()
     {
 
-        return view('forget_password');
+        return view('forget_password',array('conf'=> $this->conf));
 
     }
 
@@ -448,7 +448,7 @@ class HomeController extends Controller
     {
         $page_data = Cms::where('title', '=', $page_name)->first();
 
-        return view('get_page', array('page_data' => $page_data));
+        return view('get_page', array('conf'=> $this->conf,'page_data' => $page_data));
     }
 
     /**
@@ -479,7 +479,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('wishlist', array('wishlists' => $wishlists, 'cart_product' => $cart_product));
+        return view('wishlist', array('conf'=> $this->conf,'wishlists' => $wishlists, 'cart_product' => $cart_product));
     }
 
 }

@@ -48,7 +48,7 @@ class ProductController extends Controller
             }
         }
 
-        return view('product_details', array('categories' => $categories, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
+        return view('product_details', array('conf'=> $this->conf,'categories' => $categories, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
     }
 
     public function ajaxAddProductToWishlist(Request $request)

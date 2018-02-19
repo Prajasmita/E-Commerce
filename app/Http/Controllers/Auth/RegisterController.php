@@ -117,7 +117,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('user_login');
+        return view('user_login',array('conf'=> $this->conf));
     }
 
 

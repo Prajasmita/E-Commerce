@@ -72,7 +72,7 @@ class CartController extends Controller
 
         $cart = Cart::content();
 
-        return view('cart', array('cart' => $cart));
+        return view('cart', array('conf'=> $this->conf,'cart' => $cart));
     }
 
     /*
@@ -168,11 +168,11 @@ class CartController extends Controller
         $countries = Countries::get();
         if ($user) {
             $states = States::where('country_id', '=', $user->country)->get();
-            return view('checkout', array('user' => $user, 'cart' => $cart, 'user_id' => $user_id, 'codes' => $codes, 'countries' => $countries, 'states' => $states));
+            return view('checkout',array('conf'=> $this->conf,'user' => $user, 'cart' => $cart, 'user_id' => $user_id, 'codes' => $codes, 'countries' => $countries, 'states' => $states));
 
         } else {
             $states = States::get();
-            return view('checkout', array('user' => $user, 'user_id' => $user_id, 'cart' => $cart, 'codes' => $codes, 'countries' => $countries, 'states' => $states));
+            return view('checkout', array('conf'=> $this->conf,'user' => $user, 'user_id' => $user_id, 'cart' => $cart, 'codes' => $codes, 'countries' => $countries, 'states' => $states));
         }
 
     }
@@ -523,7 +523,7 @@ class CartController extends Controller
 
         $request->session()->flash('payment_message', 'Payment Done Succesfully !! Thank You For Using Our Shopping Cart !!!');
 
-        return view('order_review', array('order_review_page' => $order_review_page));
+        return view('order_review', array('conf'=> $this->conf,'order_review_page' => $order_review_page));
 
     }
 
@@ -539,7 +539,7 @@ class CartController extends Controller
 
         $my_order = User_order::with('order_details')->where('user_id', '=', $user_id)->get();
 
-        return view('my_orders', array('my_order' => $my_order));
+        return view('my_orders',array('conf'=> $this->conf,'my_order' => $my_order));
 
     }
 
@@ -553,7 +553,7 @@ class CartController extends Controller
 
         $order_review_page = $this->orderReview($id);
 
-        return view('my_order', array('order_review_page' => $order_review_page));
+        return view('my_order', array('conf'=> $this->conf,'order_review_page' => $order_review_page));
     }
 
     /**
@@ -563,7 +563,7 @@ class CartController extends Controller
     public function trackOrder()
     {
 
-        return view('track_order');
+        return view('track_order',array('conf'=> $this->conf));
     }
 
     public function trackMyOrder(Request $request)
