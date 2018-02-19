@@ -72,7 +72,7 @@
                     </table>
             </div>
             <div class="no-item-checkbox">
-                <div class="pull-right col-md-4">
+                <div class="pull-right">
                     <a class="{{(count($cart)) ? "btn btn-default check_out" : "hidden_field" }}"
                        href="{{Auth::user() ? route('checkout') : url('register')}}">Check Out</a>
                 </div>

@@ -5,7 +5,7 @@
             @if ( session()->has('traced_order') )
                 <div class="alert alert-success">{{ session()->get('traced_order') }}</div>
             @endif
-            <div class="col-sm-4 col-sm-offset-1">
+            <div class="col-sm-4">
                 <div class="login-form"><!--login form-->
                     <h2>Track Order</h2>
                     {!! Form::open(['route' => 'track.my_order',]) !!}
