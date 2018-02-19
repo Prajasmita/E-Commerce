@@ -4,7 +4,7 @@
         @if ( session()->has('message') )
             <div class="alert alert-success">{{ session()->get('message') }}</div>
         @endif
-        <div class="col-sm-4 pull-right">
+        <div class="pull-right">
             <button type="button" id="add" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>
                 Add New Address
             </button>
