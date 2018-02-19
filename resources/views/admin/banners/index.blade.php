@@ -21,6 +21,7 @@
                                 <th>#</th>
                                 <th>Banner Name</th>
                                 <th>Banner Image</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>

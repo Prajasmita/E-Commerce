@@ -21,12 +21,14 @@ $(function () {
             {"orderable":false,"targets": [2]},
             {"orderable": true , "orderSequence": ["asc" ,"desc"], "targets": [3]},
             {"orderable":false,"targets": [4]},
+            {"orderable":false,"targets": [5]},
         ],
         "columns": [
             {data: 'id'},
             {data: 'code'},
             {data:'percent_off'},
             {data:'no_of_uses'},
+            {data:'status'},
             {data:'id'}
         ],
 
@@ -35,6 +37,10 @@ $(function () {
             //console.log(row);
             $('td:eq(0)' , row).html(
                 index+1
+            );
+
+            $('td:eq(4)' , row).html(
+                (data.status == 0) ? 'Inactive':'Active'
             );
 
             var reExp = /id/;
@@ -47,7 +53,7 @@ $(function () {
             var deleteUrl = dataTableCouDeleteUrl;
             var DeleteUrl = deleteUrl.replace(reExp,data.id);
 
-            $('td:eq(4)', row).html(
+            $('td:eq(5)', row).html(
 
                 '<a href="'+ViewUrl+'" title="View coupons"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
 

@@ -48,7 +48,7 @@ class CategoriesController extends Controller
             $name = $column[$sortBy]['data'];
 
             $categories = Category::leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
-                ->select('categories.id', 'categories.name', 'cat.name as pname');
+                ->select('categories.id', 'categories.name', 'cat.name as pname','categories.status');
             if ($search_word != '') {
                 $recordsFiltered = $categories->count();
                 $recordsTotal = $categories->count();
@@ -76,6 +76,7 @@ class CategoriesController extends Controller
                 $res_data['id'] = $val['id'];
                 $res_data['name'] = $val['name'];
                 $val['pname'] == null ? $res_data['category'] = 'Parent Category' : $res_data['category'] = $val['pname'];
+                $res_data['status'] = $val['status'];
                 $final[] = $res_data;
             }
 

@@ -11,7 +11,7 @@ $(function () {
         "ordering": true,
         "info": true,
         "lengthMenu": [[2, 5, 10, 25, -1], [2, 5, 10, 25, "All"]],
-        "pageLength": 5,
+        "pageLength": 10,
         "order": [[1, "asc"]],
         "processing": true,
         "serverSide": true,
@@ -20,20 +20,25 @@ $(function () {
             {"orderable": true , "orderSequence": ["asc" ,"desc"], "targets": [1]},
             {"orderable":false,"targets": [2]},
             {"orderable":false,"targets": [3]},
+            {"orderable":false,"targets": [4]},
+
 
         ],
         "columns": [
             {data: 'id'},
             {data: 'conf_key'},
             {data: 'conf_value'},
+            {data:'status'},
             {data:'id'}
         ],
 
         "rowCallback": function( row, data, index ) {
 
-            console.log(row);
             $('td:eq(0)' , row).html(
                 index+1
+            );
+            $('td:eq(3)' , row).html(
+                (data.status == 0) ? 'Inactive':'Active'
             );
 
             var reExp = /id/;
@@ -46,7 +51,7 @@ $(function () {
             var deleteUrl = dataTableConfDeleteUrl;
             var DeleteUrl = deleteUrl.replace(reExp,data.id);
 
-            $('td:eq(3)', row).html(
+            $('td:eq(4)', row).html(
 
                 '<a href="'+ViewUrl+'" title="View configuration"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
 

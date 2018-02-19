@@ -44,7 +44,7 @@ class BannersController extends Controller
             $sortOf = $order[0]['dir'];
             $banner_name = $column[$sortBy]['data'];
 
-            $banners = Banner::select('id', 'banner_name', 'banner_image');
+            $banners = Banner::select('id', 'banner_name', 'banner_image','status');
 
             if ($search_word != '') {
                 $banners = Banner::where('banner_name', 'LIKE', "%$search_word%")
@@ -71,6 +71,7 @@ class BannersController extends Controller
                 $res_data['id'] = $val['id'];
                 $res_data['banner_name'] = $val['banner_name'];
                 $res_data['banner_image'] = $val['banner_image'];
+                $res_data['status'] = $val['status'];
                 $final[] = $res_data;
             }
 

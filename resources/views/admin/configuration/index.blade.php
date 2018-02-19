@@ -25,6 +25,7 @@
                                 <th>#</th>
                                 <th>Conf Key</th>
                                 <th>Conf Value</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>

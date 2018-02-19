@@ -68,6 +68,7 @@ class CouponsController extends Controller
                 $res_data['code'] = $val['code'];
                 $res_data['percent_off'] = $val['percent_off'];
                 $res_data['no_of_uses'] = $val['no_of_uses'];
+                $res_data['status'] = $val['status'];
                 $final[] = $res_data;
             }
             $result['draw'] = $draw;

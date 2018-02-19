@@ -11,7 +11,7 @@ $(function () {
         "ordering": true,
         "info": true,
         "lengthMenu": [[2, 5, 10, 25, -1], [2, 5, 10, 25, "All"]],
-        "pageLength": 5,
+        "pageLength": 10,
         "order": [[1, "asc"]],
         "processing": true,
         "serverSide": true,
@@ -23,7 +23,9 @@ $(function () {
                     return '<img class="index_img" src="'+base_url+productPath+url+'"   />';
                 }},
             {"orderable":false,"targets": [3]},
-            {"orderable":false,"targets": [4]}
+            {"orderable":false,"targets": [4]},
+            {"orderable":false,"targets": [5]},
+
 
 
 
@@ -33,6 +35,7 @@ $(function () {
             {data: 'product_name'},
             {data: 'image_name'},
             {data: 'price'},
+            {data:'status'},
             {data: 'id'},
         ],
 
@@ -54,6 +57,9 @@ $(function () {
                 '$'+data.price
             );
 
+            $('td:eq(4)' , row).html(
+                (data.status == 0) ? 'Inactive':'Active'
+            );
             var reExp = /id/;
             var showUrl = dataTableProductViewUrl;
             var ViewUrl = showUrl.replace(reExp, data.id);
@@ -64,7 +70,7 @@ $(function () {
             var deleteUrl = dataTableProductDeleteUrl;
             var DeleteUrl = deleteUrl.replace(reExp,data.id);
 
-            $('td:eq(4)', row).html(
+            $('td:eq(5)', row).html(
 
                 '<a href="'+ViewUrl+'" title="View product"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
 

@@ -23,6 +23,7 @@
                                 <th>Product Name</th>
                                 <th>Image</th>
                                 <th>Price</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>

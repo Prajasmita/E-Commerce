@@ -84,6 +84,7 @@ class UsersController extends Controller
                 $res_data['last_name'] = $val['last_name'];
                 $res_data['email'] = $val['email'];
                 $res_data['role_id'] = $val['role']['name'];
+                $res_data['status'] = $val['status'];
                 $final[] = $res_data;
             }
 

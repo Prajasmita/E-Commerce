@@ -81,6 +81,7 @@ class ProductsController extends Controller
                 $res_data['product_name'] = $val['product_name'];
                 $res_data['image_name'] = empty($val['image']['product_image_name']) ? Custom::imageExistence('') : Custom::imageExistence($val['image']['product_image_name']);
                 $res_data['price'] = $val['price'];
+                $res_data['status'] = $val['status'];
                 $final[] = $res_data;
             }
             $result['draw'] = $draw;

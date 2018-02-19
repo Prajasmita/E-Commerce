@@ -52,7 +52,7 @@ class ConfigurationController extends Controller
 
             $conf_key = $column[$sortBy]['data'];
 
-            $configuration = Configuration::select('id', 'conf_key', 'conf_value');
+            $configuration = Configuration::select('id', 'conf_key', 'conf_value','status');
             if ($keyword != '') {
 
                 $configuration = Configuration::where('conf_key', 'LIKE', "%$search_word%")
@@ -82,6 +82,7 @@ class ConfigurationController extends Controller
                 $res_data['id'] = $val['id'];
                 $res_data['conf_key'] = $val['conf_key'];
                 $res_data['conf_value'] = $val['conf_value'];
+                $res_data['status'] = $val['status'];
                 $final[] = $res_data;
             }
 

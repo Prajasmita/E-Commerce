@@ -23,6 +23,7 @@
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
