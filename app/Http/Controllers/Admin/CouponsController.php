@@ -37,8 +37,10 @@ class CouponsController extends Controller
             $sortBy = $order[0]['column'];
             $sortOf = $order[0]['dir'];
             $code = $column[$sortBy]['data'];
+            $no_of_uses = $column[$sortBy]['data'];
 
-            $coupons = Coupon::select('id', 'code', 'percent_off');
+
+            $coupons = Coupon::select('id', 'code', 'percent_off','no_of_uses','status');
             if ($search_word != '') {
 
                 $coupons = Coupon::where('code', 'LIKE', "%$search_word%")
@@ -48,6 +50,7 @@ class CouponsController extends Controller
                 ->skip($offset)
                 ->take($limit)
                 ->orderBy($code, $sortOf)
+                ->orderBy($no_of_uses,$sortOf)
                 ->get();
 
             if ($search_word != '') {
@@ -64,6 +67,7 @@ class CouponsController extends Controller
                 $res_data['id'] = $val['id'];
                 $res_data['code'] = $val['code'];
                 $res_data['percent_off'] = $val['percent_off'];
+                $res_data['no_of_uses'] = $val['no_of_uses'];
                 $final[] = $res_data;
             }
             $result['draw'] = $draw;

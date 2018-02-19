@@ -11,7 +11,7 @@ $(function () {
         "ordering": true,
         "info": true,
         "lengthMenu": [[2, 5, 10, 25, -1], [2, 5, 10, 25, "All"]],
-        "pageLength": 5,
+        "pageLength": 10,
         "order": [[1, "asc"]],
         "processing": true,
         "serverSide": true,
@@ -19,18 +19,20 @@ $(function () {
             {"orderable": false, "targets": [0]},
             {"orderable": true , "orderSequence": ["asc" ,"desc"], "targets": [1]},
             {"orderable":false,"targets": [2]},
-            {"orderable":false,"targets": [3]},
+            {"orderable": true , "orderSequence": ["asc" ,"desc"], "targets": [3]},
+            {"orderable":false,"targets": [4]},
         ],
         "columns": [
             {data: 'id'},
             {data: 'code'},
             {data:'percent_off'},
+            {data:'no_of_uses'},
             {data:'id'}
         ],
 
         "rowCallback": function( row, data, index ) {
 
-            console.log(row);
+            //console.log(row);
             $('td:eq(0)' , row).html(
                 index+1
             );
@@ -45,7 +47,7 @@ $(function () {
             var deleteUrl = dataTableCouDeleteUrl;
             var DeleteUrl = deleteUrl.replace(reExp,data.id);
 
-            $('td:eq(3)', row).html(
+            $('td:eq(4)', row).html(
 
                 '<a href="'+ViewUrl+'" title="View coupons"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
 

@@ -21,6 +21,7 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>Percent Off</th>
+                                <th>No.of Uses</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
