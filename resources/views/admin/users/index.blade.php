@@ -18,7 +18,7 @@
                         <table id="example1" class="table table-borderless">
                             <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>#</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>

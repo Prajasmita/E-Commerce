@@ -168,7 +168,7 @@ Route::post('/sendCampaigns', ['as' => 'send.campaigns','uses' => 'MailChimpCont
 
 Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
 
-Route::get('sendmail', 'TestController@sendMail');
+/*Route::get('sendmail', 'TestController@sendMail');*/
 
 
 

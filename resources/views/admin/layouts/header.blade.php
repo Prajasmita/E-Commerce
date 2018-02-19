@@ -34,32 +34,43 @@
 
                             <p>
                                 {{$authUser->first_name}}  {{$authUser->last_name}}<span class=""></span>
-                                <small>Member since Nov. 2012</small>
+                                <small>Member since {{$authUser->created_at->format('d M,Y')}}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-
                             <div class="pull-right">
                                 <!-- Authentication Links -->
                                 @guest
                                     @else
 
-                                        <a href="{{ route('login') }}" role="button" aria-expanded="false"
+                                       {{-- <a href="{{ route('login') }}" role="button" aria-expanded="false"
                                            aria-haspopup="true">
                                             <span class=""></span>
                                         </a>
 
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        >
+                                            {{ csrf_field() }}
+                                            <a class="btn btn-default btn-flat">
+                                                Logout
+                                            </a>
+                                        </form>
+                                        @endguest--}}
+
+                                       {{-- <a class="btn btn-default btn-flat" href="{{ route('login') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+--}}
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                               style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                         @endguest
 
-                                        <a class="btn btn-default btn-flat" href="{{ route('logout') }}"
+                                        <a class="btn btn-default btn-flat" href=""
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
