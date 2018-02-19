@@ -22,7 +22,7 @@
                         <table id="configuration" class="table table-borderless">
                             <thead>
                             <tr>
-                                <th>No.</th>
+                                <th>#</th>
                                 <th>Conf Key</th>
                                 <th>Conf Value</th>
                                 <th>Actions</th>
