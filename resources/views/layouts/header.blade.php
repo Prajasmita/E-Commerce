@@ -5,8 +5,8 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="cur nav nav-pills">
-                            <li><a><i class="fa fa-phone"></i> (+91) 989 858 4545 </a></li>
-                            <li><a><i class="fa fa-envelope"></i> prajakta.sisale@neosofttech.com</a></li>
+                            <li><a><i class="fa fa-phone"></i>{{$conf['support_contact']}}</a></li>
+                            <li><a><i class="fa fa-envelope"></i> {{$conf['support_email']}}</a></li>
                         </ul>
                     </div>
                 </div>

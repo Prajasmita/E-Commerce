@@ -25,10 +25,13 @@ Use App\Mail\SendMessage;
 Use Hash;
 Use App\Email_template;
 Use App\Configuration;
+Use Cache;
 
 
 class HomeController extends Controller
 {
+
+
     /**
      * Create a new controller instance.
      *
@@ -36,8 +39,9 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
         parent::__construct();
+        //print_r();die;
+
     }
 
     /**
@@ -95,7 +99,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('home', array('banner_images' => $banner_images, 'categories' => $categories, 'featured_products' => $featured_products, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
+        return view('home', array('conf'=> $this->conf,'banner_images' => $banner_images, 'categories' => $categories, 'featured_products' => $featured_products, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
 
     }
 
@@ -116,7 +120,7 @@ class HomeController extends Controller
     public function contactUs()
     {
 
-        return view('contact_us');
+        return view('contact_us',array('conf'=> $this->conf));
 
     }
 

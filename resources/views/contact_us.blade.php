@@ -53,9 +53,9 @@
                             <h3><strong>E-Commerce Shopping Cart</strong></h3>
                             <p>935 W. A.P.J.Kalam New Streets Andheri, 400 093 ,</p>
                             <p>Mumbai India</p>
-                            <p>Mobile: +91 985 869 5869</p>
+                            <p>Mobile: {{$conf['support_contact']}}</p>
                             <p>Fax: 1-714-252-0026</p>
-                            <p>Email: prajakta.neosoft@gmail.com</p>
+                            <p>Email: {{$conf['Admin_email']}}</p>
                         </address>
                         {{--<div class="social-networks">
                             <h2 class="title text-center">Social Networking</h2>
