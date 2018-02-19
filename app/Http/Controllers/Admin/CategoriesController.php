@@ -76,7 +76,7 @@ class CategoriesController extends Controller
                 array_push($cat, $list->category_id);
             }
             $category = array_unique($cat);
-            
+
             $final = array();
             foreach ($categories as $key => $val) {
 
