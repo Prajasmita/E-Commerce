@@ -105,7 +105,6 @@ class UserOrderController extends Controller
 
         $order_review_page = $this->orderReview($order_id);
 
-        Custom::showAll($order_review_page);die;
 
 
         return view('admin.user_orders.show', array('authUser' => $authUser, 'order_review_page' => $order_review_page));
