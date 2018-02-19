@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category_product;
 use App\Helper\Custom;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -68,11 +69,26 @@ class CategoriesController extends Controller
                 ->orderBy($name, $sortOf)
                 ->get();
 
+            $cat_having_products = Category_product::get();
+            $cat = array();
+
+            foreach ($cat_having_products as $key => $list) {
+                array_push($cat, $list->category_id);
+            }
+            $category = array_unique($cat);
+
 
             $final = array();
             foreach ($categories as $key => $val) {
 
                 $res_data = array();
+
+                if(in_array($val->id,$category)){
+                    $res_data['flag'] = 'true';
+                }
+                else{
+                    $res_data['flag'] = 'false';
+                }
                 $res_data['id'] = $val['id'];
                 $res_data['name'] = $val['name'];
                 $val['pname'] == null ? $res_data['category'] = 'Parent Category' : $res_data['category'] = $val['pname'];
@@ -80,17 +96,22 @@ class CategoriesController extends Controller
                 $final[] = $res_data;
             }
 
+            //Custom::showAll($category);die;
+
             $result['draw'] = $draw;
             $result['recordsFiltered'] = $recordsFiltered;
             $result['recordsTotal'] = $recordsTotal;
             $result['data'] = $final;
 
+            //Custom::showAll($result['data']);die;
+
             return $result;
         }
 
+
         $authUser = Auth::user();
 
-        return view('admin.categories.index', array('authUser' => $authUser, 'categories' => $categories, 'js' => 'categories_listing'));
+        return view('admin.categories.index', array('authUser' => $authUser, 'categories' => $categories,'js' => 'categories_listing'));
 
     }
 

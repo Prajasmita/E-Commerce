@@ -33,6 +33,7 @@ $(function () {
 
         "rowCallback": function( row, data, index ) {
 
+            //console.log(row);
             $('td:eq(0)' , row).html(
                 index+1
             );
@@ -50,13 +51,26 @@ $(function () {
             var deleteUrl = dataTableCatDeleteUrl;
             var DeleteUrl = deleteUrl.replace(reExp,data.id);
 
-            $('td:eq(4)', row).html(
+            if(data.flag == "false"){
+                $('td:eq(4)', row).html(
 
-                '<a href="'+ViewUrl+'" title="View category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
+                    '<a href="'+ViewUrl+'" title="View category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
 
-                '<a href="'+EditUrl+'" title="Edit category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>&nbsp;' +
+                    '<a href="'+EditUrl+'" title="Edit category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>&nbsp;' +
 
-                '<a href="'+DeleteUrl+'"   title="Delete category"><button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm(&quot;Are you sure you want to delete this category ?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></a>');
+                    '<a href="'+DeleteUrl+'"   title="Delete category"><button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm(&quot;Are you sure you want to delete this category ?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></a>'
+                );
+            }else{
+                $('td:eq(4)', row).html(
+
+                    '<a href="'+ViewUrl+'" title="View category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
+
+                    '<a href="'+EditUrl+'" title="Edit category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>&nbsp;' +
+
+                    '<button class="btn btn-danger btn-xs" disabled="disabled"><i class="fa fa-trash-o" ></i> Delete</button>'
+                );
+
+            }
         }
     });
 })
