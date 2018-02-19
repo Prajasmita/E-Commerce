@@ -43,27 +43,6 @@
                                 <!-- Authentication Links -->
                                 @guest
                                     @else
-
-                                       {{-- <a href="{{ route('login') }}" role="button" aria-expanded="false"
-                                           aria-haspopup="true">
-                                            <span class=""></span>
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        >
-                                            {{ csrf_field() }}
-                                            <a class="btn btn-default btn-flat">
-                                                Logout
-                                            </a>
-                                        </form>
-                                        @endguest--}}
-
-                                       {{-- <a class="btn btn-default btn-flat" href="{{ route('login') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
---}}
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                               style="display: none;">
                                             {{ csrf_field() }}
