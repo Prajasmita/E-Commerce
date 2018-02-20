@@ -84,6 +84,7 @@ $(document).ready(function(){
 
                     $('.order-amount').html(html);
 
+                    alert('Coupon code applied successfully.')
                     removeCouponCode();
 
                 }

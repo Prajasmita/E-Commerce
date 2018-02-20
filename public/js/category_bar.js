@@ -187,7 +187,7 @@ $(document).ready(function() {
                         _this.html(html);
 
                         var html1 = "";
-                        html1 = "<li><a href="+base_url+"/cart\><i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")</a></li>\n";
+                        html1 = "<i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")\n";
 
                         $('.cart-count').html(html1);
                     }
