@@ -78,7 +78,7 @@ class UserLoginController extends Controller
         }
         else
         {
-            return redirect('/register')->with('login_error', 'Sorry');
+            return redirect('/register')->with('login_error', 'Sorry,You have not permission to login.');
         }
 
         $this->incrementLoginAttempts($request);
