@@ -23,7 +23,7 @@
     <script src="{{asset('js/respond.min.js')}}"></script>
     <![endif]-->
     <script>
-        var base_url = "{{config('constants.base_url')}}";
+        var base_url = "{{url('/')}}";
 
         var base_url_cat = "{{route('category_data',['id'])}}";
 
