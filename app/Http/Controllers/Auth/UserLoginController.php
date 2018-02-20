@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
-//use DB;
+Use App\User;
+use DB;
+use Illuminate\Support\Facades\Log;
 //
 //use Illuminate\Validation\ValidationException;
 //use Validator;
@@ -42,15 +44,20 @@ class UserLoginController extends Controller
      */
     public function __construct()
     {
+        DB::enableQueryLog();
         $this->middleware('guest')->except('logout');
     }
 
     public function showLoginForm()
     {
-        return view('user_login');
+        return view('user_login',array('conf'=> $this->conf));
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
+        Log::useDailyFiles(storage_path().'/logs/rashmi.log');
+
+        $user = User::where('status','1')->where('email',$request->email)->first();
 
 
         $request->validate([
@@ -58,25 +65,27 @@ class UserLoginController extends Controller
             'password' => 'required'
         ]);
 
+
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
         }
-
-        if ($this->attemptLogin($request)) {
-
-            return $this->sendLoginResponse($request);
-
+        if ($user) {
+            if ($this->attemptLogin($request)) {
+                return $this->sendLoginResponse($request);
+            }
         }
-
+        else
+        {
+            return redirect('/register')->with('login_error', 'Sorry');
+        }
 
         $this->incrementLoginAttempts($request);
 
-        return $this->sendFailedLoginResponse($request);
+        $this->sendFailedLoginResponse($request);
 
     }
-
 
     public function logout(Request $request)
     {

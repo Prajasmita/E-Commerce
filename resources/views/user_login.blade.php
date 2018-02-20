@@ -5,6 +5,9 @@
             @if ( session()->has('flash_message') )
                 <div class="alert alert-success">{{ session()->get('flash_message') }}</div>
             @endif
+                @if ( session()->has('login_error') )
+                    <div class="alert alert-danger">{{ session()->get('login_error') }}</div>
+                @endif
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-1">
                     <div class="login-form"><!--login form-->
