@@ -42,6 +42,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function (data) {
 
+
                 data1 = data[0];
                 data2 = data[1];
 
@@ -51,6 +52,8 @@ $(document).ready(function(){
                 html+="<button class=\"btn btn-sm btn-danger\" type=\"button\" id=\"remove_code\"><header class=\"glyphicon glyphicon-remove \"></header></button>\n";
 
                 $('#coupon_button').html(html);
+
+
 
                 if (data !== "false") {
 
@@ -78,13 +81,14 @@ $(document).ready(function(){
                         "                                </table>\n" +
                         "                                        <input type=\"text\"  name=\"shipping_charge\" class=\"hidden_field\" value="+shipping_cost+">\n"+
                         "                                        <input type=\"text\"  name=\"grand_total\" class=\"hidden_field\" value="+finalTotal+">\n"+
-                        "                                        <input type=\"text\"  name=\"discount\" class=\"hidden_field\" value="+data1+">\n"+
+                        "                                        <input type=\"text\" id=\"disc\" name=\"discount\" class=\"hidden_field\" value="+data1+">\n"+
                         "                                        <input type=\"text\"  name=\"coupon\" class=\"hidden_field\" value="+data2+">\n";
 
 
                     $('.order-amount').html(html);
+                    alert("Coupon code applied successfully.");
 
-                    alert('Coupon code applied successfully.')
+
                     removeCouponCode();
 
                 }
@@ -110,8 +114,21 @@ $(document).ready(function(){
 
                 $('#coupon_button').html(html);
 
+                var html1 = "";
+                html1 += "<td id=\"discount\">$0</td>";
+
+                $('#discount').html(html1);
+
+                var html2 = "";
+                html2 += "<input type=\"text\" id=\"disc\" name=\"discount\" class=\"hidden_field\" value="+0+">\n";
+
+                $('#disc').html(html2);
+
             }
+            alert("Removing Coupon code.");
+
             getCouponCodeAndTotal();
+
         });
     }
 

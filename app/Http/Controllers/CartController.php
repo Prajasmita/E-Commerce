@@ -314,7 +314,6 @@ class CartController extends Controller
 
             if ($request->payment_gateway == 1) {
 
-
                 User_order::where('id', '=', $order_id)->update(array('status' => 'O'));
 
                 $order_review_page = $this->orderReview($order_id);
@@ -324,7 +323,7 @@ class CartController extends Controller
                 $request->session()->flash('payment_message', 'Payment Mode will be cash on delivery. Thank you For Using Our Shopping Cart !!!');
 
 
-                return view('order_review', array('order_review_page' => $order_review_page));
+                return view('order_review', array('conf'=> $this->conf ,'order_review_page' => $order_review_page));
 
             } else {
 
