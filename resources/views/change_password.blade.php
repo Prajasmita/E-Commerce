@@ -5,9 +5,14 @@
             @if ( session()->has('success_message') )
                 <div class="alert alert-success">{{ session()->get('success_message') }}</div>
             @endif
-            <div class="col-sm-4 col-sm-offset-1">
+                <div class="breadcrumbs">
+                    <ol class="breadcrumb">
+                        <li><a href="{{url('/')}}">Home</a></li>
+                        <li class="active">Change Password</li>
+                    </ol>
+                </div><!--/breadcrums-->
+            <div class="col-sm-4">
                 <div class="login-form"><!--login form-->
-                    <h2>Change Password</h2>
                     @if ( session()->has('message') )
                         <div class="alert alert-danger">{{ session()->get('message') }}</div>
                     @endif

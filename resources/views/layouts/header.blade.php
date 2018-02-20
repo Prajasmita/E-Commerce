@@ -46,11 +46,16 @@
                                     </a>
                                     <ul class="sub-menu dropdown-menu ">
                                         <li>
+                                            <a class="{{ ((url()->current()) == route('my.account')) ? 'active' : '' }}"
+                                               href="{{route('my.account')}}">My Account</a></li>
+                                        <li>
+                                        <li>
                                             <a class="{{ ((url()->current()) == route('address.book')) ? 'active' : '' }}"
                                                href="{{route('address.book')}}">Address Book</a></li>
                                         <li>
                                             <a class="{{ ((url()->current()) == route('change.password')) ? 'active' : '' }}"
                                                href="{{route('change.password')}}">Change Password</a></li>
+                                        <br/>
                                         <li><a class="{{ ((url()->current()) == route('my.orders')) ? 'active' : '' }}"
                                                href="{{route('my.orders')}}">My Orders</a></li>
                                         <br/>

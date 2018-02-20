@@ -1,13 +1,18 @@
 @extends('home_template')
 @section('content')
     <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li class="active">Track Order</li>
+            </ol>
+        </div><!--/breadcrums-->
         <div class="row">
             @if ( session()->has('traced_order') )
                 <div class="alert alert-success">{{ session()->get('traced_order') }}</div>
             @endif
             <div class="col-sm-4">
                 <div class="login-form"><!--login form-->
-                    <h2>Track Order</h2>
                     {!! Form::open(['route' => 'track.my_order',]) !!}
                     {{ csrf_field() }}
                     <div class="form-group has-feedback">

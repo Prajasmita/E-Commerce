@@ -1,9 +1,12 @@
 @extends('home_template')
 @section('content')
     <div class="container">
-        @if ( session()->has('message') )
-            <div class="alert alert-success">{{ session()->get('message') }}</div>
-        @endif
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li class="active">Address Book</li>
+            </ol>
+        </div><!--/breadcrums-->
         <div class="pull-right">
             <button type="button" id="add" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>
                 Add New Address
@@ -11,6 +14,9 @@
         </div>
         <br/>
         <br/>
+        @if ( session()->has('message') )
+            <div class="alert alert-success">{{ session()->get('message') }}</div>
+        @endif
         <div class="row">
             <div class="col-sm-12">
                 @foreach($userAddress as $user_address)
