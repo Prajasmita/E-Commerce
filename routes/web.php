@@ -152,6 +152,8 @@ Route::group(['middleware'=>['auth']],function() {
     Route::post('/subscription',['as'=> 'subscriber.add','uses'=>'MailChimpController@addSubscriber']);
 
     Route::get('/my_account',['as'=> 'my.account','uses'=>'HomeController@myAccount']);
+    Route::post('/my_account',['as'=> 'my.details','uses'=>'HomeController@updateAccount']);
+
 
 
 

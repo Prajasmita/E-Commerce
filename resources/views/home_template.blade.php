@@ -126,7 +126,25 @@
 
 </script>
 <script src="{{asset('js/address_book.js')}}"></script>
+<script>
 
+    function readURL(input) {
 
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#avatar').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#user_image").change(function() {
+        readURL(this);
+    });
+
+</script>
 </body>
 </html>

@@ -26,6 +26,7 @@ Use Hash;
 Use App\Email_template;
 Use App\Configuration;
 Use Cache;
+use Carbon\Carbon;
 
 
 class HomeController extends Controller
@@ -488,8 +489,43 @@ class HomeController extends Controller
     */
     public function myAccount()
     {
+        $user_id = Auth::user()->id;
 
-        return view('my_account',array('conf'=> $this->conf));
+        $user = User::where('id','=',$user_id)->first();
+
+        return view('my_account', array('conf'=> $this->conf,'user'=>$user));
 
     }
+
+    /*
+    * Function for update account
+    *
+    */
+    public function updateAccount(Request $request)
+    {
+
+        //Custom::showAll($request->image);die;
+        $data = array();
+
+        if($request->image){
+            $current_time = time();
+
+            $image = $request->file('image');
+            $img_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $data['avatar'] = $img_name . '_' . $current_time . '.' . $image->getClientOriginalExtension();
+
+            $destinationPath = 'img/user';
+
+            $image->move($destinationPath, $data['avatar']);
+        }
+        $data['first_name'] = $request->first_name;
+        $request->middle_name ? $data['middle_name'] = $request->middle_name : '';
+        $data['last_name'] = $request->last_name;
+        $data['contact_no'] = $request->contact_no;
+
+        User::where('id',$request->user_id)->update($data);
+
+        return redirect('my_account')->with('update_myaccount','Your information updated successfully !!!');
+    }
+
 }
