@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Illuminate\Support\Facades\Auth;
 use App\Helper\Custom;
+Use App\User_address;
 
 /**
  * Class UsersController for CRUD operation of users.
@@ -224,4 +225,21 @@ class UsersController extends Controller
 
         return redirect('admin/users')->with('flash_message', 'User deleted!');
     }
+
+    /**
+     * showing address of users
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function showAddress($id)
+    {
+        $authUser = Auth::user();
+
+        $userAddress = User_address::with('countries', 'states')->where('user_id', '=', $id)->orderBy('primary', 'desc')->get();
+
+        return view('admin.users.show_address', compact('userAddress', 'authUser'));
+    }
+
 }

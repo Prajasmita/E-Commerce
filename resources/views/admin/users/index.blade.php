@@ -48,5 +48,6 @@
 
     var dataTableDeleteUrl = "{{route('users.destroy',['id'])}}";
 
+    var dataTableViewAddressUrl = "{{route('users.address',['id'])}}"
 
 </script>

@@ -52,14 +52,20 @@ $(function () {
             var deleteUrl = dataTableDeleteUrl;
             var DeleteUrl = deleteUrl.replace(reExp,data.id);
 
+            var viewAddress = dataTableViewAddressUrl;
+            var ViewAddress = viewAddress.replace(reExp,data.id);
+
             $('td:eq(6)', row).html(
 
                 '<a href="'+ViewUrl+'" title="View User"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>&nbsp;' +
 
                  '<a href="'+EditUrl+'" title="Edit User"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>&nbsp;' +
 
-                '<a href="'+DeleteUrl+'"   title="Delete User"><button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm(&quot;Are you sure you want to delete this user ?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></a>');
-       }
+                '<a href="'+DeleteUrl+'"   title="Delete User"><button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm(&quot;Are you sure you want to delete this user ?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></a>'+
+
+                '<a href="'+ViewAddress+'" title="View User"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View Address</button></a>&nbsp;');
+
+        }
     });
 })
 
