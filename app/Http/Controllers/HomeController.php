@@ -482,4 +482,14 @@ class HomeController extends Controller
         return view('wishlist', array('conf'=> $this->conf,'wishlists' => $wishlists, 'cart_product' => $cart_product));
     }
 
+    /*
+    * Function for myaccount view
+    *
+    */
+    public function myAccount()
+    {
+
+        return view('my_account',array('conf'=> $this->conf));
+
+    }
 }
