@@ -28,6 +28,9 @@ Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],f
     Route::patch('users/{user}',['as'=> 'users.update','uses'=>'UsersController@update']);
     Route::post('users',['as'=>'users.store','uses'=>'UsersController@store']);
     Route::get('users/{user}/destroy',['as'=> 'users.destroy','uses'=>'UsersController@destroy']);
+    Route::get('users/{address}/address',['as'=> 'users.address','uses'=>'UsersController@showAddress']);
+
+
 
     Route::get('configuration/create',['as'=> 'configuration.create','uses'=>'ConfigurationController@create']);
     Route::get('configuration',['as'=>'configuration.index','uses'=>'ConfigurationController@index']);
