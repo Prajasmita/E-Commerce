@@ -187,10 +187,11 @@ class BannersController extends Controller
 
         ]);
         if ($request->banner_image) {
-            $current_time = Carbon::now()->toDateTimeString();
+            $current_time = time();
 
             $image = $request->file('banner_image');
-            $img_name = $image->getClientOriginalName();
+            $img_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
             $input['imagename'] = $img_name . '_' . $current_time . '.' . $image->getClientOriginalExtension();
 
             $destinationPath = 'img/banner';
