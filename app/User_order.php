@@ -25,7 +25,7 @@ class User_order extends Model
      *
      * @var array
      */
-    protected $fillable = ['id','user_id','coupon_id','billing_address','grand_total','shipping_charges','payment_gateway_id','discount'];
+    protected $fillable = ['id','user_id','coupon_id','billing_address','grand_total','shipping_charges','payment_gateway_id','discount','order_no'];
 
     /**
      * Function for users and user_address relationship.

@@ -11,7 +11,7 @@ $(function () {
         "ordering": true,
         "info": true,
         "lengthMenu": [[2, 5, 10, 25, -1], [2, 5, 10, 25, "All"]],
-        "pageLength": 5,
+        "pageLength": 10,
         "order": [[1, "asc"]],
         "processing": true,
         "serverSide": true,

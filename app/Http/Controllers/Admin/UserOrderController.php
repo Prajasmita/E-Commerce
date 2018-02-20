@@ -30,7 +30,6 @@ class UserOrderController extends Controller
      */
     public function index(Request $request)
     {
-
         $result = array();
         if ($request->ajax()) {
 
@@ -43,21 +42,25 @@ class UserOrderController extends Controller
 
             $offset = $request->input('start');
             $search = $request->input('search');
-            $search_word = ltrim($search['value'], '0');
+            $search_word = trim($search['value']);
 
             $draw = $request->input('draw');
 
-            $user_orders = User_order::select('id', 'grand_total', 'user_id', 'status', 'payment_gateway_id', 'created_at');
+            $user_orders = User_order::select('id', 'grand_total', 'user_id', 'status', 'payment_gateway_id','order_no', 'created_at')->orderBy('created_at','desc');
+
+            if ($search_word != '') {
+
+                $user_orders = User_order::where('order_no', 'LIKE', "%$search_word%");
+
+
+            }
 
             $user_orders = $user_orders
                 ->skip($offset)
                 ->take($limit)
                 ->get();
 
-            if ($search_word != '') {
 
-                $user_orders = User_order::Where('id', 'LIKE', "%$search_word%");
-            }
 
             if ($search_word != '') {
                 $recordsFiltered = $user_orders->count();
@@ -67,14 +70,14 @@ class UserOrderController extends Controller
                 $recordsFiltered = User_order::count();
                 $recordsTotal = User_order::count();
             }
-
+            //Custom::runQuery();
             $final = array();
             foreach ($user_orders as $key => $val) {
                 $res_data = array();
                 $res_data['user_id'] = $val['user_id'];
                 $res_data['id'] = $val['id'];
                 $res_data['date'] = $val['created_at']->format('d M,Y');
-                $res_data['order_id'] = 'ORD' . str_pad($val['id'], '4', '0', STR_PAD_LEFT);
+                $res_data['order_no'] = $val['order_no'];
                 $res_data['total'] = $val['grand_total'];
                 $res_data['status'] = $val['status'] == 'O' ? 'Processing' : 'Pending';
                 $res_data['payment'] = $val['payment_gateway_id'] == 1 ? 'COD' : 'Paypal';
@@ -105,8 +108,6 @@ class UserOrderController extends Controller
 
         $order_review_page = $this->orderReview($order_id);
 
-
-
         return view('admin.user_orders.show', array('authUser' => $authUser, 'order_review_page' => $order_review_page));
 
 
@@ -118,7 +119,7 @@ class UserOrderController extends Controller
     public function orderReview($order_id)
     {
 
-        $payment_details = User_order::select('id', 'user_id', 'grand_total', 'shipping_charges', 'discount', 'status')->where('id', '=', $order_id)->first();
+        $payment_details = User_order::select('id', 'user_id', 'grand_total', 'shipping_charges', 'discount', 'status','payment_gateway_id')->where('id', '=', $order_id)->first();
 
         $user_info = User_address::where('user_id', "=", $payment_details->user_id)->first();
 

@@ -307,7 +307,8 @@ class CartController extends Controller
             $data1 = User_order::create($user_order);
 
             $order_id = $data1->id;
-
+            $data1->order_no = ('ORD' . str_pad($order_id, 4, '0', STR_PAD_LEFT));
+            $data1->save();
             $this->storeOrderDetail($order_id);
 
             Cart::destroy();
