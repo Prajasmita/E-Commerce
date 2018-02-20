@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="col-md-3">
                     <div class="fa-border ">
-                        <img src="{{asset('img/user/'.$user->avatar)}}" id="avatar" name="avatar">
+                        <img src="{{asset('img/user/'.$user->avatar)}}" id="avatar" name="avatar" class="show_img">
                     </div>
                     {!! Form::file('image', array('id'=> 'user_image', 'class' => 'image')) !!}
                 </div>
