@@ -64,6 +64,11 @@
                                                href="{{route('track.order')}}">Track Order</a></li>
                                     </ul>
                                 </li>
+                                @else
+                                <li>
+                                    <a class="{{ ((url()->current()) == route('track.order')) ? 'active' : '' }}"
+                                       href="{{route('track.order')}}"><i
+                                                class="glyphicon glyphicon-map-marker"></i>Track Order</a></li>
                             @endif
                             <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}"
                                    href="{{Auth::user() ? route('my.wishlist') : route('register')}}"><i
