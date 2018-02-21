@@ -576,18 +576,48 @@ class CartController extends Controller
             $email = $request->email;
             $order_id = $request->order_id;
 
-
             $orderId = ltrim($order_id, "ORD0");
 
-            $order_review_page = $this->orderReview($orderId);
+            if (User_order::where('id',$orderId)->where('user_id',Auth::user()->id)->exists()) {
+
+                $order_review_page = $this->orderReview($orderId);
+
+                $user_order = User_order::where('id', '=', $order_review_page['payment_details']['id'])->first();
+
+                $view = View::make('admin.email_template.order_details_table', ['order_review_page' => $order_review_page]);
+                $html = $view->render();
+
+                $template_content = Email_template::where('title', '=', 'track_order')->select('content')->first();
+
+                $string = array('{{first_name}}', '{{email}}', '{{contact_no}}', '{{address1}}', '{{city}}', '{{state}}', '{{payment status}}', '{{last_name}}', '{{address2}}', '{{zip_code}}', '{{country}}', '{{order_id}}', '{{created date}}', '{{product table}}');
+
+                $replace = array($order_review_page['user_info']['first_name'], Auth::user()->email, $order_review_page['user_info']['contact_no'], $order_review_page['user_info']['address1'], $order_review_page['user_info']['city'], $order_review_page['user_info']['state'], ($order_review_page['payment_details']['status'] == 'O' ? 'Processing' : 'Pending'), $order_review_page['user_info']['last_name'], $order_review_page['user_info']['address2'], $order_review_page['user_info']['zip_code'], $order_review_page['user_info']['country'], ('ORD' . str_pad($order_review_page['payment_details']['id'], 4, '0', STR_PAD_LEFT)), ($user_order->created_at->format('j F, Y')), $html);
+
+                $new_template_content = str_replace($string, $replace, $template_content->content);
+
+                Mail::send([], [], function ($message) use ($new_template_content, $email) {
+                    $message->to($email)
+                        ->subject('Traced Order Details')
+                        ->setBody($new_template_content, 'text/html');
+                });
+
+                return redirect('track_order')->with('traced_order', 'Order Traced Succesfully !!!');
+
+            }else{
+
+                return redirect('track_order')->with('traced_order_failed', 'Sorry, You have no order with this order id.');
+            }
 
 
-            Mail::send('order_review', ['order_review_page' => $order_review_page], function ($message) use ($email) {
+
+            //
+
+
+           /* Mail::send('order_review', ['order_review_page' => $order_review_page,'conf'=> $this->conf], function ($message) use ($email) {
                 $message->to($email)
                     ->subject('Order Review');
-            });
+            });*/
 
-            return redirect('track_order')->with('traced_order', 'Order Traced Succesfully !!!');
 
 
         }

@@ -11,6 +11,10 @@
             @if ( session()->has('traced_order') )
                 <div class="alert alert-success">{{ session()->get('traced_order') }}</div>
             @endif
+                @if ( session()->has('traced_order_failed') )
+                    <div class="alert alert-danger">{{ session()->get('traced_order_failed') }}</div>
+                @endif
+
             <div class="col-sm-4">
                 <div class="login-form"><!--login form-->
                     {!! Form::open(['route' => 'track.my_order',]) !!}
