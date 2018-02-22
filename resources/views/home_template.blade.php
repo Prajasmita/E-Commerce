@@ -93,7 +93,7 @@
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/category_bar.js')}}"></script>
 <script src="{{asset('js/zoom-slideshow.js')}}"></script>
-
+<script src="{{asset('js/notify.min.js')}}"></script>
 <!-- XZOOM JQUERY PLUGIN  -->
 <script src="{{asset('js/xzoom.js')}}"></script>
 <script src="{{asset('js/image_gallery.js')}}"></script>

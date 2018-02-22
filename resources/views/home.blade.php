@@ -120,7 +120,7 @@
                                             @else
                                                 <a href="javascript:void(0)" data-id="{{$featured_product['id']}}"
                                                    data-count="{{count($cart_product)}}"
-                                                   class="cart-data btn btn-default add-to-cart"><i
+                                                   class="cart-data btn btn-default add-to-cart" name="notify" onclick="$.notify('Product Added To Your Cart.','success');"  ><i
                                                             class="fa fa-shopping-cart"></i>Add to cart</a>
                                             @endif
                                         </div>
@@ -134,7 +134,7 @@
                                         @else
                                             <li class="{{"product_id_".$featured_product['id']}}"><a
                                                         class="wishlist link_text_color" href="javascript:void(0)"
-                                                        data-id="{{$featured_product['id']}}"><i
+                                                        data-id="{{$featured_product['id']}}" name="notify" onclick="$.notify('Product Added To Your Wish List.','success');" ><i
                                                             class="fa fa-plus-square "></i>Add to wishlist</a></li>
                                         @endif
                                     </ul>
@@ -176,21 +176,20 @@
                                                 @else
                                                     <a href="javascript:void(0)" data-id="{{$cat['products']['id']}}"
                                                        data-count="{{Cart::count()}}"
-                                                       class="cart-data btn btn-default add-to-cart {{"product_id_cart".$cat['products']['id']}}"><i
+                                                       class="cart-data btn btn-default add-to-cart {{"product_id_cart".$cat['products']['id']}}" name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
                                                                 class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 @endif
                                                 <div class="choose nav nav-pills nav-justified {{ Auth::user() ?'':'hidden_field' }}">
 
                                                     @if(in_array($cat['products']['id'],$my_wishlist))
-                                                        <li class="{{"product_id_".$cat['products']['id']}}"><a
-                                                                    class="link_text_color" href="javascript:void(0)"
+                                                        <li><a class="link_text_color" disabled="disabled" href="javascript:void(0)"
                                                                     data-id="{{$cat['products']['id']}}"><i
                                                                         class="glyphicon glyphicon-ok "></i>Added to Wishlist</a></li>
                                                     @else
                                                         <li class="{{"product_id_".$cat['products']['id']}}"><a
                                                                     class="wishlist link_text_color "
                                                                     href="javascript:void(0)"
-                                                                    data-id="{{$cat['products']['id']}}"><i
+                                                                    data-id="{{$cat['products']['id']}}" name="notify" onclick="$.notify('Product Added To Your Wish List.','success');"><i
                                                                         class="fa fa-plus-square"></i> Add to
                                                                 Wishlist</a></li>
                                                     @endif

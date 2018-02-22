@@ -50,10 +50,10 @@ $(document).ready(function() {
                 }
                 else {
                     if (updatedCartQty < 1) {
-                        alert("You cannot decrease quantity below 1 ");
+                        $.notify('You Cannot Decrease Quantity Below 1.','warn');
                     }
                     else {
-                        alert("Sorry, We do not have more quantity");
+                        $.notify('Sorry, We do not have more quantity','warn');
                     }
                 }
             },
@@ -127,7 +127,7 @@ $(document).ready(function() {
 
 
         }else{
-            alert('Sorry,you cannot add more quantity.')
+            $.notify('Sorry, We do not have more quantity','warn');
         }
 
     });
@@ -146,7 +146,7 @@ $(document).ready(function() {
         {
             currentVal= currentVal-1;
         }else{
-            alert('You cannot decrease quantity less than 1.')
+            $.notify('You Cannot Decrease Quantity Below 1.','warn');
         }
         $('.qty').val(currentVal);
         $('.qty').attr("data-value",currentVal);

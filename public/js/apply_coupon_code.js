@@ -8,7 +8,7 @@ $(document).ready(function(){
             var couponCode = ($('#coupon_input').val());
 
             if(couponCode == ""){
-                alert('Please Enter Coupon Codee.');
+                $.notify('Please Enter Coupon Code.','info');
             }
             else{
                 var total = ($('#total').attr("data-total"));
@@ -86,15 +86,15 @@ $(document).ready(function(){
 
 
                     $('.order-amount').html(html);
-                    alert("Coupon code applied successfully.");
 
+                    $.notify('Coupon code applied successfully.','success');
 
                     removeCouponCode();
 
                 }
                 else{
 
-                    alert("This Coupon Code is Invalid.");
+                    $.notify('Please Enter Valid Coupon code.','error');
                     removeCouponCode();
                 }
             }
@@ -125,7 +125,7 @@ $(document).ready(function(){
                 $('#disc').html(html2);
 
             }
-            alert("Removing Coupon code.");
+            $.notify('Removed Coupon Code','warn');
 
             getCouponCodeAndTotal();
 

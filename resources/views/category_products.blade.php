@@ -107,12 +107,12 @@
                                             <h2>${{$product['products']['price']}}</h2>
                                             <p>{{$product['products']['product_name']}}</p>
                                             @if(in_array($product['products']['id'],$cart_product))
-                                                <a href="javascript:void(0)" class=" btn btn-default product-added "><i
+                                                <a href="javascript:void(0)" class="btn btn-default link_text_color added-to-cart "><i
                                                             class="glyphicon glyphicon-ok"></i>Added to cart</a>
                                             @else
                                                 <a href="javascript:void(0)" data-id="{{$product['products']['id']}}"
-                                                   class="cart-data btn btn-default add-to-cart {{"product_id_cart".$product['products']['id']}}"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                   class="cart-data btn btn-default add-to-cart {{"product_id_cart".$product['products']['id']}}" name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
+                                                            class="fa fa-shopping-cart" ></i>Add to cart</a>
                                             @endif                                  </div>
                                         <div class="product-overlay">
                                             <div class="overlay-content">
@@ -122,13 +122,13 @@
                                                 </p>
                                                 @if(in_array($product['products']['id'],$cart_product))
                                                     <a href="javascript:void(0)"
-                                                       class=" btn btn-default product-added  "><i
+                                                       class="btn btn-default link_text_color added-to-cart "><i
                                                                 class="glyphicon glyphicon-ok"></i>Added to cart</a>
                                                 @else
                                                     <a href="javascript:void(0)"
                                                        data-id="{{$product['products']['id']}}"
-                                                       class="cart-data btn btn-default add-to-cart {{"product_id_cart".$product['products']['id']}}"><i
-                                                                class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                       class="cart-data btn btn-default add-to-cart {{"product_id_cart".$product['products']['id']}}" name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
+                                                                class="fa fa-shopping-cart" ></i>Add to cart</a>
                                                 @endif                                    </div>
                                         </div>
                                     </div>
@@ -142,8 +142,8 @@
                                                             class="glyphicon glyphicon-ok "></i>Added to Wishlist</a></li>                                        @else
                                             <li class="{{"product_id_".$product['products']['id']}}"><a
                                                         class="wishlist link_text_color" href="javascript:void(0)"
-                                                        data-id="{{$product['products']['id']}}"><i
-                                                            class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                                        data-id="{{$product['products']['id']}}" name="notify" onclick="$.notify('Product Added To Your Wish List.','success');"><i
+                                                            class="fa fa-plus-square" ></i>Add to wishlist</a></li>
                                         @endif
                                     </div>
                                 </div>

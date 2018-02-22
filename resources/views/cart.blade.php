@@ -56,7 +56,7 @@
                                 <td class="cart_delete">
                                     <a class="cart_quantity_delete" href="Javascript:void(0)"
                                        id="delete_{{$cartItem->id}}" data-id="{{$cartItem->id}}"
-                                       data-count="{{count($cart)}}" data-rowid="{{$cartItem->rowId}}"><i
+                                       data-count="{{count($cart)}}" data-rowid="{{$cartItem->rowId}}" name="notify" onclick="$.notify('Product Deleted From Your Cart.','error');"><i
                                                 class="fa fa-times"></i></a>
                                 </td>
                             </tr>

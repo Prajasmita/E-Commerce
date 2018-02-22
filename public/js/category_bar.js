@@ -64,14 +64,14 @@ $(document).ready(function() {
 
                             html += "<a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color add-to-cart \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
                         } else {
-                            html += "<a href=\"javascript:void(0)\" class=\"product_id_cart" + data.products.id + " cart-data btn btn-default add-to-cart\"  data-id=" + data.products.id + " ><i class=\"fa fa-shopping-cart\"></i>Add to cart</a>\n";
+                            html += "<a href=\"javascript:void(0)\" class=\"product_id_cart" + data.products.id + " cart-data btn btn-default add-to-cart\"  data-id=" + data.products.id + " name = \"notify\" onclick=\"$.notify('Product Added To Your Cart.','success');\"><i class=\"fa fa-shopping-cart\"></i>Add to cart</a>\n";
                         }
                         html += "                                       <div  class=\" choose nav nav-pills nav-justified " + hidden + "\">\n";
                         if ($.inArray(value, my_wishlist) != -1) {
 
                             html += "<li><a class=\"link_text_color\"><i class=\" glyphicon glyphicon-ok  \"></i>Added to Wishlist</a></li>\n";
                         } else {
-                            html += "<li class=\"product_id_" + data.products.id + " choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id=" + data.products.id + "><i class=\"fa fa-plus-square \"></i> Add to Wishlist</a></li>\n";
+                            html += "<li class=\"product_id_" + data.products.id + " choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id=" + data.products.id + " name = \"notify\" onclick=\"$.notify('Product Added To Your Wish List.','success');\"><i class=\"fa fa-plus-square \"></i> Add to Wishlist</a></li>\n";
                         }
                         html += "                                            </div>\n" +
                             "                                            </div>\n" +
@@ -171,19 +171,12 @@ $(document).ready(function() {
 
                        $('.cart-count').attr("data-count",changedCartCount);
 
-                       /*$( '.product_id_cart' + id ).removeClass( "cart-data" );
-                       $( '.product_id_cart' + id ).attr( "disabled" );*/
-
                         _this.removeClass( "cart-data add-to-cart");
                         _this.attr("disabled", true);
                         _this.addClass( "added-to-cart" );
-/*
-                        $( '.product_id_cart' + id ).html( '<i class=\" glyphicon glyphicon-ok\\"  ></i>Added to Cart' );
-*/
 
                         var html = "";
                         html = "<i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart";
-                        // $('.product_id_cart' + id).html(html);
                         _this.html(html);
 
                         var html1 = "";

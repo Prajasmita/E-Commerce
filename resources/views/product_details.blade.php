@@ -89,8 +89,8 @@
                             @else
                                 <a href="javascript:void(0)" data-id="{{$products['id']}}"
                                    data-price="{{$products['price']}}" data-count="{{Cart::count()}}"
-                                   class="cart-data btn btn-default detail-add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                                   class="cart-data btn btn-default detail-add-to-cart" name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
+                                            class="fa fa-shopping-cart" ></i>Add to cart</a>
                             @endif
                                     @if(in_array($products['id'],$my_wishlist))
                                         <button type="button" class="btn btn-lg wishlist_color added " >
@@ -100,7 +100,7 @@
                                         <button type="button" class="btn btn-lg wishlist_color">
                                                     <a href="javascript:void(0)"
                                                        class="{{"product_id_".$products['id']}} wishlist "
-                                                       data-id="{{$products['id']}}"><i
+                                                       data-id="{{$products['id']}}" name="notify" onclick="$.notify('Product Added To Your Wish List.','success');"><i
                                                                 class="fa fa-heart"></i></a></li>
                                         </button>
                                     @endif

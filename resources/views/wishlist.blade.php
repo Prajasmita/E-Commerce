@@ -38,19 +38,19 @@
                                 <td>
                                     @if(in_array($list['product']['id'],$cart_product))
                                         <a href="javascript:void(0)"
-                                           class=" btn btn-default link_text_color detail-added-to-cart"><i
+                                           class=" btn btn-default link_text_color detail-added-to-cart" ><i
                                                     class="glyphicon glyphicon-ok"></i>Added to cart</a>
                                     @else
                                         <a href="javascript:void(0)" data-id="{{$list['product']['id']}}"
                                            data-count="{{Cart::count()}}"
-                                           class="cart-data btn btn-default detail-add-to-cart }}"><i
+                                           class="cart-data btn btn-default detail-add-to-cart " name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
                                                     class="fa fa-shopping-cart"></i>Add to cart</a>
                                     @endif
                                 </td>
                                 <td class="cart_delete">
                                     <a class="wishlist_delete" href="Javascript:void(0)"
                                        id="delete_wishlist_{{$list['product']['id']}}"
-                                       data-id="{{$list['product']['id']}}"><i class="fa fa-times"></i></a>
+                                       data-id="{{$list['product']['id']}}" name="notify" onclick="$.notify('Product Removed From Your Wish List.','error');"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         @endforeach
