@@ -567,17 +567,18 @@ class CartController extends Controller
     /**
      * Function for fetching my orders
      *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */
-    public function myOrders()
+    public function myOrders(Request $request)
     {
 
         $user_id = Auth::user()->id;
 
         $my_order = User_order::with('order_details')->where('user_id', '=', $user_id)->orderBy('created_at','desc')->paginate(10);
 
-        return view('my_orders',array('conf'=> $this->conf,'my_order' => $my_order));
+        return view('my_orders',array('conf'=> $this->conf,'my_order' => $my_order))->with('i', ($request->input('page', 1) - 1) * 10);
 
     }
 

@@ -13,6 +13,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th>Date</th>
                             <th>Order Id</th>
                             <th>Total</th>
@@ -24,6 +25,7 @@
                         <tbody>
                         @foreach($my_order as $order)
                             <tr>
+                                <td>{{ ++$i }}</td>
                                 <td>{{$order->created_at->format('d M,Y')}}</td>
                                 <td>{{'ORD'.str_pad($order->id, 4, '0', STR_PAD_LEFT)}}</td>
                                 <td>{{$order->grand_total}}</td>
