@@ -6,12 +6,15 @@
  */
 namespace App\Http\Controllers;
 
+use App\Helper\Custom;
+use App\User_wishlist;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use DB;
 Use Cache;
+use Auth;
 
 class Controller extends BaseController
 {
@@ -35,6 +38,14 @@ class Controller extends BaseController
         });
 
         $this->conf = ($value->pluck('conf_value','conf_key'))->toArray();
+    }
+    /**
+     *  function for wishlist count
+     *
+     *  calling helper custom function
+     */
+    public function wishListCount(){
+        Custom::wishListCount();
     }
 
 }

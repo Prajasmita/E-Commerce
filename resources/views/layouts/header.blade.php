@@ -23,7 +23,6 @@
             </div>
         </div>
     </div><!--/header_top-->
-
     <div class="header-middle"><!--header-middle-->
         <div class="container">
             <div class="row">
@@ -67,14 +66,14 @@
                             @endif
                             <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}"
                                    href="{{Auth::user() ? route('my.wishlist') : route('register')}}"><i
-                                            class="fa fa-star"></i> Wishlist</a></li>
+                                            class="fa fa-star"></i> Wishlist ({!! App\Helper\custom::wishListCount() !!})</a></li>
                             <li>
                                 <a class="{{ ((url()->current()) == route('checkout')) ? 'active' : '' }}"
                                    href="{{ Auth::user() ? route('checkout'): route('register') }}"><i
                                             class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a class="cart-count {{ ((url()->current()) == route('cart')) ? 'active' : '' }} "
                                    data-count="{{Cart::count()}}" href="{{route('cart')}}"><i
-                                            class="fa fa-shopping-cart "></i> Cart({{Cart::count()}})</a></li>
+                                            class="fa fa-shopping-cart "></i> Cart ({{Cart::count()}})</a></li>
                             @if( Auth::user())
                                 <li><a class="{{ ((url()->current()) == route('user_logout')) ? 'active' : '' }}"
                                        href="{{route('user_logout')}}"><i class="fa fa-unlock"></i> Logout</a></li>
