@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class UsersController for CRUD operation of users.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
@@ -13,16 +17,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Helper\Custom;
 Use App\User_address;
 
-/**
- * Class UsersController for CRUD operation of users.
- *
- * Author : Prajakta Sisale.
- */
 class UsersController extends Controller
 {
     /**
+     * Display a listing of the resource.
      *
-     * Display a listing of the users.
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */

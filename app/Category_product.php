@@ -28,6 +28,10 @@ class Category_product extends Model
      */
     protected $fillable = ['category_id', 'product_id'];
 
+    /**
+     * Function for category and products relationship.
+     *
+     */
     public function products()
     {
         return $this->belongsTo('App\Product','product_id','id');

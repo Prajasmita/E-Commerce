@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class CategoriesController for CRUD operation of categories.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Category_product;
@@ -12,15 +16,13 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Log;
 
-/**
- * Class CategoriesController for CRUD operation of categories.
- *
- * Author : Prajakta Sisale.
- */
+
 class CategoriesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the categories.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */

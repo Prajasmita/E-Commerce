@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Parent Class Controller.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -13,8 +17,15 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /*
+     * public variable
+     */
     public $conf ;
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         DB::enableQueryLog();

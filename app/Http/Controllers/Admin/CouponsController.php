@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class CouponsController for CRUD Operation of Coupon.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
@@ -13,7 +17,9 @@ Use App\Helper\Custom;
 class CouponsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the coupons.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */

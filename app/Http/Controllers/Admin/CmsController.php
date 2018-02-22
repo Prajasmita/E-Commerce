@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class CmsController for CRUD operation for cms management.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Cms;
@@ -9,17 +14,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-/**
- * Class CmsController for CRUD operation for cms management.
- *
- * Author : Prajakta Sisale.
- */
 class CmsController extends Controller
 {
     /**
-     * Function for displaying cms data list.
+     * Display a listing of the cms.
      *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {

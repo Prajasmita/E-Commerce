@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class Contact us Controller for check message and reply.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Contact_us;
@@ -12,16 +16,14 @@ Use Auth;
 Use App\Email_template;
 Use Mail;
 
-/**
- * Class Contact us Controller for check message and reply.
- *
- * Author : Prajakta Sisale.
- */
+
 class ContactUsContoller extends Controller
 {
 
     /**
      * Display a list of the users queries.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */

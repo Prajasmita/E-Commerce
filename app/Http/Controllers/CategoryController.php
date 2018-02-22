@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class CategoryController for showing category products.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers;
 
 
@@ -16,6 +20,14 @@ use Cart;
 class CategoryController extends Controller
 {
 
+/*
+ * Function to display category products
+ *
+ * @param  int $id
+ *
+ * @return \Illuminate\View\View
+ *
+ */
 
     public function categoryProducts($id)
     {
@@ -63,6 +75,14 @@ class CategoryController extends Controller
             'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
     }
 
+    /*
+     * Function to display category bar products
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return json response
+     *
+     */
     public function ajaxByCategoryId(Request $request)
     {
         if ($request->ajax()) {
@@ -97,3 +117,4 @@ class CategoryController extends Controller
         }
     }
 }
+

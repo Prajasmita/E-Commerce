@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class ProductController for Product Details.
+ *
+ * Author : Prajakta Sisale.
+ */
 
 namespace App\Http\Controllers;
 
@@ -17,6 +21,13 @@ use Cart;
 class ProductController extends Controller
 {
 
+    /*
+     * Function for showing product details
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function product_details($id)
     {
 
@@ -50,7 +61,13 @@ class ProductController extends Controller
 
         return view('product_details', array('conf'=> $this->conf,'categories' => $categories, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
     }
-
+    /*
+    * Function to add product to wish list
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return json response
+    */
     public function ajaxAddProductToWishlist(Request $request)
     {
 
@@ -71,9 +88,12 @@ class ProductController extends Controller
     }
 
     /*
-    * Function for delete product from wish list
-    *
-    */
+     * Function for newsletters subscription
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
+     */
     public function deleteWishlist(Request $request)
     {
         if ($request->ajax()) {
@@ -83,6 +103,5 @@ class ProductController extends Controller
             return json_encode("true");
         }
     }
-
 
 }

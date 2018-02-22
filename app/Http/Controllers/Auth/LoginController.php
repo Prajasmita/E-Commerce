@@ -45,11 +45,23 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /*
+     * Function for admin login form
+     *
+     * @return \Illuminate\View\View
+     */
     public function showLoginForm()
     {
         return view('admin.auth.login');
     }
 
+    /*
+     * Function for login opration
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Response
+     */
     public function login(Request $request){
 
 
@@ -101,6 +113,11 @@ class LoginController extends Controller
 
     }
 
+    /*
+     * Function for logout operation.
+     *
+     * @return \Illuminate\View\View
+     */
     public function logout() {
 
         Auth::logout();

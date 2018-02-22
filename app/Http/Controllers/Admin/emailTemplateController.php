@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class emailTemplateController for CRUD operation of  email Templates.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Helper\Custom;
@@ -11,16 +15,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PharIo\Manifest\Email;
 
-/**
- * Class emailTemplateController for CRUD operation of  email Templates.
- *
- * Author : Prajakta Sisale.
- */
+
 class emailTemplateController extends Controller
 {
     /**
-     * Function to display email template list.
+     * Display a listing of the email templates.
      *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
      */
 
     public function emailTemplate(Request $request)
@@ -90,6 +93,7 @@ class emailTemplateController extends Controller
     /**
      * Function to display create email template view.
      *
+     * @return \Illuminate\View\View
      */
     Public function create()
     {
@@ -103,6 +107,9 @@ class emailTemplateController extends Controller
     /**
      * Store a newly created template in storage.
      *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -123,6 +130,9 @@ class emailTemplateController extends Controller
     /**
      * Display the specified Template.
      *
+     * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function show($id)
     {
@@ -136,6 +146,9 @@ class emailTemplateController extends Controller
     /**
      * Show the form for editing the specified template.
      *
+     * @param $id
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -149,6 +162,10 @@ class emailTemplateController extends Controller
     /**
      * Update the specified template in storage.
      *
+     * @param \Illuminate\Http\Request $request
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
     {

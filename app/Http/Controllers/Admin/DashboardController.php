@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class DashboardController for Dashboard.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Coupon;
@@ -15,26 +19,9 @@ Use \Khill\Lavacharts\Lavacharts;
 Use Carbon\Carbon;
 use Lava;
 
-$lava = new \Khill\Lavacharts\Lavacharts;
 
-/**
- * Class DashboardController for Dashboard.
- *
- * Author : Prajakta Sisale.
- */
 class DashboardController extends Controller
 {
-
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
 
     /**
      * Show the application dashboard.

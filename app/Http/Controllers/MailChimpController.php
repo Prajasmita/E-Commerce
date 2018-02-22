@@ -1,9 +1,9 @@
 <?php
-/**
+/*
+ * Class MailChimpController for newsletters using mailchimp.
+ *
  * Created by Prajakta Sisale.
- * User: webwerks
- * Date: 12/2/18
- * Time: 12:57 PM
+ *
  */
 
 namespace App\Http\Controllers;
@@ -11,8 +11,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use Validator;
 Use App\Helper\Custom;
-
-/* Class MailChimpController for mailchimp */
 
 class MailChimpController extends Controller
 {
@@ -31,6 +29,9 @@ class MailChimpController extends Controller
     /*
      * Function for newsletters subscription
      *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function addSubscriber(Request $request)
     {

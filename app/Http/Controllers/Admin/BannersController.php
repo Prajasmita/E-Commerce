@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class BannersController for CRUD operation of banner images.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Helper\Custom;
@@ -10,15 +14,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 Use Illuminate\Support\Carbon;
 
-/**
- * Class BannersController for CRUD operation of banner images.
- *
- * Author : Prajakta Sisale.
- */
+
 class BannersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the banners.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */

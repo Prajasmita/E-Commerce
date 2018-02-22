@@ -114,13 +114,23 @@ class RegisterController extends Controller
         return redirect('register')->with('flash_message', 'You are register successfully !!!');
 
     }
-
+    /*
+     * Function for user registration form
+     *
+     * @return \Illuminate\View\View
+     */
     public function showRegistrationForm()
     {
         return view('user_login',array('conf'=> $this->conf));
     }
 
-
+    /*
+     * Function for registration opration
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Response
+     */
     public function register(Request $request)
     {
 

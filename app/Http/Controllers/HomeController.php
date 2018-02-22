@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class HomeController for Homepage operations.
+ *
+ * Author : Prajakta Sisale.
+ */
 
 namespace App\Http\Controllers;
 
@@ -26,8 +31,6 @@ Use Hash;
 Use App\Email_template;
 Use App\Configuration;
 Use Cache;
-use Carbon\Carbon;
-
 
 class HomeController extends Controller
 {
@@ -41,14 +44,13 @@ class HomeController extends Controller
     public function __construct()
     {
         parent::__construct();
-        //print_r();die;
 
     }
 
     /**
      * Show the Ecommerce shopping site.
      *
-     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -100,35 +102,38 @@ class HomeController extends Controller
             }
         }
 
-        return view('home', array('conf'=> $this->conf,'banner_images' => $banner_images, 'categories' => $categories, 'featured_products' => $featured_products, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
+        return view('home', array('conf' => $this->conf, 'banner_images' => $banner_images, 'categories' => $categories, 'featured_products' => $featured_products, 'products' => $products, 'my_wishlist' => $my_wishlist, 'cart_product' => $cart_product));
 
     }
 
     /**
-     * Display the user login page.
+     * Display the user login page
      *
-     *
+     * @return \Illuminate\View\View
      */
     public function userLogin()
     {
-        return view('user_login',array('conf'=> $this->conf));
+        return view('user_login', array('conf' => $this->conf));
     }
 
     /**
      * Show the contact us form.
      *
+     * @return \Illuminate\View\View
      */
     public function contactUs()
     {
 
-        return view('contact_us',array('conf'=> $this->conf));
+        return view('contact_us', array('conf' => $this->conf));
 
     }
 
     /**
      * Function for saving contact details.
      *
+     * @param \Illuminate\Http\Request $request
      *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function saveContactDetails(Request $request)
     {
@@ -161,6 +166,8 @@ class HomeController extends Controller
      * Function for sending mail to admin
      * about query through contact us form.
      *
+     * @param  int $data
+     *
      */
     public function sendMail($data)
     {
@@ -189,6 +196,7 @@ class HomeController extends Controller
      * Function for showing address book.
      *
      *
+     * @return \Illuminate\View\View
      */
     public function addressBook()
     {
@@ -197,14 +205,14 @@ class HomeController extends Controller
 
         $userAddress = User_address::with('countries', 'states')->where('user_id', '=', $user_id)->orderBy('primary', 'desc')->get();
 
-        return view('address_book', array('conf'=> $this->conf,'userAddress' => $userAddress));
+        return view('address_book', array('conf' => $this->conf, 'userAddress' => $userAddress));
 
     }
 
     /**
      * Function for adding New address.
      *
-     *
+     * @return \Illuminate\View\View
      */
     public function addAddress()
     {
@@ -219,7 +227,7 @@ class HomeController extends Controller
     /**
      * Function for validating rules for address book.
      *
-     *
+     * @return array
      */
     public function rules()
     {
@@ -241,7 +249,9 @@ class HomeController extends Controller
     /**
      * Function to store new address.
      *
+     * @param \Illuminate\Http\Request $request
      *
+     * @return json response
      */
     public function addressStore(Request $request)
     {
@@ -264,7 +274,9 @@ class HomeController extends Controller
     /**
      * Function for editing address.
      *
+     * @param  int $id
      *
+     * @return \Illuminate\View\View
      */
     public function addressEdit($id)
     {
@@ -282,7 +294,9 @@ class HomeController extends Controller
     /**
      * Function for updating address.
      *
+     * @param \Illuminate\Http\Request $request
      *
+     * @return json response
      */
     public function addressUpdate(Request $request)
     {
@@ -301,19 +315,18 @@ class HomeController extends Controller
                 $userAddress = User_address::findOrFail($user_address['id']);
                 $userAddress->update($user_address);
 
-
                 return response()->json(array('message' => 'Address Updated Successfully !!', 'redirecturl' => 'address_book'));
             }
 
         }
-
-
     }
 
     /**
      * Function for making address primary from address book.
      *
+     * @param \Illuminate\Http\Request $request
      *
+     * @return json response
      */
     public function makePrimaryAddress(Request $request)
     {
@@ -337,10 +350,13 @@ class HomeController extends Controller
         }
     }
 
-    /*
-    * Function to delete user_address
-    *
-    */
+    /**
+     * Function to delete user_address
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function addressDelete($id)
     {
 
@@ -354,18 +370,22 @@ class HomeController extends Controller
     /**
      * Function for changing user password.
      *
-     *
+     * @return \Illuminate\View\View
      */
     public function changePassword()
     {
 
-        return view('change_password',array('conf'=> $this->conf));
+        return view('change_password', array('conf' => $this->conf));
     }
 
     /**
      * Function for storing changed user password
      *
      * and sending mail to the user.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function storeChangedPassword(Request $request)
     {
@@ -402,17 +422,21 @@ class HomeController extends Controller
     /**
      * Function for forget password view
      *
+     * @return \Illuminate\View\View
      */
     public function forgetPassword()
     {
 
-        return view('forget_password',array('conf'=> $this->conf));
+        return view('forget_password', array('conf' => $this->conf));
 
     }
 
     /**
      * Function for sending mail to the user about new password.
      *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function retrievePassword(Request $request)
     {
@@ -443,19 +467,21 @@ class HomeController extends Controller
     /**
      * Display the about us page.
      *
+     * @param  int $page_name
      *
+     * @return \Illuminate\View\View
      */
     public function getPages($page_name)
     {
         $page_data = Cms::where('title', '=', $page_name)->first();
 
-        return view('get_page', array('conf'=> $this->conf,'page_data' => $page_data));
+        return view('get_page', array('conf' => $this->conf, 'page_data' => $page_data));
     }
 
     /**
      * Display wish list.
      *
-     *
+     * @return \Illuminate\View\View
      */
     public function userWishList()
     {
@@ -480,34 +506,38 @@ class HomeController extends Controller
             }
         }
 
-        return view('wishlist', array('conf'=> $this->conf,'wishlists' => $wishlists, 'cart_product' => $cart_product));
+        return view('wishlist', array('conf' => $this->conf, 'wishlists' => $wishlists, 'cart_product' => $cart_product));
     }
 
     /*
-    * Function for myaccount view
-    *
-    */
+     * Function for myaccount view
+     *
+     * @return \Illuminate\View\View
+     */
     public function myAccount()
     {
         $user_id = Auth::user()->id;
 
-        $user = User::where('id','=',$user_id)->first();
+        $user = User::where('id', '=', $user_id)->first();
 
-        return view('my_account', array('conf'=> $this->conf,'user'=>$user));
+        return view('my_account', array('conf' => $this->conf, 'user' => $user));
 
     }
 
     /*
-    * Function for update account
-    *
-    */
+     * Function for update account
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function updateAccount(Request $request)
     {
 
         //Custom::showAll($request->image);die;
         $data = array();
 
-        if($request->image){
+        if ($request->image) {
             $current_time = time();
 
             $image = $request->file('image');
@@ -523,9 +553,9 @@ class HomeController extends Controller
         $data['last_name'] = $request->last_name;
         $data['contact_no'] = $request->contact_no;
 
-        User::where('id',$request->user_id)->update($data);
+        User::where('id', $request->user_id)->update($data);
 
-        return redirect('my_account')->with('update_myaccount','Your information updated successfully !!!');
+        return redirect('my_account')->with('update_myaccount', 'Your information updated successfully !!!');
     }
 
 }

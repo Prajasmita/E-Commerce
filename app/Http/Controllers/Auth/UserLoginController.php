@@ -47,12 +47,22 @@ class UserLoginController extends Controller
         DB::enableQueryLog();
         $this->middleware('guest')->except('logout');
     }
-
+    /*
+    * Function for admin login form
+    *
+    * @return \Illuminate\View\View
+    */
     public function showLoginForm()
     {
         return view('user_login',array('conf'=> $this->conf));
     }
-
+    /*
+     * Function for login opration
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Response
+     */
     public function login(Request $request)
     {
         Log::useDailyFiles(storage_path().'/logs/rashmi.log');
@@ -86,7 +96,11 @@ class UserLoginController extends Controller
         $this->sendFailedLoginResponse($request);
 
     }
-
+    /*
+     * Function for logout operation.
+     *
+     * @return \Illuminate\View\View
+     */
     public function logout(Request $request)
     {
         $this->guard()->logout();

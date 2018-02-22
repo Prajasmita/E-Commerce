@@ -32,6 +32,8 @@ class Banner extends Model
     protected $fillable = ['banner_name', 'banner_image','status'];
     /**
      * Always capitalize the banner name when we retrieve it
+     *
+     * @param $value
      */
     public function getBannerNameAttribute($value) {
         return ucfirst($value);
@@ -39,6 +41,8 @@ class Banner extends Model
 
     /**
      * Always capitalize the banner name when we save it to the database
+     *
+     * @param $value
      */
     public function setBannerNameAttribute($value) {
         $this->attributes['banner_name'] = ucfirst($value);

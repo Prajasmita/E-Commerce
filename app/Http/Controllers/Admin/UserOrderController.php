@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class UserOrderController for orders details.
+ *
+ * Author : Prajakta Sisale.
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -17,16 +22,14 @@ Use View;
 Use Cart;
 Use Cost;
 
-/**
- * Class UserOrderController for orders details.
- *
- * Author : Prajakta Sisale.
- */
 class UserOrderController extends Controller
 {
     /**
-     * Function for user order listing.
+     * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -100,6 +103,9 @@ class UserOrderController extends Controller
     /**
      * Function for user order details.
      *
+     * @param $order_id
+     *
+     * @return \Illuminate\View\View
      */
     public function orderDetails($order_id)
     {
@@ -115,6 +121,10 @@ class UserOrderController extends Controller
 
     /*
      * Function for order review page variables.
+     *
+     * @param $order_id
+     *
+     * @return array
      */
     public function orderReview($order_id)
     {

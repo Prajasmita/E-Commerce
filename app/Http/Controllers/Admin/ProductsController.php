@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class ProductsController for CRUD operation of Products.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
@@ -14,15 +18,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 
-/**
- * Class ProductsController for CRUD operation of Products.
- *
- * Author : Prajakta Sisale.
- */
 class ProductsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the products.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */

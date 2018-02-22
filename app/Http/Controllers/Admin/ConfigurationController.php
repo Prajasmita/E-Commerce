@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class ConfigurationController for CRUD operation of Configurations.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
@@ -10,15 +14,13 @@ use Illuminate\Http\Request;
 use App\Helper\Custom;
 use Illuminate\Support\Facades\Auth;
 
-/**
- * Class ConfigurationController for CRUD operation of Configurations.
- *
- * Author : Prajakta Sisale.
- */
+
 class ConfigurationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the configurations.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View
      */

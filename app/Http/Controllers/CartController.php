@@ -1,7 +1,10 @@
 <?php
-
+/**
+ * Class CartController for Cart and checkout operations.
+ *
+ * Author : Prajakta Sisale.
+ */
 namespace App\Http\Controllers;
-
 Use App\Product;
 Use App\Configuration;
 use App\Countries;
@@ -21,11 +24,9 @@ Use Cost;
 Use PayPal\Api\Invoice;
 Use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
 Use Illuminate\Support\Facades\Redirect;
 Use App\Email_template;
 /** All Paypal Details class **/
-
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Amount;
@@ -62,11 +63,12 @@ class CartController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
 
-
-    /*
-     * Function for view cart
-     *
-     */
+   /*
+    * Function for view cart
+    *
+    * @return \Illuminate\View\View
+    *
+    */
     public function index()
     {
 
@@ -75,10 +77,13 @@ class CartController extends Controller
         return view('cart', array('conf'=> $this->conf,'cart' => $cart));
     }
 
-    /*
-     * Function to store product in cart
-     *
-     */
+   /*
+    * Function to store product in cart
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return json Response
+    */
     public function store(Request $request)
     {
 
@@ -102,10 +107,13 @@ class CartController extends Controller
         }
     }
 
-    /*
-     * Function to update product in cart
-     *
-     */
+   /*
+    * Function to update product in cart
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return json Response
+    */
     public function update(Request $request)
     {
         if ($request->ajax()) {
@@ -129,11 +137,13 @@ class CartController extends Controller
         }
     }
 
-
-    /*
-     * Function for delete product from cart
-     *
-     */
+   /*
+    * Function for delete product from cart
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return json Response
+    */
     public function delete(Request $request)
     {
 
@@ -146,9 +156,10 @@ class CartController extends Controller
         }
     }
 
-    /*
+   /*
     * Function for checkout
     *
+    * @return \Illuminate\View\View
     */
     public function checkout()
     {
@@ -177,10 +188,13 @@ class CartController extends Controller
 
     }
 
-    /*
-       * Function for applying coupon
-       *
-       */
+   /*
+    * Function for applying coupon
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return json Response
+    */
     public function selectStates(Request $request)
     {
 
@@ -195,10 +209,13 @@ class CartController extends Controller
     }
 
 
-    /*
-       * Function for applying coupon
-       *
-       */
+  /*
+    * Function for applying coupon
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return json Response
+    */
     public function applyCoupon(Request $request)
     {
         if ($request->ajax()) {
@@ -227,8 +244,10 @@ class CartController extends Controller
         }
     }
 
-    /*
+   /*
     * Function to store user_address
+    *
+    * @param \Illuminate\Http\Request $request
     *
     */
     public function storeUserAddress(Request $request)
@@ -268,10 +287,15 @@ class CartController extends Controller
 
     }
 
-    /*
-       * Function for store order
-       *
-       */
+   /*
+    * Function for store order
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+    * @return \Illuminate\View\View
+    *
+    */
     public function orderStore(Request $request)
     {
 
@@ -434,7 +458,12 @@ class CartController extends Controller
         }
     }
 
-
+    /**
+     * Function to Store order details
+     *
+     * @param $id
+     *
+     */
     public function storeOrderDetail($id)
     {
 
@@ -463,9 +492,14 @@ class CartController extends Controller
         }
     }
 
-    /*
-     * Function for order review page
-     */
+   /*
+    * Function for order review page
+    *
+    * @param  int $order_id
+    *
+    * @return array
+    */
+
     public function orderReview($order_id)
     {
 
@@ -510,7 +544,10 @@ class CartController extends Controller
     /**
      * Function for paypal payment success
      *
+     * @param \Illuminate\Http\Request $request
+     * @param  int $id
      *
+     * @return \Illuminate\View\View
      */
     public function paypalPaymentSuccess($id, Request $request)
     {
@@ -531,6 +568,7 @@ class CartController extends Controller
      * Function for fetching my orders
      *
      *
+     * @return \Illuminate\View\View
      */
     public function myOrders()
     {
@@ -546,7 +584,9 @@ class CartController extends Controller
     /**
      * Function for fetching my orders
      *
+     * @param  int $id
      *
+     * @return \Illuminate\View\View
      */
     public function myOrder($id)
     {
@@ -559,6 +599,7 @@ class CartController extends Controller
     /**
      * Function for tracking order
      *
+     * @return \Illuminate\View\View
      */
     public function trackOrder()
     {
@@ -566,6 +607,13 @@ class CartController extends Controller
         return view('track_order',array('conf'=> $this->conf));
     }
 
+    /**
+     * Function for tracing placed order
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function trackMyOrder(Request $request)
     {
 
@@ -608,24 +656,14 @@ class CartController extends Controller
                 return redirect('track_order')->with('traced_order_failed', 'Sorry, You have no order with this order id.');
             }
 
-
-
-            //
-
-
-           /* Mail::send('order_review', ['order_review_page' => $order_review_page,'conf'=> $this->conf], function ($message) use ($email) {
-                $message->to($email)
-                    ->subject('Order Review');
-            });*/
-
-
-
         }
 
     }
 
     /**
      * Function for sending mail to admin and customer about placed order
+     *
+     * @param $order_review_page
      *
      */
     public function sendMails($order_review_page)
