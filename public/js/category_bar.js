@@ -195,7 +195,11 @@ $(document).ready(function() {
 
         var id = ($(this).attr("data-id"));
 
-        console.log(id);
+        var current_wishlist_count = $('.wishlist_delete').attr("data-wlcount");
+
+        var changed_count = parseInt(current_wishlist_count)-parseInt(1);
+
+        $('.wishlist_delete').attr("data-wlcount",changed_count);
 
         $.ajaxSetup({
             headers: {
@@ -213,6 +217,15 @@ $(document).ready(function() {
                     $('#delete_wishlist_' + id).animate({backgroundColor: "#fbc7c7"}, "fast")
                         .animate({opacity: "hide"}, "slow");
 
+                    if(changed_count === 0){
+
+                       var html = '';
+                        html = "<div>\n" +
+                            "                                <br/>\n" +
+                            "                                <p class=\"text-center\"><strong>You have no items in the Wish List.</strong></p>\n" +
+                            "                            </div>";
+                        $('.no-item').html(html);
+                    }
                 }
             }
         });

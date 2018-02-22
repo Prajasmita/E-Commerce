@@ -50,7 +50,7 @@
                                 <td class="cart_delete">
                                     <a class="wishlist_delete" href="Javascript:void(0)"
                                        id="delete_wishlist_{{$list['product']['id']}}"
-                                       data-id="{{$list['product']['id']}}" name="notify" onclick="$.notify('Product Removed From Your Wish List.','error');"><i class="fa fa-times"></i></a>
+                                       data-id="{{$list['product']['id']}}" data-wlcount="{{count($wishlists)}}" name="notify" onclick="$.notify('Product Removed From Your Wish List.','error');"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         @endforeach
