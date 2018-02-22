@@ -34,6 +34,8 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <span class="pull-right">{!! $my_order->links() !!}</span>
+
                 @else
                     <div>
                         <br/>
