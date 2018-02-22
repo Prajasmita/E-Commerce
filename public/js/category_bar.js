@@ -117,6 +117,12 @@ $(document).ready(function() {
 
             var product_id = ($(this).attr("data-id"));
 
+            var current_wishlist_count = $('#wishlist_count').attr("data-wishlcount");
+
+            var changed_count = parseInt(current_wishlist_count) + parseInt(1);
+
+            $('#wishlist_count').attr("data-wishlcount",changed_count);
+
             $.ajax({
                 type: "POST",
                 url: wishlistUrl,
@@ -125,12 +131,20 @@ $(document).ready(function() {
                 success: function (data) {
                   // console.log(data);exit;
                     if (data == "true") {
-                        var html = "";
 
+                        var html = "";
 
                         html = "<a class=\"link_text_color \"><i class=\" glyphicon glyphicon-ok\" ></i>Added to Wishlist</a>";
 
                         $('.product_id_' + product_id).html(html);
+
+                        var html1='';
+
+                        html1 = '<li><a id="wishlist_count" href="'+base_url+'/wishlist"><i\n' +
+                            '                                            class="fa fa-star"></i> Wishlist ('+changed_count+')</a></li>';
+
+                        $('#wishlist_count').html(html1);
+
                     }
                 }
 
@@ -217,14 +231,22 @@ $(document).ready(function() {
                     $('#delete_wishlist_' + id).animate({backgroundColor: "#fbc7c7"}, "fast")
                         .animate({opacity: "hide"}, "slow");
 
+
+                    var html='';
+
+                    html = '<li><a class=\"active\" id="wishlist_count" href="\'+base_url+\'/wishlist"><i\n' +
+                        '                                            class="fa fa-star"></i> Wishlist ('+changed_count+')</a></li>';
+
+                    $('#wishlist_count').html(html);
+
                     if(changed_count === 0){
 
-                       var html = '';
-                        html = "<div>\n" +
+                       var html1 = '';
+                        html1 = "<div>\n" +
                             "                                <br/>\n" +
                             "                                <p class=\"text-center\"><strong>You have no items in the Wish List.</strong></p>\n" +
                             "                            </div>";
-                        $('.no-item').html(html);
+                        $('.no-item').html(html1);
                     }
                 }
             }
