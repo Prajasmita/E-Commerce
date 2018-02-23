@@ -42,13 +42,13 @@
 
 
                             <span><input id="remember" type="checkbox" class="field login-checkbox" name="remember" readonly
-                                value="First Choice" tabindex="4">
+                                value="First Choice" tabindex="4" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="choice" for="remember">Keep me signed in</label></span>
                             <div class="login-box">
                                 <div class="form-group form-actions">
                                     <button type="submit" class="btn btn-default">Login</button>
                                 </div>
-                                <span><a href="{{route('forget.password')}}">Forget Password ?</a></span>
+                                <span><a href="{{route('forget.password')}}">Forget Your Password ?</a></span>
                             </div>
                         </form>
                     </div><!--/login form-->
