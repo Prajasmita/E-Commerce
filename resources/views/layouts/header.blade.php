@@ -114,7 +114,7 @@
                                 <a class="{{ url()->current() == url('cms/help') ? 'active' : '' }}"
                                    href="{{url('cms/help')}}">Help</a></li>
                             <li><a class="{{ ((url()->current()) == route('contact_us') ? 'active' : '' )}}"
-                                   href="{{Auth::User() ? route('contact_us') : route('register')}}">Contact</a></li>
+                                   href="{{route('contact_us')}}">Contact</a></li>
                         </ul>
                     </div>
                 </div>

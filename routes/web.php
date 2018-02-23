@@ -119,9 +119,7 @@ Route::group(['middleware'=>['auth']],function() {
     Route::get('/checkout','CartController@checkout')->name('checkout');
     Route::post('/apply_coupon',['as'=> 'coupon.apply','uses'=>'CartController@applyCoupon']);
     Route::post('/order_review',['as'=> 'order.review','uses'=>'CartController@orderReview']);
-    Route::get('/contact_us',['as'=>'contact_us','uses'=>'HomeController@contactUs']);
 
-    Route::post('/contact_us','HomeController@saveContactDetails')->name('contact');
     Route::get('/address_book',['as'=> 'address.book','uses'=>'HomeController@addressBook']);
     Route::get('/address_add',['as'=> 'address.add','uses'=>'HomeController@addAddress']);
 
@@ -154,29 +152,24 @@ Route::group(['middleware'=>['auth']],function() {
     Route::get('/my_account',['as'=> 'my.account','uses'=>'HomeController@myAccount']);
     Route::post('/my_account',['as'=> 'my.details','uses'=>'HomeController@updateAccount']);
 
-
-
-
-
+    Route::get('/track_order', ['as' => 'track.order','uses' => 'CartController@trackOrder']);
+    Route::post('/track_order', ['as' => 'track.my_order','uses' => 'CartController@trackMyOrder']);
 
 });
 
-Route::get('/track_order', ['as' => 'track.order','uses' => 'CartController@trackOrder']);
-Route::post('/track_order', ['as' => 'track.my_order','uses' => 'CartController@trackMyOrder']);
+Route::get('/contact_us',['as'=>'contact_us','uses'=>'HomeController@contactUs']);
+Route::post('/contact_us','HomeController@saveContactDetails')->name('contact');
 
 Route::get('forget_password',['as' => 'forget.password','uses' => 'HomeController@forgetPassword']);
 Route::post('forget_password',['as' => 'retrieve.password','uses' => 'HomeController@retrievePassword']);
 
-
 Route::post('/state/{id}',['as'=> 'country.state','uses'=>'CartController@selectStates']);
-
 
 Route::get('/cms/{page_name}',['as'=> 'cms.page','uses'=>'HomeController@getPages']);
 
-
 Route::post('/sendCampaigns', ['as' => 'send.campaigns','uses' => 'MailChimpController@sendCampaigns']);
 
-Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);
+/*Route::get('/temporary',['as'=> 'temp','uses'=>'CartController@orderReview']);*/
 
 /*Route::get('sendmail', 'TestController@sendMail');*/
 
