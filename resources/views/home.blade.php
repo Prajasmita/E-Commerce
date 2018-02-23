@@ -4,6 +4,9 @@
 
     <section id="slider"><!--slider-->
         <div class="container">
+            @if ( session()->has('message') )
+                <div class="alert alert-danger">{{ session()->get('message') }}</div>
+            @endif
             <div class="row">
                 <div class="col-sm-12">
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">

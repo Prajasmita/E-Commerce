@@ -20,7 +20,7 @@ class CheckRole
 
         $authUser = Auth::user();
         if ($authUser->role_id == 5) {
-            return redirect('/');
+            return redirect('/')->with('message','Sorry, You are not authorized user.');
         } else {
             return $next($request);
         }

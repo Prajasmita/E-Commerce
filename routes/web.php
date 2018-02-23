@@ -17,7 +17,7 @@ Route::get('/login', function () {
 
 Auth::routes();
 
-Route::group(['namespace' => 'Admin','middleware'=>['auth'],'prefix'=>'admin'],function(){
+Route::group(['namespace' => 'Admin','middleware'=>['auth','checkrole'],'prefix'=>'admin'],function(){
 
     Route::get('/', 'DashboardController@index')->name('admin');
 
