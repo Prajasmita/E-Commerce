@@ -66,7 +66,9 @@
                             @endif
                             <li><a class="{{ ((url()->current()) == route('my.wishlist')) ? 'active' : '' }}"
                                    id="wishlist_count" data-wishlcount="{!! App\Helper\custom::wishListCount() !!}" href="{{Auth::user() ? route('my.wishlist') : route('register')}}"><i
-                                            class="fa fa-star"></i> Wishlist ({!! App\Helper\custom::wishListCount() !!})</a></li>
+                                            class="fa fa-star"></i>
+                                        Wishlist ({{ Auth::user() ?  App\Helper\custom::wishListCount() : '0' }})
+                                </a></li>
                             <li>
                                 <a class="{{ ((url()->current()) == route('checkout')) ? 'active' : '' }}"
                                    href="{{ Auth::user() ? route('checkout'): route('register') }}"><i

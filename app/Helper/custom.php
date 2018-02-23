@@ -43,7 +43,11 @@ class Custom {
      */
     public static function wishListCount(){
 
-        $wishlist_count = User_wishlist::where('user_id',Auth::user()->id)->get()->count();
-        return $wishlist_count ;
+        if(Auth::user()){
+            $wishlist_count = User_wishlist::where('user_id',Auth::user()->id)->get()->count();
+            return $wishlist_count ;
+        }else{
+            redirect('/');
+        }
     }
 }
