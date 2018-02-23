@@ -41,6 +41,9 @@
                             </div>
 
 
+                            <span><input id="remember" type="checkbox" class="field login-checkbox" name="remember" readonly
+                                value="First Choice" tabindex="4">
+                                        <label class="choice" for="remember">Keep me signed in</label></span>
                             <div class="login-box">
                                 <div class="form-group form-actions">
                                     <span><a href="{{route('forget.password')}}">Forget Password</a></span>
