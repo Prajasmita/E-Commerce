@@ -6,7 +6,7 @@
                 <ol class="breadcrumb">
                     <li><a href="#">Order</a></li>
                     <li class="active">Order Review</li>
-                    <a href="{{ route('my.orders') }}" class="btn-sm btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back</a>
+                    <a href="{{ url()->previous() }}" class="btn-sm btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back</a>
                 </ol>
             </div><!--/breadcrums-->
             <!--/shipping address-->
