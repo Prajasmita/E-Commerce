@@ -21,7 +21,7 @@
                 success: function (data) {
                     if (data.message) {
                         if (confirm(data.message)) {
-                            window.location = base_url + data.redirecturl;
+                            window.location = base_url +'/'+data.redirecturl;
                         }
                     }
 
