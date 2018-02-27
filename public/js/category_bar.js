@@ -37,7 +37,10 @@ $(document).ready(function() {
 
                     $.each(products, function (index, data) {
 
-                        //console.log(index);
+                        console.log(data);
+                        /*var quantity = $("proinfo"+index).attr("data-qty");
+
+                        console.log(quantity);*/
                         var value = data.products.id;
 
                         var image = data.products.image;
@@ -60,16 +63,21 @@ $(document).ready(function() {
                         }else{
                             html +="<p><a href=\"" + base_url + '/register'+"\" >" + data.products.product_name + "</a></p>\n";
                         }
-                        if ($.inArray(value, cart_product) != -1) {
+                        if(data.products.quantity > 0){
+                            if ($.inArray(value, cart_product) != -1) {
 
-                            html += "<a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color add-to-cart \"><i class=\"glyphicon glyphicon-ok\"></i>Added to cart</a>\n";
-                        } else {
-                            html += "<a href=\"javascript:void(0)\" class=\"product_id_cart" + data.products.id + " cart-data btn btn-default add-to-cart\"  data-id=" + data.products.id + " name = \"notify\" onclick=\"$.notify('Product Added To Your Cart.','success');\"><i class=\"fa fa-shopping-cart\"></i>Add to cart</a>\n";
+                                html += "<a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color add-to-cart \"><i class=\"glyphicon glyphicon-ok\"></i> Added to cart</a>\n";
+                            } else {
+                                html += "<a href=\"javascript:void(0)\" class=\"product_id_cart" + data.products.id + " cart-data btn btn-default add-to-cart\"  data-id=" + data.products.id + " name = \"notify\" onclick=\"$.notify('Product Added To Your Cart.','success');\"><i class=\"fa fa-shopping-cart\"></i> Add to cart</a>\n";
+                            }
+                        }
+                        else{
+                            html += "<br/><a href=\"javascript:void(0)\" class=\" btn btn-default link_text_color pd_wl_btn add-to-cart \" disabled='disabled'> Out Of Stock</a>\n";
                         }
                         html += "                                       <div  class=\" choose nav nav-pills nav-justified " + hidden + "\">\n";
                         if ($.inArray(value, my_wishlist) != -1) {
 
-                            html += "<li><a class=\"link_text_color\"><i class=\" glyphicon glyphicon-ok  \"></i>Added to Wishlist</a></li>\n";
+                            html += "<li><a class=\"link_text_color\"><i class=\" glyphicon glyphicon-ok  \"></i> Added to Wishlist</a></li>\n";
                         } else {
                             html += "<li class=\"product_id_" + data.products.id + " choose\"><a class=\"wishlist link_text_color \" href=\"javascript:void(0)\" data-id=" + data.products.id + " name = \"notify\" onclick=\"$.notify('Product Added To Your Wish List.','success');\"><i class=\"fa fa-plus-square \"></i> Add to Wishlist</a></li>\n";
                         }
@@ -134,7 +142,7 @@ $(document).ready(function() {
 
                         var html = "";
 
-                        html = "<a class=\"link_text_color \"><i class=\" glyphicon glyphicon-ok\" ></i>Added to Wishlist</a>";
+                        html = "<a class=\"link_text_color \"><i class=\" glyphicon glyphicon-ok\" ></i> Added to Wishlist</a>";
 
                         $('.product_id_' + product_id).html(html);
 
@@ -190,11 +198,11 @@ $(document).ready(function() {
                         _this.addClass( "added-to-cart" );
 
                         var html = "";
-                        html = "<i class=\" glyphicon glyphicon-ok\"  ></i>Added to Cart";
+                        html = "<i class=\" glyphicon glyphicon-ok\"  ></i> Added to Cart";
                         _this.html(html);
 
                         var html1 = "";
-                        html1 = "<i class=\"fa fa-shopping-cart cart-count\"></i>Cart("+changedCartCount+")\n";
+                        html1 = "<i class=\"fa fa-shopping-cart cart-count\"></i> Cart("+changedCartCount+")\n";
 
                         $('.cart-count').html(html1);
                     }
@@ -234,7 +242,7 @@ $(document).ready(function() {
 
                     var html='';
 
-                    html = '<li><a class=\"active\" id="wishlist_count" href="\'+base_url+\'/wishlist"><i\n' +
+                    html = '<li><a class=\"active\" id="wishlist_count" href="'+base_url+'/wishlist"><i\n' +
                         '                                            class="fa fa-star"></i> Wishlist ('+changed_count+')</a></li>';
 
                     $('#wishlist_count').html(html);

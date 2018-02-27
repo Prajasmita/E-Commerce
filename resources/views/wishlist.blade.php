@@ -36,16 +36,22 @@
                                     <p>${{$list['product']['price']}}</p>
                                 </td>
                                 <td>
-                                    @if(in_array($list['product']['id'],$cart_product))
-                                        <a href="javascript:void(0)"
-                                           class=" btn btn-default link_text_color detail-added-to-cart" ><i
-                                                    class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                                    @if($list['product']['quantity'] > 0)
+                                        @if(in_array($list['product']['id'],$cart_product))
+                                            <a href="javascript:void(0)"
+                                               class=" btn btn-default link_text_color detail-added-to-cart" ><i
+                                                        class="glyphicon glyphicon-ok"></i> Added to cart</a>
+                                        @else
+                                            <a href="javascript:void(0)" data-id="{{$list['product']['id']}}"
+                                               data-count="{{Cart::count()}}"
+                                               class="cart-data btn btn-default detail-add-to-cart " name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
+                                                        class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        @endif
                                     @else
-                                        <a href="javascript:void(0)" data-id="{{$list['product']['id']}}"
-                                           data-count="{{Cart::count()}}"
-                                           class="cart-data btn btn-default detail-add-to-cart " name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
-                                                    class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="javascript:void(0)"
+                                           class=" btn btn-default link_text_color detail-add-to-cart" disabled="disabled"> Out Of Stock</a>
                                     @endif
+
                                 </td>
                                 <td class="cart_delete">
                                     <a class="wishlist_delete" href="Javascript:void(0)"

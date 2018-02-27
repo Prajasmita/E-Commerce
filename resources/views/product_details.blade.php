@@ -83,27 +83,32 @@
                             </div>
                             <br/>
                         <span>
-                            @if(in_array($products['id'],$cart_product))
-                                <a href="javascript:void(0)" class=" btn btn-default link_text_color detail-added-to-cart"><i
-                                            class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                            @if($products['quantity'] > 0)
+                                @if(in_array($products['id'],$cart_product))
+                                    <a href="javascript:void(0)" class=" btn btn-default link_text_color detail-added-to-cart"><i
+                                                class="glyphicon glyphicon-ok"></i>Added to cart</a>
+                                @else
+                                    <a href="javascript:void(0)" data-id="{{$products['id']}}"
+                                       data-price="{{$products['price']}}" data-count="{{Cart::count()}}"
+                                       class="cart-data btn btn-default detail-add-to-cart" name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
+                                                class="fa fa-shopping-cart" ></i>Add to cart</a>
+                                @endif
                             @else
-                                <a href="javascript:void(0)" data-id="{{$products['id']}}"
-                                   data-price="{{$products['price']}}" data-count="{{Cart::count()}}"
-                                   class="cart-data btn btn-default detail-add-to-cart" name="notify" onclick="$.notify('Product Added To Your Cart.','success');"><i
-                                            class="fa fa-shopping-cart" ></i>Add to cart</a>
+                                <a href="javascript:void(0)"
+                                         class="btn btn-default link_text_color added-to-cart "  disabled="disabled">Out Of Stock</a>
                             @endif
-                                    @if(in_array($products['id'],$my_wishlist))
-                                        <button type="button" class="btn btn-lg wishlist_color added " >
+                                @if(in_array($products['id'],$my_wishlist))
+                                    <button type="button" class="btn btn-lg wishlist_color added ">
                                                       <a class=" added " disabled="disabled"><i class="fa fa-heart"></i></a>
                                         </button>
-                                    @else
-                                        <button type="button" class="btn btn-lg wishlist_color">
+                                @else
+                                    <button type="button" class="btn btn-lg wishlist_color">
                                                     <a href="javascript:void(0)"
-                                                       class="{{"product_id_".$products['id']}} wishlist "
+                                                       class="{{"product_id_".$products['id']}} wishlist pd_wishlist_added "
                                                        data-id="{{$products['id']}}" name="notify" onclick="$.notify('Product Added To Your Wish List.','success');"><i
                                                                 class="fa fa-heart"></i></a></li>
                                         </button>
-                                    @endif
+                                @endif
                             </span>
                                         <p><b>Availability:</b> {{($products['quantity'])? "In Stock" : "Not In Stock" }}</p>
                                         <p><b>Description:</b> {{$products['short_discription']}}</p>

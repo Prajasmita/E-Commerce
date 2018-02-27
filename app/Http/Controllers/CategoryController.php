@@ -32,7 +32,7 @@ class CategoryController extends Controller
     public function categoryProducts($id)
     {
         $products = Category_product::select('category_id', 'product_id')->with((['products' => function ($query) {
-            $query->select('id', 'product_name', 'price');
+            $query->select('id', 'product_name', 'price','quantity');
             $query->with(['image' => function ($query1) {
                 $query1->select('product_image_name', 'product_id');
             }]);
@@ -89,7 +89,7 @@ class CategoryController extends Controller
             $id = $request->id;
 
             $products = Category_product::select('category_id', 'product_id')->with((['products' => function ($query) {
-                $query->select('id', 'product_name', 'price');
+                $query->select('id', 'product_name', 'price','quantity');
                 $query->with(['image' => function ($query1) {
                     $query1->select('product_image_name', 'product_id');
                 }]);
