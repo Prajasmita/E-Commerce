@@ -4,8 +4,8 @@
 
     <section id="slider"><!--slider-->
         <div class="container">
-            @if ( session()->has('message') )
-                <div class="alert alert-danger">{{ session()->get('message') }}</div>
+            @if ( session()->has('login_message') )
+                <div class="alert alert-danger">{{ session()->get('login_message') }}</div>
             @endif
             <div class="row">
                 <div class="col-sm-12">
