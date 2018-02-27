@@ -95,17 +95,17 @@
                                 @endif
                             @else
                                 <a href="javascript:void(0)"
-                                         class="btn btn-default link_text_color added-to-cart "  disabled="disabled">Out Of Stock</a>
+                                         class="btn btn-default link_text_color added-to-cart " style="margin-top: 25px;" disabled="disabled">Out Of Stock</a>
                             @endif
                                 @if(in_array($products['id'],$my_wishlist))
                                     <button type="button" class="btn btn-lg wishlist_color added ">
-                                                      <a class=" added " disabled="disabled"><i class="fa fa-heart"></i></a>
+                                                      <a class=" added "  disabled="disabled"><i class="fa fa-heart"></i></a>
                                         </button>
                                 @else
                                     <button type="button" class="btn btn-lg wishlist_color">
                                                     <a href="javascript:void(0)"
                                                        class="{{"product_id_".$products['id']}} wishlist pd_wishlist_added "
-                                                       data-id="{{$products['id']}}" name="notify" onclick="$.notify('Product Added To Your Wish List.','success');"><i
+                                                       data-id="{{$products['id']}}"  name="notify" onclick="$.notify('Product Added To Your Wish List.','success');"><i
                                                                 class="fa fa-heart"></i></a></li>
                                         </button>
                                 @endif
