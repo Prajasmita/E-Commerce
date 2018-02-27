@@ -85,7 +85,7 @@ class HomeController extends Controller
         $products = Category_product::select('category_id', 'product_id')->with((['products' => function ($query) {
             $query->select('id', 'product_name', 'price','quantity');
             $query->with(['image' => function ($query1) {
-                $query1->select('product_id');
+                $query1->select('product_id','product_image_name');
             }]);
         }]))->where('category_id', '=', '1')->limit(4)->get()->toArray();
 

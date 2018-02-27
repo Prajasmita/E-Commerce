@@ -153,7 +153,7 @@ class ProductsController extends Controller
 
         $product_data = Product::create($requestData);
 
-        If (Input::hasFile('image_name')) {
+        if (Input::hasFile('image_name')) {
 
             $current_time = time();
 
@@ -279,22 +279,27 @@ class ProductsController extends Controller
         $product_data = Product::findOrFail($id);
         $product_data->update($requestData);
 
-        If (Input::hasFile('image_name')) {
+        if (Input::hasFile('image_name')) {
 
-            $images = Input::file('image_name');
+            Image_product::where('product_id', '=', $id)->delete();
 
-            $destinationPath = 'img/product';
+                $current_time = time();
 
-            foreach ($images as $image) {
+                $images = Input::file('image_name');
 
-                $filename = $image->getClientOriginalName();
-                $image->move($destinationPath, $filename);
-                $requestData1['product_image_name'] = $filename;
-                $requestData1['product_id'] = $product_data['id'];
+                $destinationPath = 'img/product';
 
-                $product_data1 = Image_product::where('product_id', '=', $id);
-                $product_data1->update($requestData1);
-            }
+                foreach ($images as $image) {
+
+                    $filename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                    $unique_image_name = $filename . '_' . $current_time . '.' . $image->getClientOriginalExtension();
+                    $image->move($destinationPath, $unique_image_name);
+                    
+                    $requestData1['product_image_name'] = $unique_image_name;
+                    $requestData1['product_id'] = $product_data['id'];
+
+                    Image_product::create($requestData1);
+                }
 
         }
 
