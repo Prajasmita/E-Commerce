@@ -86,6 +86,7 @@
 /*css for wishlist buttons*/
 .link_text_color {
     color: darkgreen!important;
+    background-color : lightgrey !important;
 }
 
 .wishlist_color{
@@ -101,7 +102,9 @@
     color:darkgray;
 
 }
-
+.pd_wl_btn{
+    margin-top:-25px ;
+}
 
 /*css for checkout form*/
 .checkout-form-input{

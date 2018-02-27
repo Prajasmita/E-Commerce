@@ -106,7 +106,9 @@
                                     <textarea name="message"
                                               placeholder="Notes about your order, Special Notes for Delivery"
                                               rows="16"></textarea>
+{{--
                                     <label><input type="checkbox"> Shipping to bill address</label>
+--}}
                                 </div>
                             </div>
                         </div>
