@@ -61,7 +61,9 @@ $(function () {
 
                  '<a href="'+EditUrl+'" title="Edit User"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>&nbsp;' +
 
+/*
                 '<a href="'+DeleteUrl+'"   title="Delete User"><button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm(&quot;Are you sure you want to delete this user ?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></a>&nbsp;'+
+*/
 
                 '<a href="'+ViewAddress+'" title="View User Address"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Address</button></a>&nbsp;');
 

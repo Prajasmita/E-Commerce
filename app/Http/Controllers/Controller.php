@@ -16,10 +16,10 @@ use DB;
 Use Cache;
 use Auth;
 
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
     /*
      * public variable
      */
@@ -32,11 +32,9 @@ class Controller extends BaseController
     public function __construct()
     {
         DB::enableQueryLog();
-
         $value = Cache::rememberForever('configuration', function () {
             return Configuration::get();
         });
-
         $this->conf = ($value->pluck('conf_value','conf_key'))->toArray();
     }
     /**
@@ -47,7 +45,6 @@ class Controller extends BaseController
     public function wishListCount(){
         Custom::wishListCount();
     }
-
 }
 
 
