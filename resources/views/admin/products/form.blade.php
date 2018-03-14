@@ -126,7 +126,7 @@
 
     <div class="col-md-6">
 
-        <select name="category[]" id="selected" data-cat = "{{ json_encode($cat) }}" class="form-control select2" multiple="multiple" data-placeholder="Select Category">
+        <select name="category[]" id="selected" {{--data-cat = "{{ json_encode($cat) }}"--}} class="form-control select2" multiple="multiple" data-placeholder="Select Category">
 
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" {{ (isset($product->product_id) && in_array($category->id,$cat)) ? ' selected="selected"' : '' }}>{{ $category->name }}</option>
