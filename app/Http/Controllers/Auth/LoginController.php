@@ -90,6 +90,11 @@ class LoginController extends Controller
                     Auth::logout();
                     return redirect()->route('login')->with('message', 'Failed : You Are Unautherized User.');
                 }
+                if($user->status == '0'){
+
+                    Auth::logout();
+                    return redirect()->route('login')->with('message', 'Failed : You Are Unautherized User.');
+                }
             }
         }
 
