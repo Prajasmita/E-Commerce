@@ -47,6 +47,9 @@
                             <div class="login-box">
                                 <div class="form-group form-actions">
                                     <button type="submit" class="btn btn-default">Login</button>
+{{--
+                                    <a href="{{url('/redirect')}}">Login in with Facebook</a>
+--}}
                                 </div>
                                 <span><a href="{{route('forget.password')}}">Forget Your Password ?</a></span>
                             </div>
