@@ -83,7 +83,7 @@ class UserLoginController extends Controller
 
             if ($user) {
 
-                if($user){
+                if($user->status){
                     if ($this->attemptLogin($request)) {
                         return $this->sendLoginResponse($request);
                     }
