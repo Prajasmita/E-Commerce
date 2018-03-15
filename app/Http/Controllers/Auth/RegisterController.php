@@ -73,13 +73,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //dd($data['password']);
         User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => trim($data['password']),
             'contact_no' => $data['contact_no'],
-            'role_id' => 5
+            'role_id' => 5,
+            'remember_token' => $data['_token'],
         ]);
 
         $template_content = Email_template::where('title','=','user_register')->select('content')->first();
