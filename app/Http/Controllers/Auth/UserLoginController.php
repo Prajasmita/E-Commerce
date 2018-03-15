@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 //use Illuminate\Validation\ValidationException;
 //use Validator;
 
-
+Use Hash;
 class UserLoginController extends Controller
 {
     /*
@@ -65,10 +65,8 @@ class UserLoginController extends Controller
      */
     public function login(Request $request)
     {
-        Log::useDailyFiles(storage_path().'/logs/rashmi.log');
-
-        $user = User::where('status','1')->where('email',$request->email)->first();
-
+       /* Log::useDailyFiles(storage_path().'/logs/rashmi.log');*/
+        $user = User::where('email',$request->email)->first();
 
         $request->validate([
             'email' => 'required|email',
@@ -81,15 +79,21 @@ class UserLoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        if ($user) {
-            if ($this->attemptLogin($request)) {
-                return $this->sendLoginResponse($request);
+
+
+            if ($user) {
+
+                if($user){
+                    if ($this->attemptLogin($request)) {
+                        return $this->sendLoginResponse($request);
+                    }
+                }
+                else
+                {
+                    return redirect('/register')->with('login_errors', 'Sorry,You have not permission to login.');
+                }
+
             }
-        }
-        else
-        {
-            return redirect('/register')->with('login_error', 'Sorry,You have not permission to login.');
-        }
 
         $this->incrementLoginAttempts($request);
 
