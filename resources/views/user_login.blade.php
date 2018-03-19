@@ -5,15 +5,15 @@
             @if ( session()->has('flash_message') )
                 <div class="alert alert-success">{{ session()->get('flash_message') }}</div>
             @endif
-                @if ( session()->has('login_error') )
-                    <div class="alert alert-danger">{{ session()->get('login_error') }}</div>
+                @if ( session()->has('login_errors') )
+                    <div class="alert alert-danger">{{ session()->get('login_errors') }}</div>
                 @endif
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-1">
                     <div class="login-form"><!--login form-->
                         <h2>Login to your account</h2>
                         <form action="{{ route('user_login') }}" method="post">
-
+                            {{csrf_field()}}
                             <div class="form-group has-feedback">
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     @if ($errors->has('email'))
