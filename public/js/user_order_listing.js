@@ -8,18 +8,20 @@ $(function () {
             },
         },
         "paging": true,
-        "ordering": true,
         "searching":true,
         "info": true,
         "lengthMenu": [[2, 5, 10, 25, -1], [2, 5, 10, 25, "All"]],
         "pageLength": 10,
+        "sorting" : false,
+/*
         "order": [[1, "asc"]],
+*/
         "processing": true,
         "serverSide": true,
         "columnDefs": [
             {"orderable": false, "targets": [0]},
             {"orderable":false,"targets": [1]},
-            {"orderable": true , "orderSequence": ["asc" ,"desc"],"targets": [2]},
+            {"orderable": false ,/* "orderSequence": ["asc" ,"desc"],*/"targets": [2]},
             {"orderable":false,"targets": [3]},
             {"orderable": false, "targets": [4]},
             {"orderable": false, "targets": [5]},
