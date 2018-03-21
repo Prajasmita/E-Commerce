@@ -1,3 +1,4 @@
+
 <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
     <label for="name" class="col-md-4 control-label">{{ 'Name' }}<span class="require">*</span></label>
     <div class="col-md-6">
@@ -12,8 +13,8 @@
 
         <select name="parent_id" class="form-control" id="parent_id" >
             <option value="0">No Parent</option>>
-            @foreach ($category as $category)
-                <option value="{{ $category->id }}" {{ (isset($selected_category) && $category->id == $selected_category->parent_id) ? 'selected' : ''}}>{{ $category->name }}</option>
+            @foreach ($category as $cate)
+                <option value="{{ $cate->id }}" {{ (isset($selected_category) && $cate->id == $selected_category->parent_id) ? 'selected' : ''}}>{{ $cate->name }}</option>
             @endforeach
 
         </select>
@@ -25,8 +26,9 @@
 
     <label for="status" class="col-md-4 control-label">{{ 'status' }}<span class="require">*</span></label>
     <div class="col-md-6">
-        <input   name="status" value="1" type="radio" id="status" {{ isset( $category->status) ? $category->status == 1 ? 'checked' :'' : '' }}>Active
-        <input  name="status" value="0" type="radio" id="status" {{ isset( $category->status) ? $category->status == 0 ? 'checked' :'' : '' }}>Inactive
+
+        <input   name="status" value=1 type="radio" id="status" {{ (isset( $selected_category->status) && $selected_category->status == 1) ? 'checked' :''  }}>Active
+        <input  name="status" value=0 type="radio" id="status" {{ (isset( $selected_category->status) && $selected_category->status == 0) ? 'checked' :'' }}>Inactive
         {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
