@@ -29,55 +29,55 @@
 
             <li>
                 <a href="{{ route('admin') }}">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i> <span class="{{ ((url()->current()) == route('admin')) ? 'div_color' : '' }}">Dashboard</span>
                     <span class="pull-right-container"></span>
                 </a>
             </li>
-            <li class="treeview {{--active menu-open--}} ">
+            <li class="treeview active menu-open ">
                 <a href="{{ route('admin') }}">
-                    <i class="fa fa-dashboard"></i> <span>Master</span>
+                    <i class="fa fa-dashboard"></i> <span >Master</span>
                     <span class="pull-right-container"></span>
                 </a>
                 <ul class="treeview-menu">
                     <li>
                         <a href="{{ route('users.index') }}">
-                            <i class="fa fa-list"></i> <span>Users</span>
+                            <i class="fa fa-list"></i> <span  class="{{ ((url()->current()) == route('users.index')) ? 'div_color' : '' }}">Users</span>
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('configuration.index') }}">
-                            <i class="fa fa-list"></i> <span>Configurations</span>
+                            <i class="fa fa-list"></i> <span  class="{{ ((url()->current()) == route('configuration.index')) ? 'div_color' : '' }}">Configurations</span>
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('banners.index') }}">
-                            <i class="fa fa-list"></i> <span>Banners</span>
+                            <i class="fa fa-list"></i> <span  class="{{ ((url()->current()) == route('banners.index')) ? 'div_color' : '' }}">Banners</span>
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('products.index') }}">
-                            <i class="fa fa-list"></i> <span>Products</span>
+                            <i class="fa fa-list"></i> <span  class="{{ ((url()->current()) == route('products.index')) ? 'div_color' : '' }}">Products</span>
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('categories.index') }}">
-                            <i class="fa fa-list"></i> <span>Categories</span>
+                            <i class="fa fa-list"></i> <span  class="{{ ((url()->current()) == route('categories.index')) ? 'div_color' : '' }}">Categories</span>
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('coupons.index') }}">
-                            <i class="fa fa-list"></i> <span>Coupons</span>
+                            <i class="fa fa-list"></i> <span  class="{{ ((url()->current()) == route('coupons.index')) ? 'div_color' : '' }}">Coupons</span>
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('cms.index') }}">
-                            <i class="fa fa-list"></i> <span>CMS</span>
+                            <i class="fa fa-list"></i> <span  class="{{ ((url()->current()) == route('cms.index')) ? 'div_color' : '' }}">CMS</span>
                             <span class="pull-right-container"></span>
                         </a>
                     </li>
@@ -85,19 +85,19 @@
             </li>
             <li>
                 <a href="{{ route('contact.admin') }}">
-                    <i class="glyphicon glyphicon-phone-alt"></i> <span>Contact Us</span>
+                    <i class="glyphicon glyphicon-phone-alt"></i> <span class="{{ ((url()->current()) == route('contact.admin')) ? 'div_color' : '' }}">Contact Us</span>
                     <span class="pull-right-container"></span>
                 </a>
             </li>
             <li>
                 <a href="{{route('email.template')}}">
-                    <i class="glyphicon glyphicon-envelope"></i> <span>Email Template</span>
+                    <i class="glyphicon glyphicon-envelope"></i> <span class="{{ ((url()->current()) == route('email.template')) ? 'div_color' : '' }}">Email Template</span>
                     <span class="pull-right-container"></span>
                 </a>
             </li>
             <li>
                 <a href="{{route('user.orders')}}">
-                    <i class="glyphicon glyphicon-list"></i> <span>User Orders</span>
+                    <i class="glyphicon glyphicon-list"></i> <span class="{{ ((url()->current()) == route('user.orders')) ? 'div_color' : '' }}" >User Orders</span>
                     <span class="pull-right-container"></span>
                 </a>
             </li>
