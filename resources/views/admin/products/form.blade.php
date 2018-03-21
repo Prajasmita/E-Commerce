@@ -55,7 +55,7 @@
     <label for="special_price_from_date" class="col-md-4 control-label">{{ 'Special Price From Date' }}</label>
     <div class="col-md-6">
         <div class='input-group date'>
-            <input class="date form-control " data-provide="datepicker" name="special_price_from_date" type="text"
+            <input class="date form-control " data-provide="datepicker" data-date-format="yyyy-mm-dd" name="special_price_from_date" type="text"
                    id="special_price_from_date" value="{{ $product->special_price_from_date or ''}}">
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span></span>
@@ -68,7 +68,7 @@
     <label for="special_price_to_date" class="col-md-4 control-label">{{ 'Special Price To Date' }}</label>
     <div class="col-md-6">
         <div class='input-group date'>
-            <input class="date form-control " data-provide="datepicker" name="special_price_to_date" type="text"
+            <input class="date form-control " data-provide="datepicker" data-date-format="yyyy-mm-dd" name="special_price_to_date" type="text"
                    id="special_price_to_date" value="{{ $product->special_price_to_date or ''}}">
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span></span>
