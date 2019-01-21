@@ -6,6 +6,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Configuration;
 use App\Helper\Custom;
 use App\User_wishlist;
 use Illuminate\Foundation\Bus\DispatchesJobs;
