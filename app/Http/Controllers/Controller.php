@@ -32,11 +32,23 @@ class Controller extends BaseController
      */
     public function __construct()
     {
-        DB::enableQueryLog();
-        $value = Cache::rememberForever('configuration', function () {
-            return Configuration::get();
-        });
-        $this->conf = ($value->pluck('conf_value','conf_key'))->toArray();
+//        DB::enableQueryLog();
+        //dd(Configuration::get());
+        Cache::flush();
+       // $value=Configuration::get();
+        try{
+            if(!(isset($value))){
+                $value = Cache::rememberForever('configuration', function () {
+                    // dd(Configuration::get());
+                    return Configuration::get();
+                });
+            }
+            $this->conf = ($value->pluck('conf_value','conf_key'))->toArray();
+
+        }catch(\Exception $e)
+        {
+            dd($e->getMessage());
+        }
     }
     /**
      *  function for wishlist count
